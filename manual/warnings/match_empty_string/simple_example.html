@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
+<title>A simple example</title>
+<link rel="stylesheet" type="text/css" href="/css/default.css" />
+<link rel="alternate" type="application/atom+xml" href="/feed/atom.xml" title="Atom 1.0" />
+<link rel="icon" href="/favicon.ico" />
+</head>
+<body>
+<div class="document" id="a-simple-example">
+<h1 class="title">A simple example</h1>
+
+<p><tt class="docutils literal"><span class="pre">[-Wmatch-empty-string]</span></tt> warns when a rule is nullable (matches empty string).
+It was intended to prevent hitting eternal loop in cases like this:</p>
+<p><a class="reference external" href="wmatch_empty_string.re">[wmatch_empty_string.re]</a></p>
+<pre class="code cpp literal-block">
+<span class="ln"> 1 </span><span class="comment preproc">#include &lt;stdio.h&gt;
+</span><span class="ln"> 2 </span><span class="comment preproc"></span>
+<span class="ln"> 3 </span><span class="keyword type">int</span> <span class="name function">main</span><span class="punctuation">(</span><span class="keyword type">int</span> <span class="name">argc</span><span class="punctuation">,</span> <span class="keyword type">char</span> <span class="operator">**</span><span class="name">argv</span><span class="punctuation">)</span>
+<span class="ln"> 4 </span><span class="punctuation">{</span>
+<span class="ln"> 5 </span>    <span class="keyword">for</span> <span class="punctuation">(</span><span class="keyword type">int</span> <span class="name">i</span> <span class="operator">=</span> <span class="literal number integer">1</span><span class="punctuation">;</span> <span class="name">i</span> <span class="operator">&lt;</span> <span class="name">argc</span><span class="punctuation">;</span> <span class="operator">++</span><span class="name">i</span><span class="punctuation">)</span> <span class="punctuation">{</span>
+<span class="ln"> 6 </span>        <span class="keyword">for</span> <span class="punctuation">(</span><span class="keyword type">char</span> <span class="operator">*</span><span class="name">YYCURSOR</span> <span class="operator">=</span> <span class="name">argv</span><span class="punctuation">[</span><span class="name">i</span><span class="punctuation">];;)</span> <span class="punctuation">{</span>
+<span class="ln"> 7 </span>        <span class="comment multiline">/*!re2c
+</span><span class="ln"> 8 </span><span class="comment multiline">            re2c:define:YYCTYPE = char;
+</span><span class="ln"> 9 </span><span class="comment multiline">            re2c:yyfill:enable = 0;
+</span><span class="ln">10 </span><span class="comment multiline">            &quot;\x00&quot; { break; }
+</span><span class="ln">11 </span><span class="comment multiline">            [a-z]* { continue; }
+</span><span class="ln">12 </span><span class="comment multiline">        */</span>
+<span class="ln">13 </span>        <span class="punctuation">}</span>
+<span class="ln">14 </span>        <span class="name">printf</span><span class="punctuation">(</span><span class="literal string">&quot;argv[%d]: %s</span><span class="literal string escape">\n</span><span class="literal string">&quot;</span><span class="punctuation">,</span> <span class="name">i</span><span class="punctuation">,</span> <span class="name">argv</span><span class="punctuation">[</span><span class="name">i</span><span class="punctuation">]);</span>
+<span class="ln">15 </span>    <span class="punctuation">}</span>
+<span class="ln">16 </span>    <span class="keyword">return</span> <span class="literal number integer">0</span><span class="punctuation">;</span>
+<span class="ln">17 </span><span class="punctuation">}</span>
+</pre>
+<p>The program loops over its arguments (the outer <tt class="docutils literal">for</tt> loop)
+and tries to lex each argument (the inner <tt class="docutils literal">for</tt> loop).
+Lexer stops when all input has been consumed and it sees the terminating <tt class="docutils literal">NULL</tt>.
+Arguments must consist of lowercase letters only.
+Generate, compile and run:</p>
+<pre class="code literal-block">
+$ re2c -o example.c -Wmatch-empty-string wmatch_empty_string.re
+re2c: warning: line 11: rule matches empty string [-Wmatch-empty-string]
+$ g++ -o example example.c
+$
+$ ./example only lowercase letters are allowed
+argv[1]: only
+argv[2]: lowercase
+argv[3]: letters
+argv[4]: are
+argv[5]: allowed
+$
+$ ./example oh really?
+argv[1]: oh
+^C
+</pre>
+<p>The program hangs forever if one of the arguments is ill-formed.</p>
+<p>Note that <a class="reference external" href="../undefined_control_flow/wundefined_control_flow.html">[-Wundefined-control-flow]</a>
+has no complaints about this particular case: all input patterns are covered by rules.
+Yet if we add default rule <tt class="docutils literal">*</tt>, lexer won't hang anymore: it will match default rule
+instead of nullable rule.</p>
+<p>The fix is easy: make the rule non-nullable (say, <tt class="docutils literal"><span class="pre">[a-z]+</span></tt>) and add default rule <tt class="docutils literal">*</tt>.</p>
+</div>
+</body>
+</html>

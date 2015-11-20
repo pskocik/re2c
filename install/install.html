@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
+<title>Install</title>
+<link rel="stylesheet" type="text/css" href="/css/default.css" />
+<link rel="alternate" type="application/atom+xml" href="/feed/atom.xml" title="Atom 1.0" />
+<link rel="icon" href="/favicon.ico" />
+</head>
+<body>
+<div class="header">
+<a class="reference external" href="../index.html">[home]</a>
+<hr class="header"/>
+</div>
+<div class="document" id="install">
+<h1 class="title">Install</h1>
+
+<div class="contents topic" id="id2">
+<p class="topic-title first">★</p>
+<ul class="simple">
+<li><a class="reference internal" href="#download" id="id3">Download</a><ul>
+<li><a class="reference internal" href="#tarballs" id="id4">Tarballs</a></li>
+<li><a class="reference internal" href="#sources" id="id5">Sources</a></li>
+<li><a class="reference internal" href="#distributions" id="id6">Distributions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#build" id="id7">Build</a><ul>
+<li><a class="reference internal" href="#simple" id="id8">Simple</a></li>
+<li><a class="reference internal" href="#bootstrap" id="id9">Bootstrap</a></li>
+<li><a class="reference internal" href="#out-of-source" id="id10">Out-of-source</a></li>
+<li><a class="reference internal" href="#windows" id="id11">Windows</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#test" id="id12">Test</a></li>
+</ul>
+</div>
+<div class="section" id="download">
+<h1>Download</h1>
+<div class="section" id="tarballs">
+<h2>Tarballs</h2>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/skvadrik/re2c/releases/download/0.14.3/re2c-0.14.3.tar.gz">re2c-0.14.3.tar.gz</a></li>
+<li><a class="reference external" href="https://github.com/skvadrik/re2c/releases/download/0.13.7.5/re2c-0.13.7.5.tar.gz">re2c-0.13.7.5.tar.gz</a></li>
+<li><a class="reference external" href="https://github.com/skvadrik/re2c/releases/download/0.13.6/re2c-0.13.6.tar.gz">re2c-0.13.6.tar.gz</a></li>
+<li><a class="reference external" href="http://sourceforge.net/projects/re2c/files/re2c/0.13.5/re2c-0.13.5.tar.gz/download">re2c-0.13.5.tar.gz</a></li>
+</ul>
+</div>
+<div class="section" id="sources">
+<h2>Sources</h2>
+<p>re2c is hosted on <a class="reference external" href="https://github.com/skvadrik/re2c">github</a>:</p>
+<pre class="code bash literal-block">
+<span class="name variable">$ </span>git clone git&#64;github.com:skvadrik/re2c.git re2c
+</pre>
+<p>There's also a mirror on <a class="reference external" href="https://sourceforge.net/p/re2c/code-git/ci/master/tree/">sourceforge</a>
+(should be in sync with github):</p>
+<pre class="code bash literal-block">
+<span class="name variable">$ </span>git clone ssh://git.code.sf.net/p/re2c/code-git re2c
+</pre>
+</div>
+<div class="section" id="distributions">
+<h2>Distributions</h2>
+<div class="section" id="linux">
+<h3>Linux</h3>
+<ul class="simple">
+<li><a class="reference external" href="http://www.sisyphus.ru/ru/srpm/Sisyphus/re2c">Alt</a></li>
+<li><a class="reference external" href="https://www.archlinux.org/packages/extra/x86_64/re2c">Arch</a></li>
+<li><a class="reference external" href="https://packages.debian.org/search?keywords=re2c">Debian</a></li>
+<li><a class="reference external" href="https://packages.gentoo.org/packages/dev-util/re2c">Gentoo</a></li>
+<li><a class="reference external" href="http://rpmfind.net/linux/rpm2html/search.php?query=re2c&amp;system=fedora">Fedora</a></li>
+<li><a class="reference external" href="http://rpmfind.net/linux/rpm2html/search.php?query=re2c&amp;system=mageia">Mageia</a></li>
+<li><a class="reference external" href="http://rpmfind.net/linux/rpm2html/search.php?query=re2c&amp;system=mandriva">Mandriva</a></li>
+<li><a class="reference external" href="http://rpmfind.net/linux/rpm2html/search.php?query=re2c&amp;system=opensuse">OpenSuSE</a></li>
+<li><a class="reference external" href="http://rpmfind.net/linux/rpm2html/search.php?query=re2c&amp;system=dag">RedHat</a></li>
+<li><a class="reference external" href="http://slackbuilds.org/repository/14.1/development/re2c/?search=re2c">Slackware</a></li>
+<li><a class="reference external" href="http://packages.ubuntu.com/search?keywords=re2c">Ubuntu</a></li>
+</ul>
+<p>Summary of available re2c versions in many (but not all) Linux distributions
+can be found on <a class="reference external" href="http://pkgs.org/download/re2c">pkgs.org</a>.</p>
+</div>
+<div class="section" id="bsd">
+<h3>BSD</h3>
+<ul class="simple">
+<li><a class="reference external" href="http://macappstore.org/re2c/">Apple Mac OS X</a></li>
+<li><a class="reference external" href="http://www.freebsd.org/cgi/ports.cgi?query=re2c">FreeBSD</a></li>
+<li><a class="reference external" href="ftp://ftp.netbsd.org/pub/pkgsrc/current/pkgsrc/devel/re2c/README.html">NetBSD</a></li>
+<li><a class="reference external" href="http://www.openbsd.org/4.5_packages/sh/re2c-0.13.5.tgz-long.html">OpenBSD</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="build">
+<h1>Build</h1>
+<p>You only need C++98 compier to build re2c from tarball.
+If you have bison, re2c will use it (otherwise it will use precompiled files).</p>
+<p>If you are building re2c from source, you will also need autotools:</p>
+<pre class="code bash literal-block">
+<span class="name variable">$ </span>./autogen.sh
+</pre>
+<div class="section" id="simple">
+<h2>Simple</h2>
+<p>This will install re2c (binary and manpage) to <tt class="docutils literal">prefix</tt> (<tt class="docutils literal">/usr/local</tt> by default):</p>
+<pre class="code bash literal-block">
+<span class="name variable">$ </span>./configure <span class="operator">[</span>--prefix<span class="operator">=</span>&lt;prefix&gt;<span class="operator">]</span>
+<span class="name variable">$ </span>make
+<span class="name variable">$ </span>make install
+</pre>
+</div>
+<div class="section" id="bootstrap">
+<h2>Bootstrap</h2>
+<p>Some parts of re2c (lexers and parser of command-line options) are written in re2c.
+These files are precompiled and packaged into re2c distribution (so that re2c can be built without re2c).
+However, one can fully bootstrap re2c:</p>
+<pre class="code bash literal-block">
+<span class="name variable">$ </span>make bootstrap
+</pre>
+</div>
+<div class="section" id="out-of-source">
+<h2>Out-of-source</h2>
+<p>re2c supports out-of-source builds:</p>
+<pre class="code bash literal-block">
+<span class="name variable">$ </span>mkdir builddir <span class="operator">&amp;&amp;</span> <span class="name builtin">cd </span>builddir
+<span class="name variable">$ </span>../configure <span class="operator">[</span>--prefix<span class="operator">=</span>&lt;prefix&gt;<span class="operator">]</span>
+<span class="name variable">$ </span>make
+<span class="name variable">$ </span>make install
+</pre>
+</div>
+<div class="section" id="windows">
+<h2>Windows</h2>
+<p>If you intend to use re2c on Windows, you can either
+use <a class="reference external" href="https://cygwin.com/">cygwin</a>
+or build re2c with <a class="reference external" href="http://mingw.org/">mingw</a>:</p>
+<pre class="code bash literal-block">
+<span class="name variable">$ </span>./configure --host i686-w64-mingw32  <span class="operator">[</span>--prefix<span class="operator">=</span>&lt;prefix&gt;<span class="operator">]</span>
+<span class="name variable">$ </span>make
+<span class="name variable">$ </span>make install
+</pre>
+<p>(mingw builds are supported and tested regularly).</p>
+</div>
+</div>
+<div class="section" id="test">
+<h1>Test</h1>
+<p>re2c has a main test suite and a couple of small tests. Run them all:</p>
+<pre class="code bash literal-block">
+<span class="name variable">$ </span>make check
+</pre>
+<p>Or run only the main test suite (and watch progress dumped to <tt class="docutils literal">stdout</tt>):</p>
+<pre class="code bash literal-block">
+<span class="name variable">$ </span>make tests
+</pre>
+<p>Run test suite under <a class="reference external" href="http://valgrind.org/">valgrind</a> (takes a long time):</p>
+<pre class="code bash literal-block">
+<span class="name variable">$ </span>make vtests
+</pre>
+<p>Test mingw builds with <a class="reference external" href="https://www.winehq.org/">wine</a>:</p>
+<pre class="code bash literal-block">
+<span class="name variable">$ </span>make wtests
+</pre>
+<p>Check the distribution:</p>
+<pre class="code bash literal-block">
+<span class="name variable">$ </span>make distcheck
+</pre>
+</div>
+</div>
+<div class="footer">
+<hr class="footer" />
+<a class="reference external" href="../index.html">[home]</a>
+</div>
+</body>
+</html>

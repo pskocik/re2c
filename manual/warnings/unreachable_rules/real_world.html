@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
+<title>Real-world examples</title>
+<link rel="stylesheet" type="text/css" href="/css/default.css" />
+<link rel="alternate" type="application/atom+xml" href="/feed/atom.xml" title="Atom 1.0" />
+<link rel="icon" href="/favicon.ico" />
+</head>
+<body>
+<div class="document" id="real-world-examples">
+<h1 class="title">Real-world examples</h1>
+
+<p>In many real-world examples re2c reports unreachable <tt class="docutils literal">[^]</tt> rule,
+which is quite understandable: <tt class="docutils literal">[^]</tt> served as default rule long before
+the true default rule <tt class="docutils literal">*</tt> was added to re2c.
+However, in some cases the warning is quite interesting.
+Here is an example of a real-world lexer (all the non-re2c code has beed removed):</p>
+<pre class="code cpp literal-block">
+<span class="ln"> 1 </span><span class="comment multiline">/*!re2c
+</span><span class="ln"> 2 </span><span class="comment multiline">    re2c:yyfill:check = 0;
+</span><span class="ln"> 3 </span><span class="comment multiline">
+</span><span class="ln"> 4 </span><span class="comment multiline">    LNUM                [0-9]+
+</span><span class="ln"> 5 </span><span class="comment multiline">    DNUM                ([0-9]*[\.][0-9]+)|([0-9]+[\.][0-9]*)
+</span><span class="ln"> 6 </span><span class="comment multiline">    NUMBER              [-]?{LNUM}|{DNUM}
+</span><span class="ln"> 7 </span><span class="comment multiline">    ANY_CHAR            (.|[\n\t])
+</span><span class="ln"> 8 </span><span class="comment multiline">    NEWLINE             (&quot;\r&quot;|&quot;\n&quot;|&quot;\r\n&quot;)
+</span><span class="ln"> 9 </span><span class="comment multiline">    TABS_AND_SPACES     [ \t]
+</span><span class="ln">10 </span><span class="comment multiline">    WHITESPACE          [ \t]+
+</span><span class="ln">11 </span><span class="comment multiline">    CONSTANT            [a-zA-Z_][a-zA-Z0-9_]*
+</span><span class="ln">12 </span><span class="comment multiline">    LABEL               [^=\n\r\t;&amp;|^$~(){}!&quot;\[]+
+</span><span class="ln">13 </span><span class="comment multiline">    TOKENS              [:,.\[\]&quot;'()&amp;|^+-/*=%$!~&lt;&gt;?&#64;{}]
+</span><span class="ln">14 </span><span class="comment multiline">    OPERATORS           [&amp;|^~()!]
+</span><span class="ln">15 </span><span class="comment multiline">    DOLLAR_CURLY        &quot;${&quot;
+</span><span class="ln">16 </span><span class="comment multiline">    SECTION_RAW_CHARS   [^\]\n\r]
+</span><span class="ln">17 </span><span class="comment multiline">    SINGLE_QUOTED_CHARS [^']
+</span><span class="ln">18 </span><span class="comment multiline">    RAW_VALUE_CHARS     [^\n\r;\000]
+</span><span class="ln">19 </span><span class="comment multiline">    LITERAL_DOLLAR      (&quot;$&quot;([^{\000]|(&quot;\\&quot;{ANY_CHAR})))
+</span><span class="ln">20 </span><span class="comment multiline">    VALUE_CHARS         ([^$= \t\n\r;&amp;|^~()!&quot;'\000]|{LITERAL_DOLLAR})
+</span><span class="ln">21 </span><span class="comment multiline">    SECTION_VALUE_CHARS ([^$\n\r;&quot;'\]\\]|(&quot;\\&quot;{ANY_CHAR})|{LITERAL_DOLLAR})
+</span><span class="ln">22 </span><span class="comment multiline">
+</span><span class="ln">23 </span><span class="comment multiline">    &lt;INITIAL&gt;&quot;[&quot; {}
+</span><span class="ln">24 </span><span class="comment multiline">    &lt;ST_VALUE,ST_SECTION_VALUE,ST_OFFSET&gt;&quot;'&quot;{SINGLE_QUOTED_CHARS}+&quot;'&quot; {}
+</span><span class="ln">25 </span><span class="comment multiline">    &lt;ST_SECTION_RAW,ST_SECTION_VALUE&gt;&quot;]&quot;{TABS_AND_SPACES}*{NEWLINE}? {}
+</span><span class="ln">26 </span><span class="comment multiline">    &lt;INITIAL&gt;{LABEL}&quot;[&quot;{TABS_AND_SPACES}* {}
+</span><span class="ln">27 </span><span class="comment multiline">    &lt;ST_OFFSET&gt;{TABS_AND_SPACES}*&quot;]&quot; {}
+</span><span class="ln">28 </span><span class="comment multiline">    &lt;ST_DOUBLE_QUOTES,ST_SECTION_VALUE,ST_VALUE,ST_OFFSET&gt;{DOLLAR_CURLY} {}
+</span><span class="ln">29 </span><span class="comment multiline">    &lt;ST_VARNAME&gt;{LABEL} {}
+</span><span class="ln">30 </span><span class="comment multiline">    &lt;ST_VARNAME&gt;&quot;}&quot; {}
+</span><span class="ln">31 </span><span class="comment multiline">    &lt;INITIAL,ST_VALUE&gt;(&quot;true&quot;|&quot;on&quot;|&quot;yes&quot;){TABS_AND_SPACES}* {}
+</span><span class="ln">32 </span><span class="comment multiline">    &lt;INITIAL,ST_VALUE&gt;(&quot;false&quot;|&quot;off&quot;|&quot;no&quot;|&quot;none&quot;){TABS_AND_SPACES}* {}
+</span><span class="ln">33 </span><span class="comment multiline">    &lt;INITIAL,ST_VALUE&gt;(&quot;null&quot;){TABS_AND_SPACES}* {}
+</span><span class="ln">34 </span><span class="comment multiline">    &lt;INITIAL&gt;{LABEL} {}
+</span><span class="ln">35 </span><span class="comment multiline">    &lt;INITIAL&gt;{TABS_AND_SPACES}*[=]{TABS_AND_SPACES}* {}
+</span><span class="ln">36 </span><span class="comment multiline">    &lt;ST_RAW&gt;{RAW_VALUE_CHARS} {}
+</span><span class="ln">37 </span><span class="comment multiline">    &lt;ST_SECTION_RAW&gt;{SECTION_RAW_CHARS}+ {}
+</span><span class="ln">38 </span><span class="comment multiline">    &lt;ST_VALUE,ST_RAW&gt;{TABS_AND_SPACES}*{NEWLINE} {}
+</span><span class="ln">39 </span><span class="comment multiline">    &lt;ST_SECTION_VALUE,ST_VALUE,ST_OFFSET&gt;{CONSTANT} {}
+</span><span class="ln">40 </span><span class="comment multiline">    &lt;ST_SECTION_VALUE,ST_VALUE,ST_OFFSET&gt;{NUMBER} {}
+</span><span class="ln">41 </span><span class="comment multiline">    &lt;INITIAL&gt;{TOKENS} {}
+</span><span class="ln">42 </span><span class="comment multiline">    &lt;ST_VALUE&gt;{OPERATORS}{TABS_AND_SPACES}* {}
+</span><span class="ln">43 </span><span class="comment multiline">    &lt;ST_VALUE&gt;[=] {}
+</span><span class="ln">44 </span><span class="comment multiline">    &lt;ST_VALUE&gt;{VALUE_CHARS}+ {}
+</span><span class="ln">45 </span><span class="comment multiline">    &lt;ST_SECTION_VALUE,ST_OFFSET&gt;{SECTION_VALUE_CHARS}+ {}
+</span><span class="ln">46 </span><span class="comment multiline">    &lt;ST_SECTION_VALUE,ST_VALUE,ST_OFFSET&gt;{TABS_AND_SPACES}*[&quot;] {}
+</span><span class="ln">47 </span><span class="comment multiline">    &lt;ST_DOUBLE_QUOTES&gt;[&quot;]{TABS_AND_SPACES}* {}
+</span><span class="ln">48 </span><span class="comment multiline">    &lt;ST_DOUBLE_QUOTES&gt;[^] {}
+</span><span class="ln">49 </span><span class="comment multiline">    &lt;ST_SECTION_VALUE,ST_VALUE,ST_OFFSET&gt;{WHITESPACE} {}
+</span><span class="ln">50 </span><span class="comment multiline">    &lt;INITIAL,ST_RAW&gt;{TABS_AND_SPACES}+ {}
+</span><span class="ln">51 </span><span class="comment multiline">    &lt;INITIAL&gt;{TABS_AND_SPACES}*{NEWLINE} {}
+</span><span class="ln">52 </span><span class="comment multiline">    &lt;INITIAL,ST_VALUE,ST_RAW&gt;{TABS_AND_SPACES}*[;][^\r\n]*{NEWLINE} {}
+</span><span class="ln">53 </span><span class="comment multiline">    &lt;ST_VALUE,ST_RAW&gt;[^] {}
+</span><span class="ln">54 </span><span class="comment multiline">    &lt;*&gt;[^] {}
+</span><span class="ln">55 </span><span class="comment multiline">*/</span>
+</pre>
+<p><tt class="docutils literal">`re2c <span class="pre">-cF</span> <span class="pre">-Wunreachable-rules`</span></tt> says:</p>
+<pre class="code literal-block">
+re2c: warning: line 54: unreachable rule in condition 'ST_DOUBLE_QUOTES' (shadowed by rules at lines 47, 48) [-Wunreachable-rules]
+re2c: warning: line 49: unreachable rule in condition 'ST_OFFSET' (shadowed by rule at line 45) [-Wunreachable-rules]
+re2c: warning: line 54: unreachable rule in condition 'ST_RAW' (shadowed by rules at lines 36, 38, 53) [-Wunreachable-rules]
+re2c: warning: line 49: unreachable rule in condition 'ST_SECTION_VALUE' (shadowed by rule at line 45) [-Wunreachable-rules]
+re2c: warning: line 54: unreachable rule in condition 'ST_VALUE' (shadowed by rules at lines 38, 39, 40, 42, 43, 44, 46, 49, 53) [-Wunreachable-rules]
+</pre>
+<p>The interesting part is the unreachable rule on line 49 in conditions <tt class="docutils literal">ST_OFFSET</tt> and <tt class="docutils literal">ST_SECTION_VALUE</tt>.
+The rule is <tt class="docutils literal">{WHITESPACE}</tt>:</p>
+<pre class="code literal-block">
+WHITESPACE [ \t]+
+</pre>
+<p>re2c claims that it is shadowed by the rule on line 45, which is <tt class="docutils literal">{SECTION_VALUE_CHARS}+</tt>:</p>
+<pre class="code literal-block">
+ANY_CHAR            (.|[\n\t])
+LITERAL_DOLLAR      (&quot;$&quot;([^{\000]|(&quot;\\&quot;{ANY_CHAR})))
+SECTION_VALUE_CHARS ([^$\n\r;&quot;'\]\\]|(&quot;\\&quot;{ANY_CHAR})|{LITERAL_DOLLAR})
+</pre>
+<p>Indeed, <tt class="docutils literal">{SECTION_VALUE_CHARS}+</tt> allows all the patterns accepted by <tt class="docutils literal">{WHITESPACE}</tt>.
+In the original program these rules return different types of tokens:
+perhaps this is not critical, but clearly unintended.</p>
+</div>
+</body>
+</html>

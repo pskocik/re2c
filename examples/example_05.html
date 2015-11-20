@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
+<title>Parsing integers (conditions)</title>
+<link rel="stylesheet" type="text/css" href="/css/default.css" />
+<link rel="alternate" type="application/atom+xml" href="/feed/atom.xml" title="Atom 1.0" />
+<link rel="icon" href="/favicon.ico" />
+</head>
+<body>
+<div class="header">
+<a class="reference external" href="../index.html">[home]</a> <a class="reference external" href="examples.html">[Examples]</a>
+<hr class="header"/>
+</div>
+<div class="document" id="parsing-integers-conditions">
+<h1 class="title">Parsing integers (conditions)</h1>
+
+<p>This example does exactly the same as <a class="reference external" href="example_04.html">Parsing integers (multiple re2c blocks)</a> example,
+but in a slightly different manner: it uses re2c conditions instead of blocks.
+Conditions allow to encode multiple interconnected lexers within a single re2c block.</p>
+<p><a class="reference external" href="05_parsing_integers_conditions.re">[05_parsing_integers_conditions.re]</a></p>
+<pre class="code cpp literal-block">
+<span class="ln"> 1 </span><span class="comment preproc">#include &lt;limits.h&gt;
+</span><span class="ln"> 2 </span><span class="comment preproc">#include &lt;stdio.h&gt;
+</span><span class="ln"> 3 </span><span class="comment preproc"></span>
+<span class="ln"> 4 </span><span class="keyword">template</span><span class="operator">&lt;</span><span class="keyword type">int</span> <span class="name">base</span><span class="operator">&gt;</span>
+<span class="ln"> 5 </span><span class="keyword">static</span> <span class="keyword type">bool</span> <span class="name">adddgt</span><span class="punctuation">(</span><span class="keyword type">unsigned</span> <span class="keyword type">long</span> <span class="operator">&amp;</span><span class="name">u</span><span class="punctuation">,</span> <span class="keyword type">unsigned</span> <span class="keyword type">int</span> <span class="name">d</span><span class="punctuation">)</span>
+<span class="ln"> 6 </span><span class="punctuation">{</span>
+<span class="ln"> 7 </span>    <span class="keyword">if</span> <span class="punctuation">(</span><span class="name">u</span> <span class="operator">&gt;</span> <span class="punctuation">(</span><span class="name">ULONG_MAX</span> <span class="operator">-</span> <span class="name">d</span><span class="punctuation">)</span> <span class="operator">/</span> <span class="name">base</span><span class="punctuation">)</span> <span class="punctuation">{</span>
+<span class="ln"> 8 </span>        <span class="keyword">return</span> <span class="name builtin">false</span><span class="punctuation">;</span>
+<span class="ln"> 9 </span>    <span class="punctuation">}</span>
+<span class="ln">10 </span>    <span class="name">u</span> <span class="operator">=</span> <span class="name">u</span> <span class="operator">*</span> <span class="name">base</span> <span class="operator">+</span> <span class="name">d</span><span class="punctuation">;</span>
+<span class="ln">11 </span>    <span class="keyword">return</span> <span class="name builtin">true</span><span class="punctuation">;</span>
+<span class="ln">12 </span><span class="punctuation">}</span>
+<span class="ln">13 </span>
+<span class="ln">14 </span><span class="comment multiline">/*!types:re2c*/</span>
+<span class="ln">15 </span>
+<span class="ln">16 </span><span class="keyword">static</span> <span class="keyword type">bool</span> <span class="name">lex</span><span class="punctuation">(</span><span class="keyword">const</span> <span class="keyword type">char</span> <span class="operator">*</span><span class="name">s</span><span class="punctuation">,</span> <span class="keyword type">unsigned</span> <span class="keyword type">long</span> <span class="operator">&amp;</span><span class="name">u</span><span class="punctuation">)</span>
+<span class="ln">17 </span><span class="punctuation">{</span>
+<span class="ln">18 </span>    <span class="keyword">const</span> <span class="keyword type">char</span> <span class="operator">*</span><span class="name">YYMARKER</span><span class="punctuation">;</span>
+<span class="ln">19 </span>    <span class="keyword">const</span> <span class="keyword type">char</span> <span class="operator">*</span><span class="name">YYCTXMARKER</span><span class="punctuation">;</span>
+<span class="ln">20 </span>    <span class="keyword type">int</span> <span class="name">c</span> <span class="operator">=</span> <span class="name">yycinit</span><span class="punctuation">;</span>
+<span class="ln">21 </span>    <span class="name">u</span> <span class="operator">=</span> <span class="literal number integer">0</span><span class="punctuation">;</span>
+<span class="ln">22 </span>    <span class="comment multiline">/*!re2c
+</span><span class="ln">23 </span><span class="comment multiline">        re2c:yyfill:enable = 0;
+</span><span class="ln">24 </span><span class="comment multiline">        re2c:define:YYCTYPE = char;
+</span><span class="ln">25 </span><span class="comment multiline">        re2c:define:YYCURSOR = s;
+</span><span class="ln">26 </span><span class="comment multiline">        re2c:define:YYGETCONDITION = &quot;c&quot;;
+</span><span class="ln">27 </span><span class="comment multiline">        re2c:define:YYGETCONDITION:naked = 1;
+</span><span class="ln">28 </span><span class="comment multiline">        re2c:define:YYSETCONDITION = &quot;c = &#64;&#64;;&quot;;
+</span><span class="ln">29 </span><span class="comment multiline">        re2c:define:YYSETCONDITION:naked = 1;
+</span><span class="ln">30 </span><span class="comment multiline">
+</span><span class="ln">31 </span><span class="comment multiline">        &lt;*&gt; * { return false; }
+</span><span class="ln">32 </span><span class="comment multiline">
+</span><span class="ln">33 </span><span class="comment multiline">        &lt;init&gt; '0b' / [01]        :=&gt; bin
+</span><span class="ln">34 </span><span class="comment multiline">        &lt;init&gt; &quot;0&quot;                :=&gt; oct
+</span><span class="ln">35 </span><span class="comment multiline">        &lt;init&gt; &quot;&quot; / [1-9]         :=&gt; dec
+</span><span class="ln">36 </span><span class="comment multiline">        &lt;init&gt; '0x' / [0-9a-fA-F] :=&gt; hex
+</span><span class="ln">37 </span><span class="comment multiline">
+</span><span class="ln">38 </span><span class="comment multiline">        &lt;bin, oct, dec, hex&gt; &quot;\x00&quot; { return true; }
+</span><span class="ln">39 </span><span class="comment multiline">        &lt;bin&gt; [01]  { if (!adddgt&lt;2&gt;(u, s[-1] - '0')) return false; goto yyc_bin; }
+</span><span class="ln">40 </span><span class="comment multiline">        &lt;oct&gt; [0-7] { if (!adddgt&lt;8&gt;(u, s[-1] - '0')) return false; goto yyc_oct; }
+</span><span class="ln">41 </span><span class="comment multiline">        &lt;dec&gt; [0-9] { if (!adddgt&lt;10&gt;(u, s[-1] - '0')) return false; goto yyc_dec; }
+</span><span class="ln">42 </span><span class="comment multiline">        &lt;hex&gt; [0-9] { if (!adddgt&lt;16&gt;(u, s[-1] - '0'))      return false; goto yyc_hex; }
+</span><span class="ln">43 </span><span class="comment multiline">        &lt;hex&gt; [a-f] { if (!adddgt&lt;16&gt;(u, s[-1] - 'a' + 10)) return false; goto yyc_hex; }
+</span><span class="ln">44 </span><span class="comment multiline">        &lt;hex&gt; [A-F] { if (!adddgt&lt;16&gt;(u, s[-1] - 'A' + 10)) return false; goto yyc_hex; }
+</span><span class="ln">45 </span><span class="comment multiline">    */</span>
+<span class="ln">46 </span><span class="punctuation">}</span>
+<span class="ln">47 </span>
+<span class="ln">48 </span><span class="keyword type">int</span> <span class="name">main</span><span class="punctuation">(</span><span class="keyword type">int</span> <span class="name">argc</span><span class="punctuation">,</span> <span class="keyword type">char</span> <span class="operator">**</span><span class="name">argv</span><span class="punctuation">)</span>
+<span class="ln">49 </span><span class="punctuation">{</span>
+<span class="ln">50 </span>    <span class="keyword">for</span> <span class="punctuation">(</span><span class="keyword type">int</span> <span class="name">i</span> <span class="operator">=</span> <span class="literal number integer">1</span><span class="punctuation">;</span> <span class="name">i</span> <span class="operator">&lt;</span> <span class="name">argc</span><span class="punctuation">;</span> <span class="operator">++</span><span class="name">i</span><span class="punctuation">)</span> <span class="punctuation">{</span>
+<span class="ln">51 </span>        <span class="keyword type">unsigned</span> <span class="keyword type">long</span> <span class="name">u</span><span class="punctuation">;</span>
+<span class="ln">52 </span>        <span class="keyword">if</span> <span class="punctuation">(</span><span class="name">lex</span><span class="punctuation">(</span><span class="name">argv</span><span class="punctuation">[</span><span class="name">i</span><span class="punctuation">],</span> <span class="name">u</span><span class="punctuation">))</span> <span class="punctuation">{</span>
+<span class="ln">53 </span>            <span class="name">printf</span><span class="punctuation">(</span><span class="literal string">&quot;%lu</span><span class="literal string escape">\n</span><span class="literal string">&quot;</span><span class="punctuation">,</span> <span class="name">u</span><span class="punctuation">);</span>
+<span class="ln">54 </span>        <span class="punctuation">}</span> <span class="keyword">else</span> <span class="punctuation">{</span>
+<span class="ln">55 </span>            <span class="name">printf</span><span class="punctuation">(</span><span class="literal string">&quot;error</span><span class="literal string escape">\n</span><span class="literal string">&quot;</span><span class="punctuation">);</span>
+<span class="ln">56 </span>        <span class="punctuation">}</span>
+<span class="ln">57 </span>    <span class="punctuation">}</span>
+<span class="ln">58 </span>    <span class="keyword">return</span> <span class="literal number integer">0</span><span class="punctuation">;</span>
+<span class="ln">59 </span><span class="punctuation">}</span>
+</pre>
+<p>Notes:</p>
+<ul class="simple">
+<li>Conditions are enabled with <tt class="docutils literal"><span class="pre">-c</span></tt> option.</li>
+<li>Conditions are only syntactic sugar, they can be translated into multiple blocks.</li>
+<li>Each condition is a standalone lexer (DFA).</li>
+<li>Each condition has a unique identifier: <tt class="docutils literal"><span class="pre">/*!types:re2c*/</span></tt> tells re2c to generate
+enumeration of all identifiers (names are prefixed with <tt class="docutils literal">yyc</tt> by default).
+Lexer uses <tt class="docutils literal">YYGETCONDITION</tt> to get the identifier of current condition
+and <tt class="docutils literal">YYSETCONDITION</tt> to set it.</li>
+<li>Each condition has a unique label (prefixed with <tt class="docutils literal">yyc_</tt> by default).</li>
+<li>Conditions are connected: transitions are allowed between final states of one condition
+and start state of another condition (but not between inner states of different conditions).
+The generated code starts with dispatch.
+Actions can either jump to the initial dispatch or jump directly to any condition.</li>
+<li>Rule <tt class="docutils literal">&lt;*&gt;</tt> is merged to all conditions (low priority).</li>
+<li>Rules with multiple conditions are merged to each listed condition (normal priority).</li>
+<li><tt class="docutils literal">:=&gt;</tt> jumps directly to the next condition (bypassing the initial dispatch).</li>
+</ul>
+<p>Generate, compile and run:</p>
+<pre class="code bash literal-block">
+<span class="name variable">$ </span>re2c -c -o example.cc 05_parsing_integers_conditions.re
+<span class="name variable">$ </span>g++ -o example example.cc
+<span class="name variable">$ </span>./example <span class="literal number">0</span> <span class="literal number">12345678901234567890</span> 0xFFFFffffFFFFffff 0x1FFFFffffFFFFffff 0xAbcDEf 0x00 <span class="literal number">007</span> 0B0 0b110101010 <span class="literal string double">&quot;&quot;</span>
+0
+12345678901234567890
+18446744073709551615
+error
+11259375
+0
+7
+0
+426
+error
+</pre>
+</div>
+<div class="footer">
+<hr class="footer" />
+<a class="reference external" href="../index.html">[home]</a> <a class="reference external" href="examples.html">[Examples]</a>
+</div>
+</body>
+</html>

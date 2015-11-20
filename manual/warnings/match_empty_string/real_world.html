@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
+<title>Real-world examples</title>
+<link rel="stylesheet" type="text/css" href="/css/default.css" />
+<link rel="alternate" type="application/atom+xml" href="/feed/atom.xml" title="Atom 1.0" />
+<link rel="icon" href="/favicon.ico" />
+</head>
+<body>
+<div class="document" id="real-world-examples">
+<h1 class="title">Real-world examples</h1>
+
+<p>In general, it is a common mistake to use <tt class="docutils literal">*</tt> instead of <tt class="docutils literal">+</tt> in repetitions.
+That is, to accept zero or more repetitions instead of one or more.</p>
+<div class="section" id="typos-in-definitions">
+<h1>Typos in definitions</h1>
+<p>Here is the skeleton of REXX lexer (the very lexer which motivated Peter to write re2c <tt class="docutils literal">:)</tt>).</p>
+<pre class="code cpp literal-block">
+<span class="ln">  1 </span><span class="comment multiline">/*!re2c
+</span><span class="ln">  2 </span><span class="comment multiline">    all    = [\000-\377];
+</span><span class="ln">  3 </span><span class="comment multiline">    eof    = [\000];
+</span><span class="ln">  4 </span><span class="comment multiline">    any    = all\eof;
+</span><span class="ln">  5 </span><span class="comment multiline">    letter = [a-z]|[A-Z];
+</span><span class="ln">  6 </span><span class="comment multiline">    digit  = [0-9];
+</span><span class="ln">  7 </span><span class="comment multiline">    symchr = letter|digit|[.!?_];
+</span><span class="ln">  8 </span><span class="comment multiline">    const  = (digit|[.])symchr*([eE][+-]?digit+)?;
+</span><span class="ln">  9 </span><span class="comment multiline">    simple = (symchr\(digit|[.]))(symchr\[.])*;
+</span><span class="ln"> 10 </span><span class="comment multiline">    stem   = simple [.];
+</span><span class="ln"> 11 </span><span class="comment multiline">    symbol = symchr*;
+</span><span class="ln"> 12 </span><span class="comment multiline">    sqstr  = ['] ((any\['\n])|(['][']))* ['];
+</span><span class="ln"> 13 </span><span class="comment multiline">    dqstr  = [&quot;] ((any\[&quot;\n])|([&quot;][&quot;]))* [&quot;];
+</span><span class="ln"> 14 </span><span class="comment multiline">    str    = sqstr|dqstr;
+</span><span class="ln"> 15 </span><span class="comment multiline">    ob     = [ \t]*;
+</span><span class="ln"> 16 </span><span class="comment multiline">    not    = [\\~];
+</span><span class="ln"> 17 </span><span class="comment multiline">    A      = [aA];
+</span><span class="ln"> 18 </span><span class="comment multiline">    B      = [bB];
+</span><span class="ln"> 19 </span><span class="comment multiline">    C      = [cC];
+</span><span class="ln"> 20 </span><span class="comment multiline">    D      = [dD];
+</span><span class="ln"> 21 </span><span class="comment multiline">    E      = [eE];
+</span><span class="ln"> 22 </span><span class="comment multiline">    F      = [fF];
+</span><span class="ln"> 23 </span><span class="comment multiline">    G      = [gG];
+</span><span class="ln"> 24 </span><span class="comment multiline">    H      = [hH];
+</span><span class="ln"> 25 </span><span class="comment multiline">    I      = [iI];
+</span><span class="ln"> 26 </span><span class="comment multiline">    J      = [jJ];
+</span><span class="ln"> 27 </span><span class="comment multiline">    K      = [kK];
+</span><span class="ln"> 28 </span><span class="comment multiline">    L      = [lL];
+</span><span class="ln"> 29 </span><span class="comment multiline">    M      = [mM];
+</span><span class="ln"> 30 </span><span class="comment multiline">    N      = [nN];
+</span><span class="ln"> 31 </span><span class="comment multiline">    O      = [oO];
+</span><span class="ln"> 32 </span><span class="comment multiline">    P      = [pP];
+</span><span class="ln"> 33 </span><span class="comment multiline">    Q      = [qQ];
+</span><span class="ln"> 34 </span><span class="comment multiline">    R      = [rR];
+</span><span class="ln"> 35 </span><span class="comment multiline">    S      = [sS];
+</span><span class="ln"> 36 </span><span class="comment multiline">    T      = [tT];
+</span><span class="ln"> 37 </span><span class="comment multiline">    U      = [uU];
+</span><span class="ln"> 38 </span><span class="comment multiline">    V      = [vV];
+</span><span class="ln"> 39 </span><span class="comment multiline">    W      = [wW];
+</span><span class="ln"> 40 </span><span class="comment multiline">    X      = [xX];
+</span><span class="ln"> 41 </span><span class="comment multiline">    Y      = [yY];
+</span><span class="ln"> 42 </span><span class="comment multiline">    Z      = [zZ];
+</span><span class="ln"> 43 </span><span class="comment multiline">
+</span><span class="ln"> 44 </span><span class="comment multiline">    &quot;\n&quot;                                  {}
+</span><span class="ln"> 45 </span><span class="comment multiline">    &quot;|&quot; ob &quot;|&quot;                            {}
+</span><span class="ln"> 46 </span><span class="comment multiline">    &quot;+&quot;                                   {}
+</span><span class="ln"> 47 </span><span class="comment multiline">    &quot;-&quot;                                   {}
+</span><span class="ln"> 48 </span><span class="comment multiline">    &quot;*&quot;                                   {}
+</span><span class="ln"> 49 </span><span class="comment multiline">    &quot;/&quot;                                   {}
+</span><span class="ln"> 50 </span><span class="comment multiline">    &quot;%&quot;                                   {}
+</span><span class="ln"> 51 </span><span class="comment multiline">    &quot;/&quot; ob &quot;/&quot;                            {}
+</span><span class="ln"> 52 </span><span class="comment multiline">    &quot;*&quot; ob &quot;*&quot;                            {}
+</span><span class="ln"> 53 </span><span class="comment multiline">    &quot;=&quot;                                   {}
+</span><span class="ln"> 54 </span><span class="comment multiline">    not ob &quot;=&quot; | &quot;&lt;&quot; ob &quot;&gt;&quot; | &quot;&gt;&quot; ob &quot;&lt;&quot;  {}
+</span><span class="ln"> 55 </span><span class="comment multiline">    &quot;&gt;&quot;                                   {}
+</span><span class="ln"> 56 </span><span class="comment multiline">    &quot;&lt;&quot;                                   {}
+</span><span class="ln"> 57 </span><span class="comment multiline">    &quot;&gt;&quot; ob &quot;=&quot; | not ob &quot;&lt;&quot;               {}
+</span><span class="ln"> 58 </span><span class="comment multiline">    &quot;&lt;&quot; ob &quot;=&quot; | not ob &quot;&gt;&quot;               {}
+</span><span class="ln"> 59 </span><span class="comment multiline">    &quot;=&quot; ob &quot;=&quot;                            {}
+</span><span class="ln"> 60 </span><span class="comment multiline">    not ob &quot;=&quot; ob &quot;=&quot;                     {}
+</span><span class="ln"> 61 </span><span class="comment multiline">    &quot;&gt;&quot; ob &quot;&gt;&quot;                            {}
+</span><span class="ln"> 62 </span><span class="comment multiline">    &quot;&lt;&quot; ob &quot;&lt;&quot;                            {}
+</span><span class="ln"> 63 </span><span class="comment multiline">    &quot;&gt;&quot; ob &quot;&gt;&quot; ob &quot;=&quot; | not ob &quot;&lt;&quot; ob &quot;&lt;&quot; {}
+</span><span class="ln"> 64 </span><span class="comment multiline">    &quot;&lt;&quot; ob &quot;&lt;&quot; ob &quot;=&quot; | not ob &quot;&gt;&quot; ob &quot;&gt;&quot; {}
+</span><span class="ln"> 65 </span><span class="comment multiline">    &quot;&amp;&quot;                                   {}
+</span><span class="ln"> 66 </span><span class="comment multiline">    &quot;|&quot;                                   {}
+</span><span class="ln"> 67 </span><span class="comment multiline">    &quot;&amp;&quot; ob &quot;&amp;&quot;                            {}
+</span><span class="ln"> 68 </span><span class="comment multiline">    not                                   {}
+</span><span class="ln"> 69 </span><span class="comment multiline">    &quot;:&quot;                                   {}
+</span><span class="ln"> 70 </span><span class="comment multiline">    &quot;,&quot;                                   {}
+</span><span class="ln"> 71 </span><span class="comment multiline">    &quot;(&quot;                                   {}
+</span><span class="ln"> 72 </span><span class="comment multiline">    &quot;)&quot;                                   {}
+</span><span class="ln"> 73 </span><span class="comment multiline">    &quot;;&quot;                                   {}
+</span><span class="ln"> 74 </span><span class="comment multiline">    A D D R E S S                         {}
+</span><span class="ln"> 75 </span><span class="comment multiline">    A R G                                 {}
+</span><span class="ln"> 76 </span><span class="comment multiline">    C A L L                               {}
+</span><span class="ln"> 77 </span><span class="comment multiline">    D O                                   {}
+</span><span class="ln"> 78 </span><span class="comment multiline">    D R O P                               {}
+</span><span class="ln"> 79 </span><span class="comment multiline">    E L S E                               {}
+</span><span class="ln"> 80 </span><span class="comment multiline">    E N D                                 {}
+</span><span class="ln"> 81 </span><span class="comment multiline">    E X I T                               {}
+</span><span class="ln"> 82 </span><span class="comment multiline">    I F                                   {}
+</span><span class="ln"> 83 </span><span class="comment multiline">    I N T E R P R E T                     {}
+</span><span class="ln"> 84 </span><span class="comment multiline">    I T E R A T E                         {}
+</span><span class="ln"> 85 </span><span class="comment multiline">    L E A V E                             {}
+</span><span class="ln"> 86 </span><span class="comment multiline">    N O P                                 {}
+</span><span class="ln"> 87 </span><span class="comment multiline">    N U M E R I C                         {}
+</span><span class="ln"> 88 </span><span class="comment multiline">    O P T I O N S                         {}
+</span><span class="ln"> 89 </span><span class="comment multiline">    O T H E R W I S E                     {}
+</span><span class="ln"> 90 </span><span class="comment multiline">    P A R S E                             {}
+</span><span class="ln"> 91 </span><span class="comment multiline">    P R O C E D U R E                     {}
+</span><span class="ln"> 92 </span><span class="comment multiline">    P U L L                               {}
+</span><span class="ln"> 93 </span><span class="comment multiline">    P U S H                               {}
+</span><span class="ln"> 94 </span><span class="comment multiline">    Q U E U E                             {}
+</span><span class="ln"> 95 </span><span class="comment multiline">    R E T U R N                           {}
+</span><span class="ln"> 96 </span><span class="comment multiline">    S A Y                                 {}
+</span><span class="ln"> 97 </span><span class="comment multiline">    S E L E C T                           {}
+</span><span class="ln"> 98 </span><span class="comment multiline">    S I G N A L                           {}
+</span><span class="ln"> 99 </span><span class="comment multiline">    T H E N                               {}
+</span><span class="ln">100 </span><span class="comment multiline">    T R A C E                             {}
+</span><span class="ln">101 </span><span class="comment multiline">    W H E N                               {}
+</span><span class="ln">102 </span><span class="comment multiline">    O F F                                 {}
+</span><span class="ln">103 </span><span class="comment multiline">    O N                                   {}
+</span><span class="ln">104 </span><span class="comment multiline">    B Y                                   {}
+</span><span class="ln">105 </span><span class="comment multiline">    D I G I T S                           {}
+</span><span class="ln">106 </span><span class="comment multiline">    E N G I N E E R I N G                 {}
+</span><span class="ln">107 </span><span class="comment multiline">    E R R O R                             {}
+</span><span class="ln">108 </span><span class="comment multiline">    E X P O S E                           {}
+</span><span class="ln">109 </span><span class="comment multiline">    F A I L U R E                         {}
+</span><span class="ln">110 </span><span class="comment multiline">    F O R                                 {}
+</span><span class="ln">111 </span><span class="comment multiline">    F O R E V E R                         {}
+</span><span class="ln">112 </span><span class="comment multiline">    F O R M                               {}
+</span><span class="ln">113 </span><span class="comment multiline">    F U Z Z                               {}
+</span><span class="ln">114 </span><span class="comment multiline">    H A L T                               {}
+</span><span class="ln">115 </span><span class="comment multiline">    L I N E I N                           {}
+</span><span class="ln">116 </span><span class="comment multiline">    N A M E                               {}
+</span><span class="ln">117 </span><span class="comment multiline">    N O T R E A D Y                       {}
+</span><span class="ln">118 </span><span class="comment multiline">    N O V A L U E                         {}
+</span><span class="ln">119 </span><span class="comment multiline">    S C I E N T I F I C                   {}
+</span><span class="ln">120 </span><span class="comment multiline">    S O U R C E                           {}
+</span><span class="ln">121 </span><span class="comment multiline">    S Y N T A X                           {}
+</span><span class="ln">122 </span><span class="comment multiline">    T O                                   {}
+</span><span class="ln">123 </span><span class="comment multiline">    U N T I L                             {}
+</span><span class="ln">124 </span><span class="comment multiline">    U P P E R                             {}
+</span><span class="ln">125 </span><span class="comment multiline">    V A L U E                             {}
+</span><span class="ln">126 </span><span class="comment multiline">    V A R                                 {}
+</span><span class="ln">127 </span><span class="comment multiline">    V E R S I O N                         {}
+</span><span class="ln">128 </span><span class="comment multiline">    W H I L E                             {}
+</span><span class="ln">129 </span><span class="comment multiline">    W I T H                               {}
+</span><span class="ln">130 </span><span class="comment multiline">    const                                 {}
+</span><span class="ln">131 </span><span class="comment multiline">    simple                                {}
+</span><span class="ln">132 </span><span class="comment multiline">    stem                                  {}
+</span><span class="ln">133 </span><span class="comment multiline">    symbol                                {}
+</span><span class="ln">134 </span><span class="comment multiline">    str                                   {}
+</span><span class="ln">135 </span><span class="comment multiline">    str [bB] / (all\symchr)               {}
+</span><span class="ln">136 </span><span class="comment multiline">    str [xX] / (all\symchr)               {}
+</span><span class="ln">137 </span><span class="comment multiline">    eof                                   {}
+</span><span class="ln">138 </span><span class="comment multiline">    any                                   {}
+</span><span class="ln">139 </span><span class="comment multiline">*/</span>
+</pre>
+<p><tt class="docutils literal">`re2c <span class="pre">-Wmatch-empty-string`</span></tt> warns:</p>
+<pre class="code literal-block">
+re2c: warning: line 133: rule matches empty string [-Wmatch-empty-string]
+</pre>
+<p>The faulty rule is <tt class="docutils literal">symbol</tt>.
+It is defined as <tt class="docutils literal">symchr*</tt> and clearly is nullable.
+In this particular example (assuming ASCII encoding) empty match is shadowed by other rules:
+together <tt class="docutils literal">eof</tt> and <tt class="docutils literal">any</tt> cover all possible code units.
+So in this case there is no chance of hitting eternal loop.</p>
+<p>However, by no means <tt class="docutils literal">symbol</tt> should be nullable: it makes no sense.
+Sure, it's just a typo and the author meant <tt class="docutils literal">symchr+</tt>.</p>
+</div>
+<div class="section" id="skipping-uninteresting-stuff">
+<h1>Skipping uninteresting stuff</h1>
+<p>Like spaces.
+One often needs to skip variable number of them:</p>
+<pre class="code cpp literal-block">
+<span class="ln">1 </span><span class="comment multiline">/*!re2c
+</span><span class="ln">2 </span><span class="comment multiline">    TABS_AND_SPACES = [ \t]*;
+</span><span class="ln">3 </span><span class="comment multiline">*/</span>
+</pre>
+<p>This definition is ok when used inside of another (non-nullable) rule:</p>
+<pre class="code cpp literal-block">
+<span class="ln">1 </span><span class="comment multiline">/*!re2c
+</span><span class="ln">2 </span><span class="comment multiline">    TABS_AND_SPACES = [ \t]*;
+</span><span class="ln">3 </span><span class="comment multiline">    &quot;(&quot; TABS_AND_SPACES (&quot;int&quot; | &quot;integer&quot;) TABS_AND_SPACES &quot;)&quot; {}
+</span><span class="ln">4 </span><span class="comment multiline">*/</span>
+</pre>
+<p>However, as a standalone rule it may cause eternal loop on ill-formed input.
+And it's very common to reuse one rule for multiple purposes.</p>
+</div>
+</div>
+</body>
+</html>

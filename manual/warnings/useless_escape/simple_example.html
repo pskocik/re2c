@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
+<title>A simple example</title>
+<link rel="stylesheet" type="text/css" href="/css/default.css" />
+<link rel="alternate" type="application/atom+xml" href="/feed/atom.xml" title="Atom 1.0" />
+<link rel="icon" href="/favicon.ico" />
+</head>
+<body>
+<div class="document" id="a-simple-example">
+<h1 class="title">A simple example</h1>
+
+<pre class="code cpp literal-block">
+<span class="ln">1 </span><span class="comment multiline">/*!re2c
+</span><span class="ln">2 </span><span class="comment multiline">    *                        {}
+</span><span class="ln">3 </span><span class="comment multiline">    &quot;\a\A\&quot;\'\[\]\-\x5d\377&quot; {}
+</span><span class="ln">4 </span><span class="comment multiline">    '\a\A\&quot;\'\[\]\-\x5d\377' {}
+</span><span class="ln">5 </span><span class="comment multiline">    [\a\A\&quot;\'\[\]\-\x5d\377] {}
+</span><span class="ln">6 </span><span class="comment multiline">*/</span>
+</pre>
+<p>Given this code, <tt class="docutils literal">`re2c <span class="pre">-Wuseless-escape`</span></tt> reports a bunch of warnings:</p>
+<pre class="code literal-block">
+re2c: warning: line 3: column 11: escape has no effect: '\A' [-Wuseless-escape]
+re2c: warning: line 3: column 15: escape has no effect: '\'' [-Wuseless-escape]
+re2c: warning: line 3: column 17: escape has no effect: '\[' [-Wuseless-escape]
+re2c: warning: line 3: column 19: escape has no effect: '\]' [-Wuseless-escape]
+re2c: warning: line 3: column 21: escape has no effect: '\-' [-Wuseless-escape]
+re2c: warning: line 4: column 11: escape has no effect: '\A' [-Wuseless-escape]
+re2c: warning: line 4: column 13: escape has no effect: '\&quot;' [-Wuseless-escape]
+re2c: warning: line 4: column 17: escape has no effect: '\[' [-Wuseless-escape]
+re2c: warning: line 4: column 19: escape has no effect: '\]' [-Wuseless-escape]
+re2c: warning: line 4: column 21: escape has no effect: '\-' [-Wuseless-escape]
+re2c: warning: line 5: column 11: escape has no effect: '\A' [-Wuseless-escape]
+re2c: warning: line 5: column 13: escape has no effect: '\&quot;' [-Wuseless-escape]
+re2c: warning: line 5: column 15: escape has no effect: '\'' [-Wuseless-escape]
+re2c: warning: line 5: column 17: escape has no effect: '\[' [-Wuseless-escape]
+</pre>
+<p>It says that <tt class="docutils literal">\A</tt> and <tt class="docutils literal">\[</tt> escapes are meaningless in all rules,
+<tt class="docutils literal">\-</tt> makes sense only in character class
+and each type of closing quotes (<tt class="docutils literal">&quot;</tt>, <tt class="docutils literal">'</tt> and <tt class="docutils literal">]</tt>) should only be escaped inside of same-quoted string.
+Useless escapes are ignored: the escaped symbol is treated as not escaped (<tt class="docutils literal">\A</tt> becomes <tt class="docutils literal">A</tt>, etc.).
+The above example should be fixed as follows:</p>
+<pre class="code cpp literal-block">
+<span class="ln">1 </span><span class="comment multiline">/*!re2c
+</span><span class="ln">2 </span><span class="comment multiline">    *                    {}
+</span><span class="ln">3 </span><span class="comment multiline">    &quot;\aA\&quot;'[]-\x5d\377&quot;  {}
+</span><span class="ln">4 </span><span class="comment multiline">    '\aA&quot;\'[]-\x5d\377'  {}
+</span><span class="ln">5 </span><span class="comment multiline">    [\aA&quot;'[\]\-\x5d\377] {}
+</span><span class="ln">6 </span><span class="comment multiline">*/</span>
+</pre>
+</div>
+</body>
+</html>

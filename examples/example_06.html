@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
+<title>Braille patterns (encodings)</title>
+<link rel="stylesheet" type="text/css" href="/css/default.css" />
+<link rel="alternate" type="application/atom+xml" href="/feed/atom.xml" title="Atom 1.0" />
+<link rel="icon" href="/favicon.ico" />
+</head>
+<body>
+<div class="header">
+<a class="reference external" href="../index.html">[home]</a> <a class="reference external" href="examples.html">[Examples]</a>
+<hr class="header"/>
+</div>
+<div class="document" id="braille-patterns-encodings">
+<h1 class="title">Braille patterns (encodings)</h1>
+
+<p>This example is about encoding support in re2c.
+It's a partial decoder from Grade-1 (uncontracted) Unicode English Braille to plain English.
+The input may be encoded in UTF-8, UTF-16, UTF-32 or UCS-2:
+all of these encodings are capable of representing Braille patterns (code points <tt class="docutils literal">[0x2800 - 0x28ff]</tt>).
+We use <tt class="docutils literal"><span class="pre">-r</span></tt> option to reuse the same block of re2c rules with different encodings.</p>
+<p>So. The hardest part is to get some input.
+Here is a message out of the void:</p>
+<p>⠠⠁⠇⠇⠀⠓⠥⠍⠁⠝⠀⠃⠑⠊⠝⠛⠎⠀⠁⠗⠑⠀⠃⠕⠗⠝⠀⠋⠗⠑⠑⠀⠁⠝⠙⠀⠑⠟⠥⠁⠇⠀⠊⠝⠀⠙⠊⠛⠝⠊⠞⠽⠀⠁⠝⠙⠀⠗⠊⠛⠓⠞⠎⠲⠀
+⠠⠞⠓⠑⠽⠀⠁⠗⠑⠀⠑⠝⠙⠕⠺⠑⠙⠀⠺⠊⠞⠓⠀⠗⠑⠁⠎⠕⠝⠀⠁⠝⠙⠀⠉⠕⠝⠎⠉⠊⠑⠝⠉⠑⠀⠁⠝⠙⠀⠎⠓⠕⠥⠇⠙⠀⠁⠉⠞⠀⠞⠕⠺⠁⠗⠙⠎⠀
+⠕⠝⠑⠀⠁⠝⠕⠞⠓⠑⠗⠀⠊⠝⠀⠁⠀⠎⠏⠊⠗⠊⠞⠀⠕⠋⠀⠃⠗⠕⠞⠓⠑⠗⠓⠕⠕⠙⠲</p>
+<p>It appears to be UTF-8 encoded <a class="reference external" href="06_braille.utf8.txt.html">[06_braille.utf8.txt]</a>.
+Convert it into UTF-16, UTF-32 or UCS-2:</p>
+<pre class="code bash literal-block">
+<span class="name variable">$ </span>iconv -f utf8 -t utf16le 06_braille.utf8.txt &gt; 06_braille.utf16.txt
+<span class="name variable">$ </span>iconv -f utf8 -t utf32le 06_braille.utf8.txt &gt; 06_braille.utf32.txt
+<span class="name variable">$ </span>iconv -f utf8 -t ucs2 06_braille.utf8.txt &gt; 06_braille.ucs2.txt
+</pre>
+<p>And the input is ready.</p>
+<p>Grade-1 Braille is quite simple (compared to Grade-2 Braille).
+Patterns map directly to symbols (letters, digits and punctuators) except for a couple of special patterns:
+numeric mode indicator (⠼), letter mode indicator (⠰), capital letter (⠠)
+and some other, which we omit for simplicity (as well as a few ambiguous punctuation patterns).
+Grade-2 Braille allows contractions; they obey complex rules (like those of a natural language)
+and are much harder to implement.</p>
+<p><a class="reference external" href="06_braille.re">[06_braille.re]</a></p>
+<pre class="code cpp literal-block">
+<span class="ln">  1 </span><span class="comment preproc">#include &lt;ctype.h&gt;
+</span><span class="ln">  2 </span><span class="comment preproc">#include &lt;stdio.h&gt;
+</span><span class="ln">  3 </span><span class="comment preproc"></span>
+<span class="ln">  4 </span><span class="keyword">template</span><span class="operator">&lt;</span><span class="keyword">typename</span> <span class="keyword type">char_t</span><span class="operator">&gt;</span>
+<span class="ln">  5 </span><span class="keyword">struct</span> <span class="keyword type">input_t</span> <span class="punctuation">{</span>
+<span class="ln">  6 </span>    <span class="keyword type">size_t</span> <span class="name">len</span><span class="punctuation">;</span>
+<span class="ln">  7 </span>    <span class="keyword type">char_t</span> <span class="operator">*</span><span class="name">str</span><span class="punctuation">;</span>
+<span class="ln">  8 </span>
+<span class="ln">  9 </span>    <span class="keyword type">input_t</span><span class="punctuation">(</span><span class="keyword type">FILE</span> <span class="operator">*</span><span class="name">f</span><span class="punctuation">)</span> <span class="operator">:</span> <span class="name">len</span><span class="punctuation">(</span><span class="literal number integer">0</span><span class="punctuation">),</span> <span class="name">str</span><span class="punctuation">(</span><span class="name builtin">NULL</span><span class="punctuation">)</span>
+<span class="ln"> 10 </span>    <span class="punctuation">{</span>
+<span class="ln"> 11 </span>        <span class="name">fseek</span><span class="punctuation">(</span><span class="name">f</span><span class="punctuation">,</span> <span class="literal number integer">0</span><span class="punctuation">,</span> <span class="name">SEEK_END</span><span class="punctuation">);</span>
+<span class="ln"> 12 </span>        <span class="name">len</span> <span class="operator">=</span> <span class="name">ftell</span><span class="punctuation">(</span><span class="name">f</span><span class="punctuation">)</span> <span class="operator">/</span> <span class="keyword">sizeof</span><span class="punctuation">(</span><span class="keyword type">char_t</span><span class="punctuation">);</span>
+<span class="ln"> 13 </span>        <span class="name">fseek</span><span class="punctuation">(</span><span class="name">f</span><span class="punctuation">,</span> <span class="literal number integer">0</span><span class="punctuation">,</span> <span class="name">SEEK_SET</span><span class="punctuation">);</span>
+<span class="ln"> 14 </span>        <span class="name">str</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="keyword type">char_t</span><span class="punctuation">[</span><span class="name">len</span> <span class="operator">+</span> <span class="literal number integer">1</span><span class="punctuation">];</span>
+<span class="ln"> 15 </span>        <span class="name">fread</span><span class="punctuation">(</span><span class="name">str</span><span class="punctuation">,</span> <span class="keyword">sizeof</span><span class="punctuation">(</span><span class="keyword type">char_t</span><span class="punctuation">),</span> <span class="name">len</span><span class="punctuation">,</span> <span class="name">f</span><span class="punctuation">);</span>
+<span class="ln"> 16 </span>        <span class="name">str</span><span class="punctuation">[</span><span class="name">len</span><span class="punctuation">]</span> <span class="operator">=</span> <span class="literal number integer">0</span><span class="punctuation">;</span>
+<span class="ln"> 17 </span>    <span class="punctuation">}</span>
+<span class="ln"> 18 </span>    <span class="operator">~</span><span class="keyword type">input_t</span><span class="punctuation">()</span>
+<span class="ln"> 19 </span>    <span class="punctuation">{</span>
+<span class="ln"> 20 </span>        <span class="keyword">delete</span><span class="punctuation">[]</span><span class="name">str</span><span class="punctuation">;</span>
+<span class="ln"> 21 </span>    <span class="punctuation">}</span>
+<span class="ln"> 22 </span><span class="punctuation">};</span>
+<span class="ln"> 23 </span>
+<span class="ln"> 24 </span><span class="keyword">typedef</span> <span class="keyword type">input_t</span><span class="operator">&lt;</span><span class="keyword type">unsigned</span> <span class="keyword type">char</span><span class="operator">&gt;</span>  <span class="keyword type">iutf8_t</span><span class="punctuation">;</span>
+<span class="ln"> 25 </span><span class="keyword">typedef</span> <span class="keyword type">input_t</span><span class="operator">&lt;</span><span class="keyword type">unsigned</span> <span class="keyword type">short</span><span class="operator">&gt;</span> <span class="keyword type">iutf16_t</span><span class="punctuation">;</span>
+<span class="ln"> 26 </span><span class="keyword">typedef</span> <span class="keyword type">input_t</span><span class="operator">&lt;</span><span class="keyword type">unsigned</span> <span class="keyword type">int</span><span class="operator">&gt;</span>   <span class="keyword type">iutf32_t</span><span class="punctuation">;</span>
+<span class="ln"> 27 </span><span class="keyword">typedef</span> <span class="keyword type">input_t</span><span class="operator">&lt;</span><span class="keyword type">unsigned</span> <span class="keyword type">short</span><span class="operator">&gt;</span> <span class="keyword type">iucs2_t</span><span class="punctuation">;</span>
+<span class="ln"> 28 </span>
+<span class="ln"> 29 </span><span class="keyword">struct</span> <span class="keyword type">out_t</span> <span class="punctuation">{</span>
+<span class="ln"> 30 </span>    <span class="keyword type">bool</span> <span class="name">caps</span><span class="punctuation">;</span>
+<span class="ln"> 31 </span>
+<span class="ln"> 32 </span>    <span class="keyword type">out_t</span><span class="punctuation">()</span> <span class="operator">:</span> <span class="name">caps</span><span class="punctuation">(</span><span class="name builtin">false</span><span class="punctuation">)</span> <span class="punctuation">{}</span>
+<span class="ln"> 33 </span>    <span class="keyword type">void</span> <span class="name">prt</span><span class="punctuation">(</span><span class="keyword type">char</span> <span class="name">c</span><span class="punctuation">)</span>
+<span class="ln"> 34 </span>    <span class="punctuation">{</span>
+<span class="ln"> 35 </span>        <span class="name">printf</span><span class="punctuation">(</span><span class="literal string">&quot;%c&quot;</span><span class="punctuation">,</span> <span class="name">caps</span> <span class="operator">?</span> <span class="name">toupper</span><span class="punctuation">(</span><span class="name">c</span><span class="punctuation">)</span> <span class="operator">:</span> <span class="name">c</span><span class="punctuation">);</span>
+<span class="ln"> 36 </span>        <span class="name">caps</span> <span class="operator">=</span> <span class="name builtin">false</span><span class="punctuation">;</span>
+<span class="ln"> 37 </span>    <span class="punctuation">}</span>
+<span class="ln"> 38 </span>    <span class="keyword type">void</span> <span class="name">err</span><span class="punctuation">()</span>
+<span class="ln"> 39 </span>    <span class="punctuation">{</span>
+<span class="ln"> 40 </span>        <span class="name">printf</span><span class="punctuation">(</span><span class="literal string">&quot; ... error</span><span class="literal string escape">\n</span><span class="literal string">&quot;</span><span class="punctuation">);</span>
+<span class="ln"> 41 </span>    <span class="punctuation">}</span>
+<span class="ln"> 42 </span><span class="punctuation">};</span>
+<span class="ln"> 43 </span>
+<span class="ln"> 44 </span><span class="comment multiline">/*!rules:re2c
+</span><span class="ln"> 45 </span><span class="comment multiline">    re2c:yyfill:enable = 0;
+</span><span class="ln"> 46 </span><span class="comment multiline">
+</span><span class="ln"> 47 </span><span class="comment multiline">    // letters
+</span><span class="ln"> 48 </span><span class="comment multiline">    l = &quot;\u2830&quot;;
+</span><span class="ln"> 49 </span><span class="comment multiline">    la = &quot;\u2801&quot;; lb = &quot;\u2803&quot;; lc = &quot;\u2809&quot;; ld = &quot;\u2819&quot;; le = &quot;\u2811&quot;;
+</span><span class="ln"> 50 </span><span class="comment multiline">    lf = &quot;\u280b&quot;; lg = &quot;\u281b&quot;; lh = &quot;\u2813&quot;; li = &quot;\u280a&quot;; lj = &quot;\u281a&quot;;
+</span><span class="ln"> 51 </span><span class="comment multiline">    lk = &quot;\u2805&quot;; ll = &quot;\u2807&quot;; lm = &quot;\u280d&quot;; ln = &quot;\u281d&quot;; lo = &quot;\u2815&quot;;
+</span><span class="ln"> 52 </span><span class="comment multiline">    lp = &quot;\u280f&quot;; lq = &quot;\u281f&quot;; lr = &quot;\u2817&quot;; ls = &quot;\u280e&quot;; lt = &quot;\u281e&quot;;
+</span><span class="ln"> 53 </span><span class="comment multiline">    lu = &quot;\u2825&quot;; lv = &quot;\u2827&quot;; lw = &quot;\u283a&quot;; lx = &quot;\u282d&quot;; ly = &quot;\u283d&quot;;
+</span><span class="ln"> 54 </span><span class="comment multiline">    lz = &quot;\u2835&quot;;
+</span><span class="ln"> 55 </span><span class="comment multiline">
+</span><span class="ln"> 56 </span><span class="comment multiline">    // numbers
+</span><span class="ln"> 57 </span><span class="comment multiline">    n = &quot;\u283c&quot;;
+</span><span class="ln"> 58 </span><span class="comment multiline">    n1 = &quot;\u2801&quot;; n2 = &quot;\u2803&quot;; n3 = &quot;\u2809&quot;; n4 = &quot;\u2819&quot;; n5 = &quot;\u2811&quot;;
+</span><span class="ln"> 59 </span><span class="comment multiline">    n6 = &quot;\u280b&quot;; n7 = &quot;\u281b&quot;; n8 = &quot;\u2813&quot;; n9 = &quot;\u280a&quot;; n0 = &quot;\u281a&quot;;
+</span><span class="ln"> 60 </span><span class="comment multiline">
+</span><span class="ln"> 61 </span><span class="comment multiline">    // punctuation
+</span><span class="ln"> 62 </span><span class="comment multiline">    pcom = &quot;\u2802&quot;; psem = &quot;\u2806&quot;; pcln = &quot;\u2812&quot;;
+</span><span class="ln"> 63 </span><span class="comment multiline">    pdot = &quot;\u2832&quot;; pxcl = &quot;\u2816&quot;; pqst = &quot;\u2826&quot;;
+</span><span class="ln"> 64 </span><span class="comment multiline">    past = &quot;\u2814&quot;; pdsh = &quot;\u2804&quot;; phyp = &quot;\u2824&quot;;
+</span><span class="ln"> 65 </span><span class="comment multiline">
+</span><span class="ln"> 66 </span><span class="comment multiline">    // formatting
+</span><span class="ln"> 67 </span><span class="comment multiline">    fcp = &quot;\u2820&quot;; fsp = &quot;\u2800&quot; | &quot;\x20&quot;; fnl = &quot;\n&quot; | &quot;\n\r&quot;;
+</span><span class="ln"> 68 </span><span class="comment multiline">
+</span><span class="ln"> 69 </span><span class="comment multiline">    &lt;*&gt; *      { out.err(); return; }
+</span><span class="ln"> 70 </span><span class="comment multiline">    &lt;*&gt; &quot;\x00&quot; { if (YYCURSOR != in.str + in.len + 1) out.err(); return; }
+</span><span class="ln"> 71 </span><span class="comment multiline">
+</span><span class="ln"> 72 </span><span class="comment multiline">    &lt;*&gt; l :=&gt; l
+</span><span class="ln"> 73 </span><span class="comment multiline">    &lt;l&gt; la { out.prt('a'); goto yyc_l; }
+</span><span class="ln"> 74 </span><span class="comment multiline">    &lt;l&gt; lb { out.prt('b'); goto yyc_l; }
+</span><span class="ln"> 75 </span><span class="comment multiline">    &lt;l&gt; lc { out.prt('c'); goto yyc_l; }
+</span><span class="ln"> 76 </span><span class="comment multiline">    &lt;l&gt; ld { out.prt('d'); goto yyc_l; }
+</span><span class="ln"> 77 </span><span class="comment multiline">    &lt;l&gt; le { out.prt('e'); goto yyc_l; }
+</span><span class="ln"> 78 </span><span class="comment multiline">    &lt;l&gt; lf { out.prt('f'); goto yyc_l; }
+</span><span class="ln"> 79 </span><span class="comment multiline">    &lt;l&gt; lg { out.prt('g'); goto yyc_l; }
+</span><span class="ln"> 80 </span><span class="comment multiline">    &lt;l&gt; lh { out.prt('h'); goto yyc_l; }
+</span><span class="ln"> 81 </span><span class="comment multiline">    &lt;l&gt; li { out.prt('i'); goto yyc_l; }
+</span><span class="ln"> 82 </span><span class="comment multiline">    &lt;l&gt; lj { out.prt('j'); goto yyc_l; }
+</span><span class="ln"> 83 </span><span class="comment multiline">    &lt;l&gt; lk { out.prt('k'); goto yyc_l; }
+</span><span class="ln"> 84 </span><span class="comment multiline">    &lt;l&gt; ll { out.prt('l'); goto yyc_l; }
+</span><span class="ln"> 85 </span><span class="comment multiline">    &lt;l&gt; lm { out.prt('m'); goto yyc_l; }
+</span><span class="ln"> 86 </span><span class="comment multiline">    &lt;l&gt; ln { out.prt('n'); goto yyc_l; }
+</span><span class="ln"> 87 </span><span class="comment multiline">    &lt;l&gt; lo { out.prt('o'); goto yyc_l; }
+</span><span class="ln"> 88 </span><span class="comment multiline">    &lt;l&gt; lp { out.prt('p'); goto yyc_l; }
+</span><span class="ln"> 89 </span><span class="comment multiline">    &lt;l&gt; lq { out.prt('q'); goto yyc_l; }
+</span><span class="ln"> 90 </span><span class="comment multiline">    &lt;l&gt; lr { out.prt('r'); goto yyc_l; }
+</span><span class="ln"> 91 </span><span class="comment multiline">    &lt;l&gt; ls { out.prt('s'); goto yyc_l; }
+</span><span class="ln"> 92 </span><span class="comment multiline">    &lt;l&gt; lt { out.prt('t'); goto yyc_l; }
+</span><span class="ln"> 93 </span><span class="comment multiline">    &lt;l&gt; lu { out.prt('u'); goto yyc_l; }
+</span><span class="ln"> 94 </span><span class="comment multiline">    &lt;l&gt; lv { out.prt('v'); goto yyc_l; }
+</span><span class="ln"> 95 </span><span class="comment multiline">    &lt;l&gt; lw { out.prt('w'); goto yyc_l; }
+</span><span class="ln"> 96 </span><span class="comment multiline">    &lt;l&gt; lx { out.prt('x'); goto yyc_l; }
+</span><span class="ln"> 97 </span><span class="comment multiline">    &lt;l&gt; ly { out.prt('y'); goto yyc_l; }
+</span><span class="ln"> 98 </span><span class="comment multiline">    &lt;l&gt; lz { out.prt('z'); goto yyc_l; }
+</span><span class="ln"> 99 </span><span class="comment multiline">
+</span><span class="ln">100 </span><span class="comment multiline">    &lt;*&gt; n :=&gt; n
+</span><span class="ln">101 </span><span class="comment multiline">    &lt;n&gt; n1 { out.prt('1'); goto yyc_n; }
+</span><span class="ln">102 </span><span class="comment multiline">    &lt;n&gt; n2 { out.prt('2'); goto yyc_n; }
+</span><span class="ln">103 </span><span class="comment multiline">    &lt;n&gt; n3 { out.prt('3'); goto yyc_n; }
+</span><span class="ln">104 </span><span class="comment multiline">    &lt;n&gt; n4 { out.prt('4'); goto yyc_n; }
+</span><span class="ln">105 </span><span class="comment multiline">    &lt;n&gt; n5 { out.prt('5'); goto yyc_n; }
+</span><span class="ln">106 </span><span class="comment multiline">    &lt;n&gt; n6 { out.prt('6'); goto yyc_n; }
+</span><span class="ln">107 </span><span class="comment multiline">    &lt;n&gt; n7 { out.prt('7'); goto yyc_n; }
+</span><span class="ln">108 </span><span class="comment multiline">    &lt;n&gt; n8 { out.prt('8'); goto yyc_n; }
+</span><span class="ln">109 </span><span class="comment multiline">    &lt;n&gt; n9 { out.prt('9'); goto yyc_n; }
+</span><span class="ln">110 </span><span class="comment multiline">    &lt;n&gt; n0 { out.prt('0'); goto yyc_n; }
+</span><span class="ln">111 </span><span class="comment multiline">
+</span><span class="ln">112 </span><span class="comment multiline">    &lt;*&gt; pcom { out.prt(','); goto yyc_l; }
+</span><span class="ln">113 </span><span class="comment multiline">    &lt;*&gt; psem { out.prt(';'); goto yyc_l; }
+</span><span class="ln">114 </span><span class="comment multiline">    &lt;*&gt; pcln { out.prt(':'); goto yyc_l; }
+</span><span class="ln">115 </span><span class="comment multiline">    &lt;*&gt; pdot { out.prt('.'); goto yyc_l; }
+</span><span class="ln">116 </span><span class="comment multiline">    &lt;*&gt; pxcl { out.prt('!'); goto yyc_l; }
+</span><span class="ln">117 </span><span class="comment multiline">    &lt;*&gt; pqst { out.prt('?'); goto yyc_l; }
+</span><span class="ln">118 </span><span class="comment multiline">    &lt;*&gt; past { out.prt('*'); goto yyc_l; }
+</span><span class="ln">119 </span><span class="comment multiline">    &lt;*&gt; pdsh { out.prt('\''); goto yyc_l; }
+</span><span class="ln">120 </span><span class="comment multiline">    &lt;*&gt; phyp { out.prt('-'); goto yyc_l; }
+</span><span class="ln">121 </span><span class="comment multiline">
+</span><span class="ln">122 </span><span class="comment multiline">    &lt;*&gt; fcp { out.caps = true; goto yyc_l; }
+</span><span class="ln">123 </span><span class="comment multiline">    &lt;*&gt; fsp { out.prt(' '); goto yyc_l; }
+</span><span class="ln">124 </span><span class="comment multiline">    &lt;*&gt; fnl { out.prt('\n'); goto yyc_l; }
+</span><span class="ln">125 </span><span class="comment multiline">*/</span>
+<span class="ln">126 </span>
+<span class="ln">127 </span><span class="comment multiline">/*!types:re2c*/</span>
+<span class="ln">128 </span>
+<span class="ln">129 </span><span class="keyword">static</span> <span class="keyword type">void</span> <span class="name function">lex_utf8</span><span class="punctuation">(</span><span class="keyword">const</span> <span class="keyword type">iutf8_t</span> <span class="operator">&amp;</span> <span class="name">in</span><span class="punctuation">)</span>
+<span class="ln">130 </span><span class="punctuation">{</span>
+<span class="ln">131 </span>    <span class="keyword">const</span> <span class="keyword type">unsigned</span> <span class="keyword type">char</span> <span class="operator">*</span><span class="name">YYCURSOR</span> <span class="operator">=</span> <span class="name">in</span><span class="punctuation">.</span><span class="name">str</span><span class="punctuation">;</span>
+<span class="ln">132 </span>    <span class="keyword">const</span> <span class="keyword type">unsigned</span> <span class="keyword type">char</span> <span class="operator">*</span><span class="name">YYMARKER</span><span class="punctuation">;</span>
+<span class="ln">133 </span>    <span class="keyword type">int</span> <span class="name">c</span> <span class="operator">=</span> <span class="name">yycl</span><span class="punctuation">;</span>
+<span class="ln">134 </span>    <span class="keyword type">out_t</span> <span class="name">out</span><span class="punctuation">;</span>
+<span class="ln">135 </span>    <span class="comment multiline">/*!use:re2c
+</span><span class="ln">136 </span><span class="comment multiline">        re2c:define:YYCTYPE = &quot;unsigned char&quot;;
+</span><span class="ln">137 </span><span class="comment multiline">        re2c:define:YYGETCONDITION = &quot;c&quot;;
+</span><span class="ln">138 </span><span class="comment multiline">        re2c:define:YYGETCONDITION:naked = 1;
+</span><span class="ln">139 </span><span class="comment multiline">        re2c:define:YYSETCONDITION = &quot;c = &#64;&#64;;&quot;;
+</span><span class="ln">140 </span><span class="comment multiline">        re2c:define:YYSETCONDITION:naked = 1;
+</span><span class="ln">141 </span><span class="comment multiline">    */</span>
+<span class="ln">142 </span><span class="punctuation">}</span>
+<span class="ln">143 </span>
+<span class="ln">144 </span><span class="keyword">static</span> <span class="keyword type">void</span> <span class="name function">lex_utf16</span><span class="punctuation">(</span><span class="keyword">const</span> <span class="keyword type">iutf16_t</span> <span class="operator">&amp;</span> <span class="name">in</span><span class="punctuation">)</span>
+<span class="ln">145 </span><span class="punctuation">{</span>
+<span class="ln">146 </span>    <span class="keyword">const</span> <span class="keyword type">unsigned</span> <span class="keyword type">short</span> <span class="operator">*</span><span class="name">YYCURSOR</span> <span class="operator">=</span> <span class="name">in</span><span class="punctuation">.</span><span class="name">str</span><span class="punctuation">;</span>
+<span class="ln">147 </span>    <span class="keyword type">int</span> <span class="name">c</span> <span class="operator">=</span> <span class="name">yycl</span><span class="punctuation">;</span>
+<span class="ln">148 </span>    <span class="keyword type">out_t</span> <span class="name">out</span><span class="punctuation">;</span>
+<span class="ln">149 </span>    <span class="comment multiline">/*!use:re2c
+</span><span class="ln">150 </span><span class="comment multiline">        re2c:define:YYCTYPE = &quot;unsigned int&quot;;
+</span><span class="ln">151 </span><span class="comment multiline">        re2c:define:YYGETCONDITION = &quot;c&quot;;
+</span><span class="ln">152 </span><span class="comment multiline">        re2c:define:YYGETCONDITION:naked = 1;
+</span><span class="ln">153 </span><span class="comment multiline">        re2c:define:YYSETCONDITION = &quot;c = &#64;&#64;;&quot;;
+</span><span class="ln">154 </span><span class="comment multiline">        re2c:define:YYSETCONDITION:naked = 1;
+</span><span class="ln">155 </span><span class="comment multiline">        re2c:flags:8 = 0;
+</span><span class="ln">156 </span><span class="comment multiline">        re2c:flags:x = 1;
+</span><span class="ln">157 </span><span class="comment multiline">    */</span>
+<span class="ln">158 </span><span class="punctuation">}</span>
+<span class="ln">159 </span>
+<span class="ln">160 </span><span class="keyword">static</span> <span class="keyword type">void</span> <span class="name function">lex_utf32</span><span class="punctuation">(</span><span class="keyword">const</span> <span class="keyword type">iutf32_t</span> <span class="operator">&amp;</span> <span class="name">in</span><span class="punctuation">)</span>
+<span class="ln">161 </span><span class="punctuation">{</span>
+<span class="ln">162 </span>    <span class="keyword">const</span> <span class="keyword type">unsigned</span> <span class="keyword type">int</span> <span class="operator">*</span><span class="name">YYCURSOR</span> <span class="operator">=</span> <span class="name">in</span><span class="punctuation">.</span><span class="name">str</span><span class="punctuation">;</span>
+<span class="ln">163 </span>    <span class="keyword type">int</span> <span class="name">c</span> <span class="operator">=</span> <span class="name">yycl</span><span class="punctuation">;</span>
+<span class="ln">164 </span>    <span class="keyword type">out_t</span> <span class="name">out</span><span class="punctuation">;</span>
+<span class="ln">165 </span>    <span class="comment multiline">/*!use:re2c
+</span><span class="ln">166 </span><span class="comment multiline">        re2c:define:YYCTYPE = &quot;unsigned int&quot;;
+</span><span class="ln">167 </span><span class="comment multiline">        re2c:define:YYGETCONDITION = &quot;c&quot;;
+</span><span class="ln">168 </span><span class="comment multiline">        re2c:define:YYGETCONDITION:naked = 1;
+</span><span class="ln">169 </span><span class="comment multiline">        re2c:define:YYSETCONDITION = &quot;c = &#64;&#64;;&quot;;
+</span><span class="ln">170 </span><span class="comment multiline">        re2c:define:YYSETCONDITION:naked = 1;
+</span><span class="ln">171 </span><span class="comment multiline">        re2c:flags:x = 0;
+</span><span class="ln">172 </span><span class="comment multiline">        re2c:flags:u = 1;
+</span><span class="ln">173 </span><span class="comment multiline">    */</span>
+<span class="ln">174 </span><span class="punctuation">}</span>
+<span class="ln">175 </span>
+<span class="ln">176 </span><span class="keyword">static</span> <span class="keyword type">void</span> <span class="name function">lex_ucs2</span><span class="punctuation">(</span><span class="keyword">const</span> <span class="keyword type">iucs2_t</span> <span class="operator">&amp;</span> <span class="name">in</span><span class="punctuation">)</span>
+<span class="ln">177 </span><span class="punctuation">{</span>
+<span class="ln">178 </span>    <span class="keyword">const</span> <span class="keyword type">unsigned</span> <span class="keyword type">short</span> <span class="operator">*</span><span class="name">YYCURSOR</span> <span class="operator">=</span> <span class="name">in</span><span class="punctuation">.</span><span class="name">str</span><span class="punctuation">;</span>
+<span class="ln">179 </span>    <span class="keyword type">int</span> <span class="name">c</span> <span class="operator">=</span> <span class="name">yycl</span><span class="punctuation">;</span>
+<span class="ln">180 </span>    <span class="keyword type">out_t</span> <span class="name">out</span><span class="punctuation">;</span>
+<span class="ln">181 </span>    <span class="comment multiline">/*!use:re2c
+</span><span class="ln">182 </span><span class="comment multiline">        re2c:define:YYCTYPE = &quot;unsigned int&quot;;
+</span><span class="ln">183 </span><span class="comment multiline">        re2c:define:YYGETCONDITION = &quot;c&quot;;
+</span><span class="ln">184 </span><span class="comment multiline">        re2c:define:YYGETCONDITION:naked = 1;
+</span><span class="ln">185 </span><span class="comment multiline">        re2c:define:YYSETCONDITION = &quot;c = &#64;&#64;;&quot;;
+</span><span class="ln">186 </span><span class="comment multiline">        re2c:define:YYSETCONDITION:naked = 1;
+</span><span class="ln">187 </span><span class="comment multiline">        re2c:flags:u = 0;
+</span><span class="ln">188 </span><span class="comment multiline">        re2c:flags:w = 1;
+</span><span class="ln">189 </span><span class="comment multiline">    */</span>
+<span class="ln">190 </span><span class="punctuation">}</span>
+<span class="ln">191 </span>
+<span class="ln">192 </span><span class="keyword type">int</span> <span class="name function">main</span><span class="punctuation">()</span>
+<span class="ln">193 </span><span class="punctuation">{</span>
+<span class="ln">194 </span>    <span class="keyword type">FILE</span> <span class="operator">*</span><span class="name">f</span><span class="punctuation">;</span>
+<span class="ln">195 </span>
+<span class="ln">196 </span>    <span class="name">f</span> <span class="operator">=</span> <span class="name">fopen</span><span class="punctuation">(</span><span class="literal string">&quot;06_braille.utf8.txt&quot;</span><span class="punctuation">,</span> <span class="literal string">&quot;rb&quot;</span><span class="punctuation">);</span>
+<span class="ln">197 </span>    <span class="keyword">if</span> <span class="punctuation">(</span><span class="name">f</span><span class="punctuation">)</span> <span class="punctuation">{</span>
+<span class="ln">198 </span>        <span class="name">printf</span><span class="punctuation">(</span><span class="literal string">&quot;utf8:</span><span class="literal string escape">\n</span><span class="literal string">&quot;</span><span class="punctuation">);</span>
+<span class="ln">199 </span>        <span class="keyword type">iutf8_t</span> <span class="name">in</span><span class="punctuation">(</span><span class="name">f</span><span class="punctuation">);</span>
+<span class="ln">200 </span>        <span class="name">lex_utf8</span><span class="punctuation">(</span><span class="name">in</span><span class="punctuation">);</span>
+<span class="ln">201 </span>        <span class="name">fclose</span><span class="punctuation">(</span><span class="name">f</span><span class="punctuation">);</span>
+<span class="ln">202 </span>    <span class="punctuation">}</span>
+<span class="ln">203 </span>
+<span class="ln">204 </span>    <span class="name">f</span> <span class="operator">=</span> <span class="name">fopen</span><span class="punctuation">(</span><span class="literal string">&quot;06_braille.utf16.txt&quot;</span><span class="punctuation">,</span> <span class="literal string">&quot;rb&quot;</span><span class="punctuation">);</span>
+<span class="ln">205 </span>    <span class="keyword">if</span> <span class="punctuation">(</span><span class="name">f</span><span class="punctuation">)</span> <span class="punctuation">{</span>
+<span class="ln">206 </span>        <span class="name">printf</span><span class="punctuation">(</span><span class="literal string">&quot;utf16:</span><span class="literal string escape">\n</span><span class="literal string">&quot;</span><span class="punctuation">);</span>
+<span class="ln">207 </span>        <span class="keyword type">iutf16_t</span> <span class="name">in</span><span class="punctuation">(</span><span class="name">f</span><span class="punctuation">);</span>
+<span class="ln">208 </span>        <span class="name">lex_utf16</span><span class="punctuation">(</span><span class="name">in</span><span class="punctuation">);</span>
+<span class="ln">209 </span>        <span class="name">fclose</span><span class="punctuation">(</span><span class="name">f</span><span class="punctuation">);</span>
+<span class="ln">210 </span>    <span class="punctuation">}</span>
+<span class="ln">211 </span>
+<span class="ln">212 </span>    <span class="name">f</span> <span class="operator">=</span> <span class="name">fopen</span><span class="punctuation">(</span><span class="literal string">&quot;06_braille.utf32.txt&quot;</span><span class="punctuation">,</span> <span class="literal string">&quot;rb&quot;</span><span class="punctuation">);</span>
+<span class="ln">213 </span>    <span class="keyword">if</span> <span class="punctuation">(</span><span class="name">f</span><span class="punctuation">)</span> <span class="punctuation">{</span>
+<span class="ln">214 </span>        <span class="name">printf</span><span class="punctuation">(</span><span class="literal string">&quot;utf32:</span><span class="literal string escape">\n</span><span class="literal string">&quot;</span><span class="punctuation">);</span>
+<span class="ln">215 </span>        <span class="keyword type">iutf32_t</span> <span class="name">in</span><span class="punctuation">(</span><span class="name">f</span><span class="punctuation">);</span>
+<span class="ln">216 </span>        <span class="name">lex_utf32</span><span class="punctuation">(</span><span class="name">in</span><span class="punctuation">);</span>
+<span class="ln">217 </span>        <span class="name">fclose</span><span class="punctuation">(</span><span class="name">f</span><span class="punctuation">);</span>
+<span class="ln">218 </span>    <span class="punctuation">}</span>
+<span class="ln">219 </span>
+<span class="ln">220 </span>    <span class="name">f</span> <span class="operator">=</span> <span class="name">fopen</span><span class="punctuation">(</span><span class="literal string">&quot;06_braille.ucs2.txt&quot;</span><span class="punctuation">,</span> <span class="literal string">&quot;rb&quot;</span><span class="punctuation">);</span>
+<span class="ln">221 </span>    <span class="keyword">if</span> <span class="punctuation">(</span><span class="name">f</span><span class="punctuation">)</span> <span class="punctuation">{</span>
+<span class="ln">222 </span>        <span class="name">printf</span><span class="punctuation">(</span><span class="literal string">&quot;ucs2:</span><span class="literal string escape">\n</span><span class="literal string">&quot;</span><span class="punctuation">);</span>
+<span class="ln">223 </span>        <span class="keyword type">iucs2_t</span> <span class="name">in</span><span class="punctuation">(</span><span class="name">f</span><span class="punctuation">);</span>
+<span class="ln">224 </span>        <span class="name">lex_ucs2</span><span class="punctuation">(</span><span class="name">in</span><span class="punctuation">);</span>
+<span class="ln">225 </span>        <span class="name">fclose</span><span class="punctuation">(</span><span class="name">f</span><span class="punctuation">);</span>
+<span class="ln">226 </span>    <span class="punctuation">}</span>
+<span class="ln">227 </span>
+<span class="ln">228 </span>    <span class="keyword">return</span> <span class="literal number integer">0</span><span class="punctuation">;</span>
+<span class="ln">229 </span><span class="punctuation">}</span>
+</pre>
+<p>Notes:</p>
+<ul class="simple">
+<li>Reuse mode is enabled with <tt class="docutils literal"><span class="pre">-r</span></tt> option.</li>
+<li>In reuse mode re2c expects a single <tt class="docutils literal"><span class="pre">/*!rules:re2c</span> ... */</tt> block
+followed by multiple <tt class="docutils literal"><span class="pre">/*!use:re2c</span> ... */</tt> blocks.
+All blocks can have their own configurations, definitions and rules.</li>
+<li>Encoding can be enabled either with command-line option or with configuration.</li>
+<li>Each encoding needs an appropriate code unit type (<tt class="docutils literal">YYCTYPE</tt>).</li>
+<li>We use conditions to switch between numeric and normal modes.</li>
+</ul>
+<p>Generate, compile and run:</p>
+<pre class="code bash literal-block">
+<span class="name variable">$ </span>re2c -cr8 -o example.cc 06_braille.re
+<span class="name variable">$ </span>g++ -o example example.cc
+<span class="name variable">$ </span>./example
+utf8:
+All human beings are born free and equal in dignity and rights.
+They are endowed with reason and conscience and should act towards
+one another in a spirit of brotherhood.
+
+utf16:
+All human beings are born free and equal in dignity and rights.
+They are endowed with reason and conscience and should act towards
+one another in a spirit of brotherhood.
+
+utf32:
+All human beings are born free and equal in dignity and rights.
+They are endowed with reason and conscience and should act towards
+one another in a spirit of brotherhood.
+
+ucs2:
+All human beings are born free and equal in dignity and rights.
+They are endowed with reason and conscience and should act towards
+one another in a spirit of brotherhood.
+</pre>
+</div>
+<div class="footer">
+<hr class="footer" />
+<a class="reference external" href="../index.html">[home]</a> <a class="reference external" href="examples.html">[Examples]</a>
+</div>
+</body>
+</html>

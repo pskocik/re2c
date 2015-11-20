@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
+<title>Encodings</title>
+<link rel="stylesheet" type="text/css" href="/css/default.css" />
+<link rel="alternate" type="application/atom+xml" href="/feed/atom.xml" title="Atom 1.0" />
+<link rel="icon" href="/favicon.ico" />
+</head>
+<body>
+<div class="header">
+<a class="reference external" href="../../../index.html">[home]</a> <a class="reference external" href="../../manual.html">[Manual]</a> <a class="reference external" href="../features.html">[Features]</a>
+<hr class="header"/>
+</div>
+<div class="document" id="encodings">
+<h1 class="title">Encodings</h1>
+
+<p><tt class="docutils literal">re2c</tt> supports the following encodings: ASCII (default), EBCDIC (<tt class="docutils literal"><span class="pre">-e</span></tt>),
+UCS-2 (<tt class="docutils literal"><span class="pre">-w</span></tt>), UTF-16 (<tt class="docutils literal"><span class="pre">-x</span></tt>), UTF-32 (<tt class="docutils literal"><span class="pre">-u</span></tt>) and UTF-8 (<tt class="docutils literal"><span class="pre">-8</span></tt>).
+See also inplace configuration <tt class="docutils literal">re2c:flags</tt>.</p>
+<p>The following concepts should be clarified when talking about encoding.
+<em>Code point</em> is an abstract number, which represents single encoding
+symbol. <em>Code unit</em> is the smallest unit of memory, which is used in the
+encoded text (it corresponds to one character in the input stream). One
+or more code units can be needed to represent a single code point,
+depending on the encoding. In <em>fixed-length</em> encoding, each code point
+is represented with equal number of code units. In <em>variable-length</em>
+encoding, different code points can be represented with different number
+of code units.</p>
+<ul class="simple">
+<li>ASCII is a fixed-length encoding. Its code space includes 0x100
+code points, from 0 to 0xFF. One code point is represented with exactly one
+1-byte code unit, which has the same value as the code point. Size of
+<tt class="docutils literal">YYCTYPE</tt> must be 1 byte.</li>
+<li>EBCDIC is a fixed-length encoding. Its code space includes 0x100
+code points, from 0 to 0xFF. One code point is represented with exactly
+one 1-byte code unit, which has the same value as the code point. Size
+of <tt class="docutils literal">YYCTYPE</tt> must be 1 byte.</li>
+<li>UCS-2 is a fixed-length encoding. Its code space includes 0x10000
+code points, from 0 to 0xFFFF. One code point is represented with
+exactly one 2-byte code unit, which has the same value as the code
+point. Size of <tt class="docutils literal">YYCTYPE</tt> must be 2 bytes.</li>
+<li>UTF-16 is a variable-length encoding. Its code space includes all
+Unicode code points, from 0 to 0xD7FF and from 0xE000 to 0x10FFFF. One
+code point is represented with one or two 2-byte code units. Size of
+<tt class="docutils literal">YYCTYPE</tt> must be 2 bytes.</li>
+<li>UTF-32 is a fixed-length encoding. Its code space includes all
+Unicode code points, from 0 to 0xD7FF and from 0xE000 to 0x10FFFF. One
+code point is represented with exactly one 4-byte code unit. Size of
+<tt class="docutils literal">YYCTYPE</tt> must be 4 bytes.</li>
+<li>UTF-8 is a variable-length encoding. Its code space includes all
+Unicode code points, from 0 to 0xD7FF and from 0xE000 to 0x10FFFF. One
+code point is represented with sequence of one, two, three or four
+1-byte code units. Size of <tt class="docutils literal">YYCTYPE</tt> must be 1 byte.</li>
+</ul>
+<p>In Unicode, values from range 0xD800 to 0xDFFF (surrogates) are not
+valid Unicode code points, any encoded sequence of code units, that
+would map to Unicode code points in the range 0xD800-0xDFFF, is
+ill-formed. The user can control how <tt class="docutils literal">re2c</tt> treats such ill-formed
+sequences with <tt class="docutils literal"><span class="pre">--encoding-policy</span> &lt;policy&gt;</tt> flag.</p>
+<p>For some encodings, there are code units, that never occur in valid
+encoded stream (e.g. 0xFF byte in UTF-8). If the generated scanner must
+check for invalid input, the only true way to do so is to use default
+rule <tt class="docutils literal">*</tt>. Note, that full range rule <tt class="docutils literal">[^]</tt> won't catch invalid code units when variable-length encoding is used
+(<tt class="docutils literal">[^]</tt> means &quot;all valid code points&quot;, while default rule <tt class="docutils literal">*</tt> means &quot;all possible code units&quot;).</p>
+</div>
+<div class="footer">
+<hr class="footer" />
+<a class="reference external" href="../../../index.html">[home]</a> <a class="reference external" href="../../manual.html">[Manual]</a> <a class="reference external" href="../features.html">[Features]</a>
+</div>
+</body>
+</html>

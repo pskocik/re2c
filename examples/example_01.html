@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
+<title>Recognizing integers: the sentinel method</title>
+<link rel="stylesheet" type="text/css" href="/css/default.css" />
+<link rel="alternate" type="application/atom+xml" href="/feed/atom.xml" title="Atom 1.0" />
+<link rel="icon" href="/favicon.ico" />
+</head>
+<body>
+<div class="header">
+<a class="reference external" href="../index.html">[home]</a> <a class="reference external" href="examples.html">[Examples]</a>
+<hr class="header"/>
+</div>
+<div class="document" id="recognizing-integers-the-sentinel-method">
+<h1 class="title">Recognizing integers: the sentinel method</h1>
+
+<p>This example is very simple, yet practical.
+We assume that the input is small (fits in one continuous piece of memory).
+We also assume that some characters never occur in well-formed input (but may occur in ill-formed input).
+This is often the case in simple real-world tasks like parsing program options,
+converting strings to numbers, determining binary file type based on magic in the first few bytes,
+efficiently switching on a string and many others.
+Our example program simply loops over its commad-line arguments
+and tries to match each argument against one of the four patterns:
+binary, octal, decimal and hexadecimal integer literals.
+The numbers are not <em>parsed</em> (their numeric value is not retrieved), they are merely <em>recognized</em>.</p>
+<p><a class="reference external" href="01_recognizing_integers.re">[01_recognizing_integers.re]</a></p>
+<pre class="code cpp literal-block">
+<span class="ln"> 1 </span><span class="comment preproc">#include &lt;stdio.h&gt;
+</span><span class="ln"> 2 </span><span class="comment preproc"></span>
+<span class="ln"> 3 </span><span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword type">char</span> <span class="operator">*</span><span class="name function">lex</span><span class="punctuation">(</span><span class="keyword">const</span> <span class="keyword type">char</span> <span class="operator">*</span><span class="name">YYCURSOR</span><span class="punctuation">)</span>
+<span class="ln"> 4 </span><span class="punctuation">{</span>
+<span class="ln"> 5 </span>    <span class="keyword">const</span> <span class="keyword type">char</span> <span class="operator">*</span><span class="name">YYMARKER</span><span class="punctuation">;</span>
+<span class="ln"> 6 </span>    <span class="comment multiline">/*!re2c
+</span><span class="ln"> 7 </span><span class="comment multiline">        re2c:define:YYCTYPE = char;
+</span><span class="ln"> 8 </span><span class="comment multiline">        re2c:yyfill:enable = 0;
+</span><span class="ln"> 9 </span><span class="comment multiline">
+</span><span class="ln">10 </span><span class="comment multiline">        end = &quot;\x00&quot;;
+</span><span class="ln">11 </span><span class="comment multiline">        bin = '0b' [01]+;
+</span><span class="ln">12 </span><span class="comment multiline">        oct = &quot;0&quot; [0-7]*;
+</span><span class="ln">13 </span><span class="comment multiline">        dec = [1-9][0-9]*;
+</span><span class="ln">14 </span><span class="comment multiline">        hex = '0x' [0-9a-fA-F]+;
+</span><span class="ln">15 </span><span class="comment multiline">
+</span><span class="ln">16 </span><span class="comment multiline">        *       { return &quot;err&quot;; }
+</span><span class="ln">17 </span><span class="comment multiline">        bin end { return &quot;bin&quot;; }
+</span><span class="ln">18 </span><span class="comment multiline">        oct end { return &quot;oct&quot;; }
+</span><span class="ln">19 </span><span class="comment multiline">        dec end { return &quot;dec&quot;; }
+</span><span class="ln">20 </span><span class="comment multiline">        hex end { return &quot;hex&quot;; }
+</span><span class="ln">21 </span><span class="comment multiline">    */</span>
+<span class="ln">22 </span><span class="punctuation">}</span>
+<span class="ln">23 </span>
+<span class="ln">24 </span><span class="keyword type">int</span> <span class="name function">main</span><span class="punctuation">(</span><span class="keyword type">int</span> <span class="name">argc</span><span class="punctuation">,</span> <span class="keyword type">char</span> <span class="operator">**</span><span class="name">argv</span><span class="punctuation">)</span>
+<span class="ln">25 </span><span class="punctuation">{</span>
+<span class="ln">26 </span>    <span class="keyword">for</span> <span class="punctuation">(</span><span class="keyword type">int</span> <span class="name">i</span> <span class="operator">=</span> <span class="literal number integer">1</span><span class="punctuation">;</span> <span class="name">i</span> <span class="operator">&lt;</span> <span class="name">argc</span><span class="punctuation">;</span> <span class="operator">++</span><span class="name">i</span><span class="punctuation">)</span> <span class="punctuation">{</span>
+<span class="ln">27 </span>        <span class="name">printf</span> <span class="punctuation">(</span><span class="literal string">&quot;%s: %s</span><span class="literal string escape">\n</span><span class="literal string">&quot;</span><span class="punctuation">,</span> <span class="name">lex</span><span class="punctuation">(</span><span class="name">argv</span><span class="punctuation">[</span><span class="name">i</span><span class="punctuation">]),</span> <span class="name">argv</span><span class="punctuation">[</span><span class="name">i</span><span class="punctuation">]);</span>
+<span class="ln">28 </span>    <span class="punctuation">}</span>
+<span class="ln">29 </span>    <span class="keyword">return</span> <span class="literal number integer">0</span><span class="punctuation">;</span>
+<span class="ln">30 </span><span class="punctuation">}</span>
+</pre>
+<p>A couple of things should be noted:</p>
+<ul class="simple">
+<li>Default case (when none of the rules matched) is handled properly with <tt class="docutils literal">*</tt> rule (line 16).
+<strong>Never forget to handle default case, otherwise control flow in lexer will be undefined for some input strings.</strong>
+Use <a class="reference external" href="../manual/warnings/undefined_control_flow/wundefined_control_flow.html">[-Wundefined-control-flow]</a> re2c warning:
+it will warn you about unhandled default case and show input patterns that are not covered by the rules.</li>
+<li>We use the <em>sentinel</em> method to stop at the end of input (<tt class="docutils literal">re2c:yyfill:enable = 0;</tt> at line 8).
+Sentinel is a special character that can never occur in well-formed input.
+It is appended to the end of input and serves as a stop signal for the lexer.
+In out case sentinel is <tt class="docutils literal">NULL</tt>: all arguments are <tt class="docutils literal">NULL</tt>-terminated and none of the rules matches <tt class="docutils literal">NULL</tt> in the middle.
+Lexer will inevitably stop when it sees <tt class="docutils literal">NULL</tt>.
+Note that we make no assumptions about the input, it may contain any characters.
+<strong>But do make sure that the sentinel character is not allowed in the middle of a rule.</strong></li>
+<li><tt class="docutils literal">YYMARKER</tt> (line 5) is needed because rules overlap:
+it backups input position of the longest successful match.
+Say, we have overlapping rules <tt class="docutils literal">&quot;a&quot;</tt> and <tt class="docutils literal">&quot;abc&quot;</tt> and input string <tt class="docutils literal">&quot;abd&quot;</tt>:
+by the time <tt class="docutils literal">&quot;a&quot;</tt> matches there's still a chance to match <tt class="docutils literal">&quot;abc&quot;</tt>,
+but when lexer sees <tt class="docutils literal">'d'</tt> it must rollback.
+(You might wonder why <tt class="docutils literal">YYMARKER</tt> is exposed at all: why not make it a local variable like <tt class="docutils literal">yych</tt>?
+The reason is, all input pointers must be updated by <tt class="docutils literal">YYFILL</tt>
+as explained in <a class="reference external" href="example_03.html">Arbitrary large input and YYFILL</a> example.)</li>
+</ul>
+<p>Generate, compile and run:</p>
+<pre class="code bash literal-block">
+<span class="name variable">$ </span>re2c -o example.cc 01_recognizing_integers.re
+<span class="name variable">$ </span>g++ -o example example.cc
+<span class="name variable">$ </span>./example <span class="literal number">0</span> <span class="literal number">12345678901234567890</span> 0xAbcDEf 0x00 <span class="literal number">007</span> 0B0 0b110101010 0x 0b ? <span class="literal string double">&quot;&quot;</span>
+oct: 0
+dec: 12345678901234567890
+hex: 0xAbcDEf
+hex: 0x00
+oct: 007
+bin: 0B0
+bin: 0b110101010
+err: 0x
+err: 0b
+err: ?
+err:
+</pre>
+</div>
+<div class="footer">
+<hr class="footer" />
+<a class="reference external" href="../index.html">[home]</a> <a class="reference external" href="examples.html">[Examples]</a>
+</div>
+</body>
+</html>

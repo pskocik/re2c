@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+    <title>re2c</title>
+    <link rel="self" href="http://re2c.org/feed/atom.xml"/>
+    <id>http://re2c.org/</id>
+    <updated>2015-11-14T19:40:00Z</updated>
+
+</feed>

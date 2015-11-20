@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
+<title>Real-world examples</title>
+<link rel="stylesheet" type="text/css" href="/css/default.css" />
+<link rel="alternate" type="application/atom+xml" href="/feed/atom.xml" title="Atom 1.0" />
+<link rel="icon" href="/favicon.ico" />
+</head>
+<body>
+<div class="document" id="real-world-examples">
+<h1 class="title">Real-world examples</h1>
+
+<p>Many real-world examples deal with preprocessed input,
+so they make strong assumptions about the input form or character set.
+These assumptions may or may not be valid under certain circumstances;
+however, double-check won't hurt.
+Even it you are absolutely sure that default case is impossible, do handle it.
+<strong>It adds no overhead.</strong>
+No additional checks and transitions.
+It simply binds code to default label.</p>
+<p>I found <tt class="docutils literal"><span class="pre">[-Wundefined-control-flow]</span></tt> warnings in many real-world programs (including re2c own lexer).
+Mostly these are minor issues like forgetting to handle newlines or zeroes in already preprocessed input,
+but it's curious how they creeped into the code.
+I bet they were just forgotten and not omitted for a good reason. <tt class="docutils literal">:)</tt></p>
+</div>
+</body>
+</html>

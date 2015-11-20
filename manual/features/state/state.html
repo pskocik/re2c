@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
+<title>State</title>
+<link rel="stylesheet" type="text/css" href="/css/default.css" />
+<link rel="alternate" type="application/atom+xml" href="/feed/atom.xml" title="Atom 1.0" />
+<link rel="icon" href="/favicon.ico" />
+</head>
+<body>
+<div class="header">
+<a class="reference external" href="../../../index.html">[home]</a> <a class="reference external" href="../../manual.html">[Manual]</a> <a class="reference external" href="../features.html">[Features]</a>
+<hr class="header"/>
+</div>
+<div class="document" id="state">
+<h1 class="title">State</h1>
+
+<p>When the <tt class="docutils literal"><span class="pre">-f</span></tt> flag is specified, <tt class="docutils literal">re2c</tt> generates a scanner that can
+store its current state, return to the caller, and later resume
+operations exactly where it left off.</p>
+<p>The default operation of <tt class="docutils literal">re2c</tt> is a
+&quot;pull&quot; model, where the scanner asks for extra input whenever it needs it. However, this mode of operation assumes that the scanner is the &quot;owner&quot;
+the parsing loop, and that may not always be convenient.</p>
+<p>Typically, if there is a preprocessor ahead of the scanner in the
+stream, or for that matter any other procedural source of data, the
+scanner cannot &quot;ask&quot; for more data unless both scanner and source
+live in a separate threads.</p>
+<p>The <tt class="docutils literal"><span class="pre">-f</span></tt> flag is useful for just this situation: it lets users design
+scanners that work in a &quot;push&quot; model, i.e. where data is fed to the
+scanner chunk by chunk. When the scanner runs out of data to consume, it
+just stores its state, and return to the caller. When more input data is
+fed to the scanner, it resumes operations exactly where it left off.</p>
+<p>Changes needed compared to the &quot;pull&quot; model:</p>
+<ul class="simple">
+<li>User has to supply macros <tt class="docutils literal">YYSETSTATE ()</tt> and <tt class="docutils literal">YYGETSTATE (state)</tt>.</li>
+<li>The <tt class="docutils literal"><span class="pre">-f</span></tt> option inhibits declaration of <tt class="docutils literal">yych</tt> and <tt class="docutils literal">yyaccept</tt>. So the
+user has to declare these. Also the user has to save and restore these.
+In the example <tt class="docutils literal">examples/push_model/push.re</tt> these are declared as
+fields of the (C++) class of which the scanner is a method, so they do
+not need to be saved/restored explicitly. For C they could e.g. be made
+macros that select fields from a structure passed in as parameter.
+Alternatively, they could be declared as local variables, saved with
+<tt class="docutils literal">YYFILL (n)</tt> when it decides to return and restored at entry to the
+function. Also, it could be more efficient to save the state from
+<tt class="docutils literal">YYFILL (n)</tt> because <tt class="docutils literal">YYSETSTATE (state)</tt> is called unconditionally.
+<tt class="docutils literal">YYFILL (n)</tt> however does not get <tt class="docutils literal">state</tt> as parameter, so we would have
+to store state in a local variable by <tt class="docutils literal">YYSETSTATE (state)</tt>.</li>
+<li>Modify <tt class="docutils literal">YYFILL (n)</tt> to return (from the function calling it) if more input is needed.</li>
+<li>Modify caller to recognise if more input is needed and respond appropriately.</li>
+<li>The generated code will contain a switch block that is used to
+restores the last state by jumping behind the corrspoding <tt class="docutils literal">YYFILL (n)</tt>
+call. This code is automatically generated in the epilog of the first <tt class="docutils literal"><span class="pre">/*!re2c</span> */</tt>
+block. It is possible to trigger generation of the <tt class="docutils literal">YYGETSTATE ()</tt>
+block earlier by placing a <tt class="docutils literal"><span class="pre">/*!getstate:re2c*/</span></tt> comment. This is especially useful when the scanner code should be
+wrapped inside a loop.</li>
+</ul>
+<p>Please see <tt class="docutils literal">examples/push_model/push.re</tt> for &quot;push&quot; model scanner. The
+generated code can be tweaked using inplace configurations <tt class="docutils literal">state:abort</tt>
+and <tt class="docutils literal">state:nextlabel</tt>.</p>
+</div>
+<div class="footer">
+<hr class="footer" />
+<a class="reference external" href="../../../index.html">[home]</a> <a class="reference external" href="../../manual.html">[Manual]</a> <a class="reference external" href="../features.html">[Features]</a>
+</div>
+</body>
+</html>
