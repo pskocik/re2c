@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
+<title>Release 0.15</title>
+<link rel="stylesheet" type="text/css" href="/css/default.css" />
+<link rel="alternate" type="application/atom+xml" href="/feed/atom.xml" title="Atom 1.0" />
+<link rel="icon" href="/favicon.ico" />
+</head>
+<body>
+<div class="header">
+<a class="reference external" href="../../index.html">[home]</a> <a class="reference external" href="../news.html">[News]</a>
+<hr class="header"/>
+</div>
+<div class="document" id="release-0-15">
+<h1 class="title">Release 0.15</h1>
+
+<p>This release started out in spring 2015 as a relatively simple code cleanup.</p>
+<p>I focused on the following problem: re2c used to repeat the whole generation process multiple times.
+Some parts of the generated program depend on the overall input statistics;
+they cannot be generated until the whole input has been processed.
+The usual way is to make stubs for all such things and fix them later.
+Instead, re2c used to process the whole input, gather statistics,
+discard the generated output and regenerate it from scratch.
+Moreover, each generation pass further duplicated certain calculations (for similar reasons).
+As a result code generation phase was repeated four times.</p>
+<p>The problem here is not inefficiency: re2c is fast enough to allow 4x overhead.
+The real problem is the complexity of code: you have to think of multiple execution layers all the time.
+Some parts of code are only executed on certain layers and affect each other.
+Simple reasoning gets really hard.</p>
+<p>So the main purpose of this release was to simplify code and make it easier to fix bugs and add new features.
+However, very soon I realized that some changes in code generation are hard to verify by hand.
+For example, even a minor rebalancing of <tt class="docutils literal">if</tt> and <tt class="docutils literal">switch</tt> statements
+may change the generated code significantly.
+In search of an automatic verification tool I encountered the idea of generating <a class="reference external" href="../../manual/features/skeleton/skeleton.html">skeleton</a> programs.</p>
+<p>Meanwhile I just couldn't help adding <a class="reference external" href="../../manual/warnings/warnings.html">warnings</a>,
+updating build system and fixing various bugs.
+A heart-warming consequence of code simplification is that re2c now uses re2c more extensively:
+not only the main program, but also command-line options, inplace configurations
+and all kinds of escaped strings are parsed with re2c.
+l also updated the website (feel free to suggest improvements).</p>
+<p>Here is the list of all changes:</p>
+<ul>
+<li><dl class="first docutils">
+<dt>Updated website <a class="reference external" href="http://re2c.org">http://re2c.org</a>:</dt>
+<dd><ul class="first last simple">
+<li>added examples</li>
+<li>updated docs</li>
+<li>added news</li>
+<li>added web feed (Atom 1.0)</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Added options:</dt>
+<dd><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">-S,</span> <span class="pre">--skeleton</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">--empty-class</span> <span class="pre">&lt;match-empty</span> | <span class="pre">match-none</span> | error&gt;</tt></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Added warnings:</dt>
+<dd><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">-W</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">-Werror</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">-W&lt;warning&gt;</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">-Wno-&lt;warning&gt;</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">-Werror-&lt;warning&gt;</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">-Wno-error-&lt;warning&gt;</span></tt></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Added individual warnings:</dt>
+<dd><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">-Wundefined-control-flow</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">-Wunreachable-rules</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">-Wcondition-order</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">-Wuseless-escape</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">-Wempty-character-class</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">-Wswapped-range</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">-Wmatch-empty-string</span></tt></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Fixed options:</dt>
+<dd><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">--</span></tt> (interpret remaining arguments as non-options)</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Deprecated options:</dt>
+<dd><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">-1</span> <span class="pre">--single-pass</span></tt> (single pass is by default now)</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first">Reduced size of the generated <tt class="docutils literal">.dot</tt> files.</p>
+</li>
+<li><dl class="first docutils">
+<dt>Fixed bugs:</dt>
+<dd><ul class="first last simple">
+<li>#27 re2c crashes reading files containing <tt class="docutils literal">%{ %}</tt> (patch by Rui)</li>
+<li>#51 default rule doesn't work in reuse mode</li>
+<li>#52 eliminate multiple passes</li>
+<li>#59 bogus <tt class="docutils literal">yyaccept</tt> in <tt class="docutils literal"><span class="pre">-c</span></tt> mode</li>
+<li>#60 redundant use of <tt class="docutils literal">YYMARKER</tt></li>
+<li>#61 empty character class <tt class="docutils literal">[]</tt> matches empty string</li>
+<li>#115 flex-style named definitions cause ambiguity in re2c grammar</li>
+<li>#119 <tt class="docutils literal"><span class="pre">-f</span></tt> with <tt class="docutils literal"><span class="pre">-b</span></tt>/<tt class="docutils literal"><span class="pre">-g</span></tt> generates incorrect dispatch on fill labels</li>
+<li>#116 empty string with non-empty trailing context consumes code units</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Added test options:</dt>
+<dd><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">-j</span></tt>, <tt class="docutils literal"><span class="pre">-j</span> &lt;N&gt;</tt> (run tests in <tt class="docutils literal">N</tt> threads, defaults to the number of CPUs)</li>
+<li><tt class="docutils literal"><span class="pre">--wine</span></tt> (test windows builds using <tt class="docutils literal">wine</tt>)</li>
+<li><tt class="docutils literal"><span class="pre">--skeleton</span></tt> (generate skeleton programs, compile and execute them)</li>
+<li><tt class="docutils literal"><span class="pre">--keep-tmp-files</span></tt> (don't delete intermediate files for successful tests)</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Updated build system:</dt>
+<dd><ul class="first last simple">
+<li>support out of source builds</li>
+<li>support <tt class="docutils literal">`make distcheck`</tt></li>
+<li>added <tt class="docutils literal">`make bootstrap`</tt> (rebuild re2c after building with precomplied <tt class="docutils literal">.re</tt> files)</li>
+<li>added <tt class="docutils literal">`make tests`</tt> (run tests with <tt class="docutils literal"><span class="pre">-j</span></tt>)</li>
+<li>added <tt class="docutils literal">`make vtests`</tt> (run tests with <tt class="docutils literal"><span class="pre">--valgrind</span> <span class="pre">-j</span></tt>)</li>
+<li>added <tt class="docutils literal">`make wtests`</tt> (run tests with <tt class="docutils literal"><span class="pre">--wine</span> <span class="pre">-j</span> 1</tt>)</li>
+<li>added Autoconf tests for <tt class="docutils literal">CXXFLAGS</tt>. By default try the following options:
+<tt class="docutils literal"><span class="pre">-W</span> <span class="pre">-Wall</span> <span class="pre">-Wextra</span> <span class="pre">-Weffc++</span> <span class="pre">-pedantic</span> <span class="pre">-Wformat=2</span> <span class="pre">-Wredundant-decls</span> <span class="pre">-Wsuggest-attribute=format</span> <span class="pre">-Wconversion</span> <span class="pre">-Wsign-conversion</span> <span class="pre">-O2</span> <span class="pre">-Weverything</span></tt>),
+respect user-defined <tt class="docutils literal">CXXFLAGS</tt></li>
+<li>support Mingw builds: <tt class="docutils literal">`configure <span class="pre">-host</span> <span class="pre">i686-w64-mingw32`</span></tt></li>
+<li>structured source files</li>
+<li>removed old MSVC files</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first">Moved development to github (<a class="reference external" href="https://github.com/skvadrik/re2c">https://github.com/skvadrik/re2c</a>), keep a mirror on sourceforge.</p>
+</li>
+</ul>
+</div>
+<div class="footer">
+<hr class="footer" />
+<a class="reference external" href="../../index.html">[home]</a> <a class="reference external" href="../news.html">[News]</a>
+</div>
+</body>
+</html>
