@@ -1,53 +1,103 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
-<title>Warnings</title>
-<link rel="stylesheet" type="text/css" href="/css/default.css" />
-<link rel="alternate" type="application/atom+xml" href="/feed/atom.xml" title="Atom 1.0" />
-<link rel="icon" href="/favicon.ico" />
-</head>
-<body>
-<div class="header">
-<a class="reference external" href="../../index.html">[home]</a> <a class="reference external" href="../manual.html">[Manual]</a>
-<hr class="header"/>
-</div>
-<div class="document" id="warnings">
-<h1 class="title">Warnings</h1>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<p>★</p>
-<ul class="simple">
-<li><a class="reference external" href="undefined_control_flow/wundefined_control_flow.html">[-Wundefined-control-flow]</a></li>
-<li><a class="reference external" href="unreachable_rules/wunreachable_rules.html">[-Wunreachable-rules]</a></li>
-<li><a class="reference external" href="condition_order/wcondition_order.html">[-Wcondition-order]</a></li>
-<li><a class="reference external" href="useless_escape/wuseless_escape.html">[-Wuseless-escape]</a></li>
-<li><a class="reference external" href="swapped_range/wswapped_range.html">[-Wswapped-range]</a></li>
-<li><a class="reference external" href="empty_character_class/wempty_character_class.html">[-Wempty-character-class]</a></li>
-<li><a class="reference external" href="match_empty_string/wmatch_empty_string.html">[-Wmatch-empty-string]</a></li>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Warnings &mdash; re2c 0.16 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/theme-re2c.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.16',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="alternate" type="application/atom+xml" href="../../_static/feed/atom.xml" title="Atom 1.0" />
+    
+ 
+  </head>
+  <body role="document">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="re2c-logo">
+    re2c-0.16
+</div>
+
+<h3><a href="../../index.html">Home</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../about/about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install/install.html">Install</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../manual.html">Manual</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../options/options.html">Options</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Warnings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="undefined_control_flow/wundefined_control_flow.html">[-Wundefined-control-flow]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="unreachable_rules/wunreachable_rules.html">[-Wunreachable-rules]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="condition_order/wcondition_order.html">[-Wcondition-order]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="useless_escape/wuseless_escape.html">[-Wuseless-escape]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swapped_range/wswapped_range.html">[-Wswapped-range]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="empty_character_class/wempty_character_class.html">[-Wempty-character-class]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="match_empty_string/wmatch_empty_string.html">[-Wmatch-empty-string]</a></li>
 </ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../syntax/syntax.html">Syntax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/features.html">Features</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../news/news.html">News</a></li>
+</ul>
+
+
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="warnings">
+<h1>Warnings<a class="headerlink" href="#warnings" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
 <dl class="docutils">
-<dt><tt class="docutils literal"><span class="pre">-W</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">-W</span></code></dt>
 <dd>Turn on all warnings.</dd>
-<dt><tt class="docutils literal"><span class="pre">-Werror</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">-Werror</span></code></dt>
 <dd>Turn warnings into errors. Note that this option along
-doesn't turn on any warnings, it only affects those warnings that have
+doesn&#8217;t turn on any warnings, it only affects those warnings that have
 been turned on so far or will be turned on later.</dd>
-<dt><tt class="docutils literal"><span class="pre">-W&lt;warning&gt;</span></tt></dt>
-<dd>Turn on individual <tt class="docutils literal">warning</tt>.</dd>
-<dt><tt class="docutils literal"><span class="pre">-Wno-&lt;warning&gt;</span></tt></dt>
-<dd>Turn off individual <tt class="docutils literal">warning</tt>.</dd>
-<dt><tt class="docutils literal"><span class="pre">-Werror-&lt;warning&gt;</span></tt></dt>
-<dd>Turn on individual <tt class="docutils literal">warning</tt> and treat it as error (this implies <tt class="docutils literal"><span class="pre">-W&lt;warning&gt;</span></tt>).</dd>
-<dt><tt class="docutils literal"><span class="pre">-Wno-error-&lt;warning&gt;</span></tt></dt>
-<dd>Don't treat this particular <tt class="docutils literal">warning</tt> as error. This doesn't turn off
+<dt><code class="docutils literal"><span class="pre">-W&lt;warning&gt;</span></code></dt>
+<dd>Turn on individual <code class="docutils literal"><span class="pre">warning</span></code>.</dd>
+<dt><code class="docutils literal"><span class="pre">-Wno-&lt;warning&gt;</span></code></dt>
+<dd>Turn off individual <code class="docutils literal"><span class="pre">warning</span></code>.</dd>
+<dt><code class="docutils literal"><span class="pre">-Werror-&lt;warning&gt;</span></code></dt>
+<dd>Turn on individual <code class="docutils literal"><span class="pre">warning</span></code> and treat it as error (this implies <code class="docutils literal"><span class="pre">-W&lt;warning&gt;</span></code>).</dd>
+<dt><code class="docutils literal"><span class="pre">-Wno-error-&lt;warning&gt;</span></code></dt>
+<dd>Don&#8217;t treat this particular <code class="docutils literal"><span class="pre">warning</span></code> as error. This doesn&#8217;t turn off
 the warning itself.</dd>
 </dl>
 </div>
-<div class="footer">
-<hr class="footer" />
-<a class="reference external" href="../../index.html">[home]</a> <a class="reference external" href="../manual.html">[Manual]</a>
-</div>
-</body>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer" role="contentinfo">
+      Last updated on Mar 03, 2016.
+    </div>
+  </body>
 </html>

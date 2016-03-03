@@ -1,45 +1,112 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
-<title>Install</title>
-<link rel="stylesheet" type="text/css" href="/css/default.css" />
-<link rel="alternate" type="application/atom+xml" href="/feed/atom.xml" title="Atom 1.0" />
-<link rel="icon" href="/favicon.ico" />
-</head>
-<body>
-<div class="header">
-<a class="reference external" href="../index.html">[home]</a>
-<hr class="header"/>
-</div>
-<div class="document" id="install">
-<h1 class="title">Install</h1>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<div class="contents topic" id="id2">
-<p class="topic-title first">★</p>
-<ul class="simple">
-<li><a class="reference internal" href="#download" id="id3">Download</a><ul>
-<li><a class="reference internal" href="#tarballs" id="id4">Tarballs</a></li>
-<li><a class="reference internal" href="#sources" id="id5">Sources</a></li>
-<li><a class="reference internal" href="#distributions" id="id6">Distributions</a></li>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Install &mdash; re2c 0.16 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/theme-re2c.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.16',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="alternate" type="application/atom+xml" href="../_static/feed/atom.xml" title="Atom 1.0" />
+    
+ 
+  </head>
+  <body role="document">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="re2c-logo">
+    re2c-0.16
+</div>
+
+<h3><a href="../index.html">Home</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../about/about.html">About</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Install</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#download">Download</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tarballs">Tarballs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sources">Sources</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#distributions">Distributions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#linux">Linux</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bsd">BSD</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#build" id="id7">Build</a><ul>
-<li><a class="reference internal" href="#simple" id="id8">Simple</a></li>
-<li><a class="reference internal" href="#bootstrap" id="id9">Bootstrap</a></li>
-<li><a class="reference internal" href="#out-of-source" id="id10">Out-of-source</a></li>
-<li><a class="reference internal" href="#windows" id="id11">Windows</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#test" id="id12">Test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#build">Build</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#simple">Simple</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bootstrap">Bootstrap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#out-of-source">Out-of-source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#windows">Windows</a></li>
 </ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#test">Test</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/manual.html">Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../news/news.html">News</a></li>
+</ul>
+
+    <h3>Install</h3>
+    <div class="re2c-toc-local">
+        <ul>
+<li><a class="reference internal" href="#">Install</a><ul>
+<li><a class="reference internal" href="#download">Download</a><ul>
+<li><a class="reference internal" href="#tarballs">Tarballs</a></li>
+<li><a class="reference internal" href="#sources">Sources</a></li>
+<li><a class="reference internal" href="#distributions">Distributions</a><ul>
+<li><a class="reference internal" href="#linux">Linux</a></li>
+<li><a class="reference internal" href="#bsd">BSD</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#build">Build</a><ul>
+<li><a class="reference internal" href="#simple">Simple</a></li>
+<li><a class="reference internal" href="#bootstrap">Bootstrap</a></li>
+<li><a class="reference internal" href="#out-of-source">Out-of-source</a></li>
+<li><a class="reference internal" href="#windows">Windows</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#test">Test</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="install">
+<h1>Install<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
 </div>
 <div class="section" id="download">
-<h1>Download</h1>
+<h2>Download<a class="headerlink" href="#download" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="tarballs">
-<h2>Tarballs</h2>
+<h3>Tarballs<a class="headerlink" href="#tarballs" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><a class="reference external" href="https://github.com/skvadrik/re2c/releases/download/0.16/re2c-0.16.tar.gz">re2c-0.16.tar.gz</a></li>
 <li><a class="reference external" href="https://github.com/skvadrik/re2c/releases/download/0.15.3/re2c-0.15.3.tar.gz">re2c-0.15.3.tar.gz</a></li>
@@ -48,23 +115,26 @@
 <li><a class="reference external" href="https://github.com/skvadrik/re2c/releases/download/0.13.6/re2c-0.13.6.tar.gz">re2c-0.13.6.tar.gz</a></li>
 <li><a class="reference external" href="http://sourceforge.net/projects/re2c/files/re2c/0.13.5/re2c-0.13.5.tar.gz/download">re2c-0.13.5.tar.gz</a></li>
 </ul>
+<p>You can find other releases <a class="reference external" href="https://sourceforge.net/projects/re2c/files/old/">here</a>
+(but be aware that they are hidden for a good reason:
+most of them contain bugs that have been fixed in the next minor release).</p>
 </div>
 <div class="section" id="sources">
-<h2>Sources</h2>
+<h3>Sources<a class="headerlink" href="#sources" title="Permalink to this headline">¶</a></h3>
 <p>re2c is hosted on <a class="reference external" href="https://github.com/skvadrik/re2c">github</a>:</p>
-<pre class="code bash literal-block">
-<span class="name variable">$ </span>git clone git&#64;github.com:skvadrik/re2c.git re2c
-</pre>
-<p>There's also a mirror on <a class="reference external" href="https://sourceforge.net/p/re2c/code-git/ci/master/tree/">sourceforge</a>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git clone git@github.com:skvadrik/re2c.git re2c
+</pre></div>
+</div>
+<p>There&#8217;s also a mirror on <a class="reference external" href="https://sourceforge.net/p/re2c/code-git/ci/master/tree/">sourceforge</a>
 (should be in sync with github):</p>
-<pre class="code bash literal-block">
-<span class="name variable">$ </span>git clone ssh://git.code.sf.net/p/re2c/code-git re2c
-</pre>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git clone ssh://git.code.sf.net/p/re2c/code-git re2c
+</pre></div>
+</div>
 </div>
 <div class="section" id="distributions">
-<h2>Distributions</h2>
+<h3>Distributions<a class="headerlink" href="#distributions" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="linux">
-<h3>Linux</h3>
+<h4>Linux<a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li><a class="reference external" href="http://www.sisyphus.ru/ru/srpm/Sisyphus/re2c">Alt</a></li>
 <li><a class="reference external" href="https://www.archlinux.org/packages/extra/x86_64/re2c">Arch</a></li>
@@ -82,7 +152,7 @@
 can be found on <a class="reference external" href="http://pkgs.org/download/re2c">pkgs.org</a>.</p>
 </div>
 <div class="section" id="bsd">
-<h3>BSD</h3>
+<h4>BSD<a class="headerlink" href="#bsd" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li><a class="reference external" href="http://macappstore.org/re2c/">Apple Mac OS X</a></li>
 <li><a class="reference external" href="http://www.freebsd.org/cgi/ports.cgi?query=re2c">FreeBSD</a></li>
@@ -93,81 +163,87 @@ can be found on <a class="reference external" href="http://pkgs.org/download/re2
 </div>
 </div>
 <div class="section" id="build">
-<h1>Build</h1>
+<h2>Build<a class="headerlink" href="#build" title="Permalink to this headline">¶</a></h2>
 <p>You only need C++98 compier to build re2c from tarball.
 If you have bison, re2c will use it (otherwise it will use precompiled files).</p>
 <p>If you are building re2c from source (not from tarball), you will also need autotools:</p>
-<pre class="code bash literal-block">
-<span class="name variable">$ </span>./autogen.sh
-</pre>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>./autogen.sh
+</pre></div>
+</div>
 <div class="section" id="simple">
-<h2>Simple</h2>
-<p>This will install re2c (binary and manpage) to <tt class="docutils literal">prefix</tt> (<tt class="docutils literal">/usr/local</tt> by default):</p>
-<pre class="code bash literal-block">
-<span class="name variable">$ </span>./configure <span class="operator">[</span>--prefix<span class="operator">=</span>&lt;prefix&gt;<span class="operator">]</span>
-<span class="name variable">$ </span>make
-<span class="name variable">$ </span>make install
-</pre>
+<h3>Simple<a class="headerlink" href="#simple" title="Permalink to this headline">¶</a></h3>
+<p>This will install re2c (binary and manpage) to <code class="docutils literal"><span class="pre">prefix</span></code> (<code class="docutils literal"><span class="pre">/usr/local</span></code> by default):</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>./configure <span class="o">[</span>--prefix<span class="o">=</span>&lt;prefix&gt;<span class="o">]</span>
+<span class="nv">$ </span>make
+<span class="nv">$ </span>make install
+</pre></div>
+</div>
 </div>
 <div class="section" id="bootstrap">
-<h2>Bootstrap</h2>
+<h3>Bootstrap<a class="headerlink" href="#bootstrap" title="Permalink to this headline">¶</a></h3>
 <p>Some parts of re2c (lexers and parser of command-line options) are written in re2c.
 These files are precompiled and packaged into re2c distribution (so that re2c can be built without re2c).
 However, one can fully bootstrap re2c:</p>
-<pre class="code bash literal-block">
-<span class="name variable">$ </span>make bootstrap
-</pre>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>make bootstrap
+</pre></div>
+</div>
 </div>
 <div class="section" id="out-of-source">
-<h2>Out-of-source</h2>
+<h3>Out-of-source<a class="headerlink" href="#out-of-source" title="Permalink to this headline">¶</a></h3>
 <p>re2c supports out-of-source builds:</p>
-<pre class="code bash literal-block">
-<span class="name variable">$ </span>mkdir builddir <span class="operator">&amp;&amp;</span> <span class="name builtin">cd </span>builddir
-<span class="name variable">$ </span>../configure <span class="operator">[</span>--prefix<span class="operator">=</span>&lt;prefix&gt;<span class="operator">]</span>
-<span class="name variable">$ </span>make
-<span class="name variable">$ </span>make install
-</pre>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>mkdir builddir <span class="o">&amp;&amp;</span> <span class="nb">cd </span>builddir
+<span class="nv">$ </span>../configure <span class="o">[</span>--prefix<span class="o">=</span>&lt;prefix&gt;<span class="o">]</span>
+<span class="nv">$ </span>make
+<span class="nv">$ </span>make install
+</pre></div>
+</div>
 </div>
 <div class="section" id="windows">
-<h2>Windows</h2>
+<h3>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h3>
 <p>If you intend to use re2c on Windows, you can either
 use <a class="reference external" href="https://cygwin.com/">cygwin</a>
 or build re2c with <a class="reference external" href="http://mingw.org/">mingw</a>:</p>
-<pre class="code bash literal-block">
-<span class="name variable">$ </span>./configure --host i686-w64-mingw32  <span class="operator">[</span>--prefix<span class="operator">=</span>&lt;prefix&gt;<span class="operator">]</span>
-<span class="name variable">$ </span>make
-<span class="name variable">$ </span>make install
-</pre>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>./configure --host i686-w64-mingw32  <span class="o">[</span>--prefix<span class="o">=</span>&lt;prefix&gt;<span class="o">]</span>
+<span class="nv">$ </span>make
+<span class="nv">$ </span>make install
+</pre></div>
+</div>
 <p>(mingw builds are supported and tested regularly).</p>
 </div>
 </div>
 <div class="section" id="test">
-<h1>Test</h1>
+<h2>Test<a class="headerlink" href="#test" title="Permalink to this headline">¶</a></h2>
 <p>re2c has a main test suite and a couple of small tests. Run them all:</p>
-<pre class="code bash literal-block">
-<span class="name variable">$ </span>make check
-</pre>
-<p>Or run only the main test suite (and watch progress dumped to <tt class="docutils literal">stdout</tt>):</p>
-<pre class="code bash literal-block">
-<span class="name variable">$ </span>make tests
-</pre>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>make check
+</pre></div>
+</div>
+<p>Or run only the main test suite (and watch progress dumped to <code class="docutils literal"><span class="pre">stdout</span></code>):</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>make tests
+</pre></div>
+</div>
 <p>Run test suite under <a class="reference external" href="http://valgrind.org/">valgrind</a> (takes a long time):</p>
-<pre class="code bash literal-block">
-<span class="name variable">$ </span>make vtests
-</pre>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>make vtests
+</pre></div>
+</div>
 <p>Test mingw builds with <a class="reference external" href="https://www.winehq.org/">wine</a>:</p>
-<pre class="code bash literal-block">
-<span class="name variable">$ </span>make wtests
-</pre>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>make wtests
+</pre></div>
+</div>
 <p>Check the distribution:</p>
-<pre class="code bash literal-block">
-<span class="name variable">$ </span>make distcheck
-</pre>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>make distcheck
+</pre></div>
 </div>
 </div>
-<div class="footer">
-<hr class="footer" />
-<a class="reference external" href="../index.html">[home]</a>
 </div>
-</body>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer" role="contentinfo">
+      Last updated on Mar 03, 2016.
+    </div>
+  </body>
 </html>

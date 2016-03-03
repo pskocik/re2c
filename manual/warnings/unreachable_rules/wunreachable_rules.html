@@ -1,219 +1,387 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
-<title>[-Wunreachable-rules]</title>
-<link rel="stylesheet" type="text/css" href="/css/default.css" />
-<link rel="alternate" type="application/atom+xml" href="/feed/atom.xml" title="Atom 1.0" />
-<link rel="icon" href="/favicon.ico" />
-</head>
-<body>
-<div class="header">
-<a class="reference external" href="../../../index.html">[home]</a> <a class="reference external" href="../../manual.html">[Manual]</a> <a class="reference external" href="../warnings.html">[Warnings]</a>
-<hr class="header"/>
-</div>
-<div class="document" id="wunreachable-rules">
-<h1 class="title">[-Wunreachable-rules]</h1>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<div class="contents topic" id="id3">
-<p class="topic-title first">★</p>
-<ul class="simple">
-<li><a class="reference internal" href="#a-simple-example" id="id4">A simple example</a></li>
-<li><a class="reference internal" href="#infinite-rules" id="id5">Infinite rules</a></li>
-<li><a class="reference internal" href="#how-it-works" id="id6">How it works</a></li>
-<li><a class="reference internal" href="#real-world-examples" id="id7">Real-world examples</a></li>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>[-Wunreachable-rules] &mdash; re2c 0.16 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/theme-re2c.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.16',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="alternate" type="application/atom+xml" href="../../../_static/feed/atom.xml" title="Atom 1.0" />
+    
+ 
+  </head>
+  <body role="document">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="re2c-logo">
+    re2c-0.16
+</div>
+
+<h3><a href="../../../index.html">Home</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../about/about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install/install.html">Install</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../manual.html">Manual</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../options/options.html">Options</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../warnings.html">Warnings</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../undefined_control_flow/wundefined_control_flow.html">[-Wundefined-control-flow]</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="">[-Wunreachable-rules]</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#a-simple-example">A simple example</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#infinite-rules">Infinite rules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#how-it-works">How it works</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#real-world-examples">Real-world examples</a></li>
 </ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../condition_order/wcondition_order.html">[-Wcondition-order]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../useless_escape/wuseless_escape.html">[-Wuseless-escape]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../swapped_range/wswapped_range.html">[-Wswapped-range]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../empty_character_class/wempty_character_class.html">[-Wempty-character-class]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../match_empty_string/wmatch_empty_string.html">[-Wmatch-empty-string]</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../syntax/syntax.html">Syntax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../features/features.html">Features</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../news/news.html">News</a></li>
+</ul>
+
+    <h3>[-Wunreachable-rules]</h3>
+    <div class="re2c-toc-local">
+        <ul>
+<li><a class="reference internal" href="#">[-Wunreachable-rules]</a><ul>
+<li><a class="reference internal" href="#a-simple-example">A simple example</a></li>
+<li><a class="reference internal" href="#infinite-rules">Infinite rules</a></li>
+<li><a class="reference internal" href="#how-it-works">How it works</a></li>
+<li><a class="reference internal" href="#real-world-examples">Real-world examples</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="wunreachable-rules">
+<h1>[-Wunreachable-rules]<a class="headerlink" href="#wunreachable-rules" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
 </div>
 <div class="section" id="a-simple-example">
-<h1>A simple example</h1>
-<pre class="code cpp literal-block">
-<span class="ln">1 </span><span class="comment multiline">/*!re2c
-</span><span class="ln">2 </span><span class="comment multiline">    &quot;&quot;          { return &quot;&quot;; }
-</span><span class="ln">3 </span><span class="comment multiline">    *           { return &quot;*&quot;; }
-</span><span class="ln">4 </span><span class="comment multiline">    &quot;a&quot; | &quot;b&quot;   { return &quot;a | b&quot;; }
-</span><span class="ln">5 </span><span class="comment multiline">    &quot;a&quot;         { return &quot;a&quot;; }
-</span><span class="ln">6 </span><span class="comment multiline">    [\x00-\xFF] { return &quot;[0 - 0xFF]&quot;; }
-</span><span class="ln">7 </span><span class="comment multiline">    [^]         { return &quot;[^]&quot;; }
-</span><span class="ln">8 </span><span class="comment multiline">*/</span>
-</pre>
-<p>Given this strange code, <tt class="docutils literal">`re2c <span class="pre">-i</span> <span class="pre">-Wunreachable-rules`</span></tt> says:</p>
-<pre class="code literal-block">
-re2c: warning: line 2: unreachable rule (shadowed by rules at lines 4, 6) [-Wunreachable-rules]
+<h2>A simple example<a class="headerlink" href="#a-simple-example" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-cpp"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span class="cm">/*!re2c</span>
+<span class="cm">    &quot;&quot;          { return &quot;&quot;; }</span>
+<span class="cm">    *           { return &quot;*&quot;; }</span>
+<span class="cm">    &quot;a&quot; | &quot;b&quot;   { return &quot;a | b&quot;; }</span>
+<span class="cm">    &quot;a&quot;         { return &quot;a&quot;; }</span>
+<span class="cm">    [\x00-\xFF] { return &quot;[0 - 0xFF]&quot;; }</span>
+<span class="cm">    [^]         { return &quot;[^]&quot;; }</span>
+<span class="cm">*/</span>
+</pre></div>
+</td></tr></table></div>
+<p>Given this strange code, <code class="docutils literal"><span class="pre">`re2c</span> <span class="pre">-i</span> <span class="pre">-Wunreachable-rules`</span></code> says:</p>
+<div class="highlight-none"><div class="highlight"><pre>re2c: warning: line 2: unreachable rule (shadowed by rules at lines 4, 6) [-Wunreachable-rules]
 re2c: warning: line 5: unreachable rule (shadowed by rule at line 4) [-Wunreachable-rules]
 re2c: warning: line 7: unreachable rule (shadowed by rule at line 6) [-Wunreachable-rules]
-</pre>
+</pre></div>
+</div>
 <p>A look at the generated code suggests that re2c was right:</p>
-<pre class="code cpp literal-block">
-<span class="ln"> 1 </span><span class="comment multiline">/* Generated by re2c 0.14.1.dev on Fri Nov  6 15:21:36 2015*/</span>
-<span class="ln"> 2 </span>
-<span class="ln"> 3 </span><span class="punctuation">{</span>
-<span class="ln"> 4 </span>        <span class="name">YYCTYPE</span> <span class="name">yych</span><span class="punctuation">;</span>
-<span class="ln"> 5 </span>        <span class="keyword">if</span> <span class="punctuation">(</span><span class="name">YYLIMIT</span> <span class="operator">&lt;=</span> <span class="name">YYCURSOR</span><span class="punctuation">)</span> <span class="name">YYFILL</span><span class="punctuation">(</span><span class="literal number integer">1</span><span class="punctuation">);</span>
-<span class="ln"> 6 </span>        <span class="name">yych</span> <span class="operator">=</span> <span class="operator">*</span><span class="name">YYCURSOR</span><span class="punctuation">;</span>
-<span class="ln"> 7 </span>        <span class="keyword">switch</span> <span class="punctuation">(</span><span class="name">yych</span><span class="punctuation">)</span> <span class="punctuation">{</span>
-<span class="ln"> 8 </span>        <span class="keyword">case</span> <span class="literal string char">'a'</span><span class="operator">:</span>       <span class="keyword">goto</span> <span class="name">yy5</span><span class="punctuation">;</span>
-<span class="ln"> 9 </span>        <span class="keyword">case</span> <span class="literal string char">'b'</span><span class="operator">:</span>       <span class="keyword">goto</span> <span class="name">yy7</span><span class="punctuation">;</span>
-<span class="ln">10 </span>        <span class="keyword">default</span><span class="operator">:</span>        <span class="keyword">goto</span> <span class="name">yy3</span><span class="punctuation">;</span>
-<span class="ln">11 </span>        <span class="punctuation">}</span>
-<span class="ln">12 </span>        <span class="punctuation">{</span> <span class="keyword">return</span> <span class="literal string">&quot;&quot;</span><span class="punctuation">;</span> <span class="punctuation">}</span>
-<span class="ln">13 </span><span class="name label">yy3</span><span class="punctuation">:</span>
-<span class="ln">14 </span>        <span class="operator">++</span><span class="name">YYCURSOR</span><span class="punctuation">;</span>
-<span class="ln">15 </span>        <span class="punctuation">{</span> <span class="keyword">return</span> <span class="literal string">&quot;[0 - 0xFF]&quot;</span><span class="punctuation">;</span> <span class="punctuation">}</span>
-<span class="ln">16 </span><span class="name label">yy5</span><span class="punctuation">:</span>
-<span class="ln">17 </span>        <span class="operator">++</span><span class="name">YYCURSOR</span><span class="punctuation">;</span>
-<span class="ln">18 </span><span class="name label">yy6</span><span class="punctuation">:</span>
-<span class="ln">19 </span>        <span class="punctuation">{</span> <span class="keyword">return</span> <span class="literal string">&quot;a | b&quot;</span><span class="punctuation">;</span> <span class="punctuation">}</span>
-<span class="ln">20 </span><span class="name label">yy7</span><span class="punctuation">:</span>
-<span class="ln">21 </span>        <span class="operator">++</span><span class="name">YYCURSOR</span><span class="punctuation">;</span>
-<span class="ln">22 </span>        <span class="name">yych</span> <span class="operator">=</span> <span class="operator">*</span><span class="name">YYCURSOR</span><span class="punctuation">;</span>
-<span class="ln">23 </span>        <span class="keyword">goto</span> <span class="name">yy6</span><span class="punctuation">;</span>
-<span class="ln">24 </span><span class="punctuation">}</span>
-</pre>
+<div class="highlight-cpp"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24</pre></div></td><td class="code"><div class="highlight"><pre><span class="cm">/* Generated by re2c 0.14.1.dev on Fri Nov  6 15:21:36 2015*/</span>
+
+<span class="p">{</span>
+        <span class="n">YYCTYPE</span> <span class="n">yych</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">YYLIMIT</span> <span class="o">&lt;=</span> <span class="n">YYCURSOR</span><span class="p">)</span> <span class="n">YYFILL</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+        <span class="n">yych</span> <span class="o">=</span> <span class="o">*</span><span class="n">YYCURSOR</span><span class="p">;</span>
+        <span class="k">switch</span> <span class="p">(</span><span class="n">yych</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="sc">&#39;a&#39;</span><span class="o">:</span>       <span class="k">goto</span> <span class="n">yy5</span><span class="p">;</span>
+        <span class="k">case</span> <span class="sc">&#39;b&#39;</span><span class="o">:</span>       <span class="k">goto</span> <span class="n">yy7</span><span class="p">;</span>
+        <span class="k">default</span><span class="o">:</span>        <span class="k">goto</span> <span class="n">yy3</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="p">{</span> <span class="k">return</span> <span class="s">&quot;&quot;</span><span class="p">;</span> <span class="p">}</span>
+<span class="nl">yy3</span><span class="p">:</span>
+        <span class="o">++</span><span class="n">YYCURSOR</span><span class="p">;</span>
+        <span class="p">{</span> <span class="k">return</span> <span class="s">&quot;[0 - 0xFF]&quot;</span><span class="p">;</span> <span class="p">}</span>
+<span class="nl">yy5</span><span class="p">:</span>
+        <span class="o">++</span><span class="n">YYCURSOR</span><span class="p">;</span>
+<span class="nl">yy6</span><span class="p">:</span>
+        <span class="p">{</span> <span class="k">return</span> <span class="s">&quot;a | b&quot;</span><span class="p">;</span> <span class="p">}</span>
+<span class="nl">yy7</span><span class="p">:</span>
+        <span class="o">++</span><span class="n">YYCURSOR</span><span class="p">;</span>
+        <span class="n">yych</span> <span class="o">=</span> <span class="o">*</span><span class="n">YYCURSOR</span><span class="p">;</span>
+        <span class="k">goto</span> <span class="n">yy6</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
 <p>Clearly, all the reported rules are unreachable (some of them are not even present in the generated code).
-Default rule <tt class="docutils literal">*</tt> at line 3 is also unreachable, but re2c appreciates paranoid attempts
+Default rule <code class="docutils literal"><span class="pre">*</span></code> at line 3 is also unreachable, but re2c appreciates paranoid attempts
 to handle default case and never reports unreachable default rule.</p>
 </div>
 <div class="section" id="infinite-rules">
-<h1>Infinite rules</h1>
+<h2>Infinite rules<a class="headerlink" href="#infinite-rules" title="Permalink to this headline">¶</a></h2>
 <p>A rule may be unreachable all by itself, without being shadowed by other rules:</p>
-<pre class="code cpp literal-block">
-<span class="ln">1 </span><span class="comment multiline">/*!re2c
-</span><span class="ln">2 </span><span class="comment multiline">    [^]* { return &quot;greeedy&quot;; }
-</span><span class="ln">3 </span><span class="comment multiline">*/</span>
-</pre>
+<div class="highlight-cpp"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span class="cm">/*!re2c</span>
+<span class="cm">    [^]* { return &quot;greeedy&quot;; }</span>
+<span class="cm">*/</span>
+</pre></div>
+</td></tr></table></div>
 <p>This rule is so greedy that it never stops.
-It will continue eating input until <tt class="docutils literal">YYFILL</tt> finally fails (<tt class="docutils literal">`re2c <span class="pre">-i</span> <span class="pre">-Wunreachable-rules`</span></tt>):</p>
-<pre class="code cpp literal-block">
-<span class="ln"> 1 </span><span class="comment multiline">/* Generated by re2c 0.14.1.dev on Fri Nov  6 21:36:56 2015*/</span>
-<span class="ln"> 2 </span>
-<span class="ln"> 3 </span><span class="punctuation">{</span>
-<span class="ln"> 4 </span>        <span class="name">YYCTYPE</span> <span class="name">yych</span><span class="punctuation">;</span>
-<span class="ln"> 5 </span>        <span class="keyword">goto</span> <span class="name">yy0</span><span class="punctuation">;</span>
-<span class="ln"> 6 </span><span class="name label">yy1</span><span class="punctuation">:</span>
-<span class="ln"> 7 </span>        <span class="operator">++</span><span class="name">YYCURSOR</span><span class="punctuation">;</span>
-<span class="ln"> 8 </span><span class="name label">yy0</span><span class="punctuation">:</span>
-<span class="ln"> 9 </span>        <span class="keyword">if</span> <span class="punctuation">(</span><span class="name">YYLIMIT</span> <span class="operator">&lt;=</span> <span class="name">YYCURSOR</span><span class="punctuation">)</span> <span class="name">YYFILL</span><span class="punctuation">(</span><span class="literal number integer">1</span><span class="punctuation">);</span>
-<span class="ln">10 </span>        <span class="name">yych</span> <span class="operator">=</span> <span class="operator">*</span><span class="name">YYCURSOR</span><span class="punctuation">;</span>
-<span class="ln">11 </span>        <span class="keyword">goto</span> <span class="name">yy1</span><span class="punctuation">;</span>
-<span class="ln">12 </span>        <span class="punctuation">{</span> <span class="keyword">return</span> <span class="literal string">&quot;greeedy&quot;</span><span class="punctuation">;</span> <span class="punctuation">}</span>
-<span class="ln">13 </span><span class="punctuation">}</span>
-</pre>
-<p>And if we suppress <tt class="docutils literal">YYFILL</tt> generation with <tt class="docutils literal">re2c:yyfill:enable = 0;</tt>,
+It will continue eating input until <code class="docutils literal"><span class="pre">YYFILL</span></code> finally fails (<code class="docutils literal"><span class="pre">`re2c</span> <span class="pre">-i</span> <span class="pre">-Wunreachable-rules`</span></code>):</p>
+<div class="highlight-cpp"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</pre></div></td><td class="code"><div class="highlight"><pre><span class="cm">/* Generated by re2c 0.14.1.dev on Fri Nov  6 21:36:56 2015*/</span>
+
+<span class="p">{</span>
+        <span class="n">YYCTYPE</span> <span class="n">yych</span><span class="p">;</span>
+        <span class="k">goto</span> <span class="n">yy0</span><span class="p">;</span>
+<span class="nl">yy1</span><span class="p">:</span>
+        <span class="o">++</span><span class="n">YYCURSOR</span><span class="p">;</span>
+<span class="nl">yy0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">YYLIMIT</span> <span class="o">&lt;=</span> <span class="n">YYCURSOR</span><span class="p">)</span> <span class="n">YYFILL</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+        <span class="n">yych</span> <span class="o">=</span> <span class="o">*</span><span class="n">YYCURSOR</span><span class="p">;</span>
+        <span class="k">goto</span> <span class="n">yy1</span><span class="p">;</span>
+        <span class="p">{</span> <span class="k">return</span> <span class="s">&quot;greeedy&quot;</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<p>And if we suppress <code class="docutils literal"><span class="pre">YYFILL</span></code> generation with <code class="docutils literal"><span class="pre">re2c:yyfill:enable</span> <span class="pre">=</span> <span class="pre">0;</span></code>,
 lexer will loop until segfault or another disaster forces its untimely shutdown
-(unless you use <tt class="docutils literal"><span class="pre">--input-api</span> custom</tt> and do some magic to stop it).
+(unless you use <code class="docutils literal"><span class="pre">--input-api</span> <span class="pre">custom</span></code> and do some magic to stop it).
 And re2c warns us:</p>
-<pre class="code literal-block">
-re2c: warning: line 2: unreachable rule  [-Wunreachable-rules]
-</pre>
-<p>All rules that include <tt class="docutils literal"><span class="pre">[^]*</span></tt> (or any component isomorphic to <tt class="docutils literal"><span class="pre">[^]*</span></tt>) are also infinite.</p>
+<div class="highlight-none"><div class="highlight"><pre>re2c: warning: line 2: unreachable rule  [-Wunreachable-rules]
+</pre></div>
+</div>
+<p>All rules that include <code class="docutils literal"><span class="pre">[^]*</span></code> (or any component isomorphic to <code class="docutils literal"><span class="pre">[^]*</span></code>) are also infinite.</p>
 </div>
 <div class="section" id="how-it-works">
-<h1>How it works</h1>
+<h2>How it works<a class="headerlink" href="#how-it-works" title="Permalink to this headline">¶</a></h2>
 <p>For each state of the generated DFA re2c calculates the set of all rules reachable from this state
 (including default rule and no rule at all).
 The algorithm starts with initial state and recurses to child states.
 Recursion stops if either current state is final (then its set is trivial)
 or the set for current state has already been calculated.
-Thus each state is processed only once and the algorithm has <tt class="docutils literal">O(n)</tt> complexity
-(where <tt class="docutils literal">n</tt> is the number of states in DFA).
+Thus each state is processed only once and the algorithm has <code class="docutils literal"><span class="pre">O(n)</span></code> complexity
+(where <code class="docutils literal"><span class="pre">n</span></code> is the number of states in DFA).
 When all the sets have been calculated, re2c checks that the set of rules
 reachable from each accepting state includes either accepted rule or no rule at all.</p>
-<p>Analyses is done regardless of the <tt class="docutils literal"><span class="pre">-Wunreachable-rules</span></tt> option,
+<p>Analyses is done regardless of the <code class="docutils literal"><span class="pre">-Wunreachable-rules</span></code> option,
 the option only controls if the warning is reported or not.</p>
 </div>
 <div class="section" id="real-world-examples">
-<h1>Real-world examples</h1>
-<p>In many real-world examples re2c reports unreachable <tt class="docutils literal">[^]</tt> rule,
-which is quite understandable: <tt class="docutils literal">[^]</tt> served as default rule long before
-the true default rule <tt class="docutils literal">*</tt> was added to re2c.
+<h2>Real-world examples<a class="headerlink" href="#real-world-examples" title="Permalink to this headline">¶</a></h2>
+<p>In many real-world examples re2c reports unreachable <code class="docutils literal"><span class="pre">[^]</span></code> rule,
+which is quite understandable: <code class="docutils literal"><span class="pre">[^]</span></code> served as default rule long before
+the true default rule <code class="docutils literal"><span class="pre">*</span></code> was added to re2c.
 However, in some cases the warning is quite interesting.
 Here is an example of a real-world lexer (all the non-re2c code has beed removed):</p>
-<pre class="code cpp literal-block">
-<span class="ln"> 1 </span><span class="comment multiline">/*!re2c
-</span><span class="ln"> 2 </span><span class="comment multiline">    re2c:yyfill:check = 0;
-</span><span class="ln"> 3 </span><span class="comment multiline">
-</span><span class="ln"> 4 </span><span class="comment multiline">    LNUM                [0-9]+
-</span><span class="ln"> 5 </span><span class="comment multiline">    DNUM                ([0-9]*[\.][0-9]+)|([0-9]+[\.][0-9]*)
-</span><span class="ln"> 6 </span><span class="comment multiline">    NUMBER              [-]?{LNUM}|{DNUM}
-</span><span class="ln"> 7 </span><span class="comment multiline">    ANY_CHAR            (.|[\n\t])
-</span><span class="ln"> 8 </span><span class="comment multiline">    NEWLINE             (&quot;\r&quot;|&quot;\n&quot;|&quot;\r\n&quot;)
-</span><span class="ln"> 9 </span><span class="comment multiline">    TABS_AND_SPACES     [ \t]
-</span><span class="ln">10 </span><span class="comment multiline">    WHITESPACE          [ \t]+
-</span><span class="ln">11 </span><span class="comment multiline">    CONSTANT            [a-zA-Z_][a-zA-Z0-9_]*
-</span><span class="ln">12 </span><span class="comment multiline">    LABEL               [^=\n\r\t;&amp;|^$~(){}!&quot;\[]+
-</span><span class="ln">13 </span><span class="comment multiline">    TOKENS              [:,.\[\]&quot;'()&amp;|^+-/*=%$!~&lt;&gt;?&#64;{}]
-</span><span class="ln">14 </span><span class="comment multiline">    OPERATORS           [&amp;|^~()!]
-</span><span class="ln">15 </span><span class="comment multiline">    DOLLAR_CURLY        &quot;${&quot;
-</span><span class="ln">16 </span><span class="comment multiline">    SECTION_RAW_CHARS   [^\]\n\r]
-</span><span class="ln">17 </span><span class="comment multiline">    SINGLE_QUOTED_CHARS [^']
-</span><span class="ln">18 </span><span class="comment multiline">    RAW_VALUE_CHARS     [^\n\r;\000]
-</span><span class="ln">19 </span><span class="comment multiline">    LITERAL_DOLLAR      (&quot;$&quot;([^{\000]|(&quot;\\&quot;{ANY_CHAR})))
-</span><span class="ln">20 </span><span class="comment multiline">    VALUE_CHARS         ([^$= \t\n\r;&amp;|^~()!&quot;'\000]|{LITERAL_DOLLAR})
-</span><span class="ln">21 </span><span class="comment multiline">    SECTION_VALUE_CHARS ([^$\n\r;&quot;'\]\\]|(&quot;\\&quot;{ANY_CHAR})|{LITERAL_DOLLAR})
-</span><span class="ln">22 </span><span class="comment multiline">
-</span><span class="ln">23 </span><span class="comment multiline">    &lt;INITIAL&gt;&quot;[&quot; {}
-</span><span class="ln">24 </span><span class="comment multiline">    &lt;ST_VALUE,ST_SECTION_VALUE,ST_OFFSET&gt;&quot;'&quot;{SINGLE_QUOTED_CHARS}+&quot;'&quot; {}
-</span><span class="ln">25 </span><span class="comment multiline">    &lt;ST_SECTION_RAW,ST_SECTION_VALUE&gt;&quot;]&quot;{TABS_AND_SPACES}*{NEWLINE}? {}
-</span><span class="ln">26 </span><span class="comment multiline">    &lt;INITIAL&gt;{LABEL}&quot;[&quot;{TABS_AND_SPACES}* {}
-</span><span class="ln">27 </span><span class="comment multiline">    &lt;ST_OFFSET&gt;{TABS_AND_SPACES}*&quot;]&quot; {}
-</span><span class="ln">28 </span><span class="comment multiline">    &lt;ST_DOUBLE_QUOTES,ST_SECTION_VALUE,ST_VALUE,ST_OFFSET&gt;{DOLLAR_CURLY} {}
-</span><span class="ln">29 </span><span class="comment multiline">    &lt;ST_VARNAME&gt;{LABEL} {}
-</span><span class="ln">30 </span><span class="comment multiline">    &lt;ST_VARNAME&gt;&quot;}&quot; {}
-</span><span class="ln">31 </span><span class="comment multiline">    &lt;INITIAL,ST_VALUE&gt;(&quot;true&quot;|&quot;on&quot;|&quot;yes&quot;){TABS_AND_SPACES}* {}
-</span><span class="ln">32 </span><span class="comment multiline">    &lt;INITIAL,ST_VALUE&gt;(&quot;false&quot;|&quot;off&quot;|&quot;no&quot;|&quot;none&quot;){TABS_AND_SPACES}* {}
-</span><span class="ln">33 </span><span class="comment multiline">    &lt;INITIAL,ST_VALUE&gt;(&quot;null&quot;){TABS_AND_SPACES}* {}
-</span><span class="ln">34 </span><span class="comment multiline">    &lt;INITIAL&gt;{LABEL} {}
-</span><span class="ln">35 </span><span class="comment multiline">    &lt;INITIAL&gt;{TABS_AND_SPACES}*[=]{TABS_AND_SPACES}* {}
-</span><span class="ln">36 </span><span class="comment multiline">    &lt;ST_RAW&gt;{RAW_VALUE_CHARS} {}
-</span><span class="ln">37 </span><span class="comment multiline">    &lt;ST_SECTION_RAW&gt;{SECTION_RAW_CHARS}+ {}
-</span><span class="ln">38 </span><span class="comment multiline">    &lt;ST_VALUE,ST_RAW&gt;{TABS_AND_SPACES}*{NEWLINE} {}
-</span><span class="ln">39 </span><span class="comment multiline">    &lt;ST_SECTION_VALUE,ST_VALUE,ST_OFFSET&gt;{CONSTANT} {}
-</span><span class="ln">40 </span><span class="comment multiline">    &lt;ST_SECTION_VALUE,ST_VALUE,ST_OFFSET&gt;{NUMBER} {}
-</span><span class="ln">41 </span><span class="comment multiline">    &lt;INITIAL&gt;{TOKENS} {}
-</span><span class="ln">42 </span><span class="comment multiline">    &lt;ST_VALUE&gt;{OPERATORS}{TABS_AND_SPACES}* {}
-</span><span class="ln">43 </span><span class="comment multiline">    &lt;ST_VALUE&gt;[=] {}
-</span><span class="ln">44 </span><span class="comment multiline">    &lt;ST_VALUE&gt;{VALUE_CHARS}+ {}
-</span><span class="ln">45 </span><span class="comment multiline">    &lt;ST_SECTION_VALUE,ST_OFFSET&gt;{SECTION_VALUE_CHARS}+ {}
-</span><span class="ln">46 </span><span class="comment multiline">    &lt;ST_SECTION_VALUE,ST_VALUE,ST_OFFSET&gt;{TABS_AND_SPACES}*[&quot;] {}
-</span><span class="ln">47 </span><span class="comment multiline">    &lt;ST_DOUBLE_QUOTES&gt;[&quot;]{TABS_AND_SPACES}* {}
-</span><span class="ln">48 </span><span class="comment multiline">    &lt;ST_DOUBLE_QUOTES&gt;[^] {}
-</span><span class="ln">49 </span><span class="comment multiline">    &lt;ST_SECTION_VALUE,ST_VALUE,ST_OFFSET&gt;{WHITESPACE} {}
-</span><span class="ln">50 </span><span class="comment multiline">    &lt;INITIAL,ST_RAW&gt;{TABS_AND_SPACES}+ {}
-</span><span class="ln">51 </span><span class="comment multiline">    &lt;INITIAL&gt;{TABS_AND_SPACES}*{NEWLINE} {}
-</span><span class="ln">52 </span><span class="comment multiline">    &lt;INITIAL,ST_VALUE,ST_RAW&gt;{TABS_AND_SPACES}*[;][^\r\n]*{NEWLINE} {}
-</span><span class="ln">53 </span><span class="comment multiline">    &lt;ST_VALUE,ST_RAW&gt;[^] {}
-</span><span class="ln">54 </span><span class="comment multiline">    &lt;*&gt;[^] {}
-</span><span class="ln">55 </span><span class="comment multiline">*/</span>
-</pre>
-<p><tt class="docutils literal">`re2c <span class="pre">-cF</span> <span class="pre">-Wunreachable-rules`</span></tt> says:</p>
-<pre class="code literal-block">
-re2c: warning: line 54: unreachable rule in condition 'ST_DOUBLE_QUOTES' (shadowed by rules at lines 47, 48) [-Wunreachable-rules]
-re2c: warning: line 49: unreachable rule in condition 'ST_OFFSET' (shadowed by rule at line 45) [-Wunreachable-rules]
-re2c: warning: line 54: unreachable rule in condition 'ST_RAW' (shadowed by rules at lines 36, 38, 53) [-Wunreachable-rules]
-re2c: warning: line 49: unreachable rule in condition 'ST_SECTION_VALUE' (shadowed by rule at line 45) [-Wunreachable-rules]
-re2c: warning: line 54: unreachable rule in condition 'ST_VALUE' (shadowed by rules at lines 38, 39, 40, 42, 43, 44, 46, 49, 53) [-Wunreachable-rules]
-</pre>
-<p>The interesting part is the unreachable rule on line 49 in conditions <tt class="docutils literal">ST_OFFSET</tt> and <tt class="docutils literal">ST_SECTION_VALUE</tt>.
-The rule is <tt class="docutils literal">{WHITESPACE}</tt>:</p>
-<pre class="code literal-block">
-WHITESPACE [ \t]+
-</pre>
-<p>re2c claims that it is shadowed by the rule on line 45, which is <tt class="docutils literal">{SECTION_VALUE_CHARS}+</tt>:</p>
-<pre class="code literal-block">
-ANY_CHAR            (.|[\n\t])
+<div class="highlight-cpp"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55</pre></div></td><td class="code"><div class="highlight"><pre><span class="cm">/*!re2c</span>
+<span class="cm">    re2c:yyfill:check = 0;</span>
+
+<span class="cm">    LNUM                [0-9]+</span>
+<span class="cm">    DNUM                ([0-9]*[\.][0-9]+)|([0-9]+[\.][0-9]*)</span>
+<span class="cm">    NUMBER              [-]?{LNUM}|{DNUM}</span>
+<span class="cm">    ANY_CHAR            (.|[\n\t])</span>
+<span class="cm">    NEWLINE             (&quot;\r&quot;|&quot;\n&quot;|&quot;\r\n&quot;)</span>
+<span class="cm">    TABS_AND_SPACES     [ \t]</span>
+<span class="cm">    WHITESPACE          [ \t]+</span>
+<span class="cm">    CONSTANT            [a-zA-Z_][a-zA-Z0-9_]*</span>
+<span class="cm">    LABEL               [^=\n\r\t;&amp;|^$~(){}!&quot;\[]+</span>
+<span class="cm">    TOKENS              [:,.\[\]&quot;&#39;()&amp;|^+-/*=%$!~&lt;&gt;?@{}]</span>
+<span class="cm">    OPERATORS           [&amp;|^~()!]</span>
+<span class="cm">    DOLLAR_CURLY        &quot;${&quot;</span>
+<span class="cm">    SECTION_RAW_CHARS   [^\]\n\r]</span>
+<span class="cm">    SINGLE_QUOTED_CHARS [^&#39;]</span>
+<span class="cm">    RAW_VALUE_CHARS     [^\n\r;\000]</span>
+<span class="cm">    LITERAL_DOLLAR      (&quot;$&quot;([^{\000]|(&quot;\\&quot;{ANY_CHAR})))</span>
+<span class="cm">    VALUE_CHARS         ([^$= \t\n\r;&amp;|^~()!&quot;&#39;\000]|{LITERAL_DOLLAR})</span>
+<span class="cm">    SECTION_VALUE_CHARS ([^$\n\r;&quot;&#39;\]\\]|(&quot;\\&quot;{ANY_CHAR})|{LITERAL_DOLLAR})</span>
+
+<span class="cm">    &lt;INITIAL&gt;&quot;[&quot; {}</span>
+<span class="cm">    &lt;ST_VALUE,ST_SECTION_VALUE,ST_OFFSET&gt;&quot;&#39;&quot;{SINGLE_QUOTED_CHARS}+&quot;&#39;&quot; {}</span>
+<span class="cm">    &lt;ST_SECTION_RAW,ST_SECTION_VALUE&gt;&quot;]&quot;{TABS_AND_SPACES}*{NEWLINE}? {}</span>
+<span class="cm">    &lt;INITIAL&gt;{LABEL}&quot;[&quot;{TABS_AND_SPACES}* {}</span>
+<span class="cm">    &lt;ST_OFFSET&gt;{TABS_AND_SPACES}*&quot;]&quot; {}</span>
+<span class="cm">    &lt;ST_DOUBLE_QUOTES,ST_SECTION_VALUE,ST_VALUE,ST_OFFSET&gt;{DOLLAR_CURLY} {}</span>
+<span class="cm">    &lt;ST_VARNAME&gt;{LABEL} {}</span>
+<span class="cm">    &lt;ST_VARNAME&gt;&quot;}&quot; {}</span>
+<span class="cm">    &lt;INITIAL,ST_VALUE&gt;(&quot;true&quot;|&quot;on&quot;|&quot;yes&quot;){TABS_AND_SPACES}* {}</span>
+<span class="cm">    &lt;INITIAL,ST_VALUE&gt;(&quot;false&quot;|&quot;off&quot;|&quot;no&quot;|&quot;none&quot;){TABS_AND_SPACES}* {}</span>
+<span class="cm">    &lt;INITIAL,ST_VALUE&gt;(&quot;null&quot;){TABS_AND_SPACES}* {}</span>
+<span class="cm">    &lt;INITIAL&gt;{LABEL} {}</span>
+<span class="cm">    &lt;INITIAL&gt;{TABS_AND_SPACES}*[=]{TABS_AND_SPACES}* {}</span>
+<span class="cm">    &lt;ST_RAW&gt;{RAW_VALUE_CHARS} {}</span>
+<span class="cm">    &lt;ST_SECTION_RAW&gt;{SECTION_RAW_CHARS}+ {}</span>
+<span class="cm">    &lt;ST_VALUE,ST_RAW&gt;{TABS_AND_SPACES}*{NEWLINE} {}</span>
+<span class="cm">    &lt;ST_SECTION_VALUE,ST_VALUE,ST_OFFSET&gt;{CONSTANT} {}</span>
+<span class="cm">    &lt;ST_SECTION_VALUE,ST_VALUE,ST_OFFSET&gt;{NUMBER} {}</span>
+<span class="cm">    &lt;INITIAL&gt;{TOKENS} {}</span>
+<span class="cm">    &lt;ST_VALUE&gt;{OPERATORS}{TABS_AND_SPACES}* {}</span>
+<span class="cm">    &lt;ST_VALUE&gt;[=] {}</span>
+<span class="cm">    &lt;ST_VALUE&gt;{VALUE_CHARS}+ {}</span>
+<span class="cm">    &lt;ST_SECTION_VALUE,ST_OFFSET&gt;{SECTION_VALUE_CHARS}+ {}</span>
+<span class="cm">    &lt;ST_SECTION_VALUE,ST_VALUE,ST_OFFSET&gt;{TABS_AND_SPACES}*[&quot;] {}</span>
+<span class="cm">    &lt;ST_DOUBLE_QUOTES&gt;[&quot;]{TABS_AND_SPACES}* {}</span>
+<span class="cm">    &lt;ST_DOUBLE_QUOTES&gt;[^] {}</span>
+<span class="cm">    &lt;ST_SECTION_VALUE,ST_VALUE,ST_OFFSET&gt;{WHITESPACE} {}</span>
+<span class="cm">    &lt;INITIAL,ST_RAW&gt;{TABS_AND_SPACES}+ {}</span>
+<span class="cm">    &lt;INITIAL&gt;{TABS_AND_SPACES}*{NEWLINE} {}</span>
+<span class="cm">    &lt;INITIAL,ST_VALUE,ST_RAW&gt;{TABS_AND_SPACES}*[;][^\r\n]*{NEWLINE} {}</span>
+<span class="cm">    &lt;ST_VALUE,ST_RAW&gt;[^] {}</span>
+<span class="cm">    &lt;*&gt;[^] {}</span>
+<span class="cm">*/</span>
+</pre></div>
+</td></tr></table></div>
+<p><code class="docutils literal"><span class="pre">`re2c</span> <span class="pre">-cF</span> <span class="pre">-Wunreachable-rules`</span></code> says:</p>
+<div class="highlight-none"><div class="highlight"><pre>re2c: warning: line 54: unreachable rule in condition &#39;ST_DOUBLE_QUOTES&#39; (shadowed by rules at lines 47, 48) [-Wunreachable-rules]
+re2c: warning: line 49: unreachable rule in condition &#39;ST_OFFSET&#39; (shadowed by rule at line 45) [-Wunreachable-rules]
+re2c: warning: line 54: unreachable rule in condition &#39;ST_RAW&#39; (shadowed by rules at lines 36, 38, 53) [-Wunreachable-rules]
+re2c: warning: line 49: unreachable rule in condition &#39;ST_SECTION_VALUE&#39; (shadowed by rule at line 45) [-Wunreachable-rules]
+re2c: warning: line 54: unreachable rule in condition &#39;ST_VALUE&#39; (shadowed by rules at lines 38, 39, 40, 42, 43, 44, 46, 49, 53) [-Wunreachable-rules]
+</pre></div>
+</div>
+<p>The interesting part is the unreachable rule on line 49 in conditions <code class="docutils literal"><span class="pre">ST_OFFSET</span></code> and <code class="docutils literal"><span class="pre">ST_SECTION_VALUE</span></code>.
+The rule is <code class="docutils literal"><span class="pre">{WHITESPACE}</span></code>:</p>
+<div class="highlight-none"><div class="highlight"><pre>WHITESPACE [ \t]+
+</pre></div>
+</div>
+<p>re2c claims that it is shadowed by the rule on line 45, which is <code class="docutils literal"><span class="pre">{SECTION_VALUE_CHARS}+</span></code>:</p>
+<div class="highlight-none"><div class="highlight"><pre>ANY_CHAR            (.|[\n\t])
 LITERAL_DOLLAR      (&quot;$&quot;([^{\000]|(&quot;\\&quot;{ANY_CHAR})))
-SECTION_VALUE_CHARS ([^$\n\r;&quot;'\]\\]|(&quot;\\&quot;{ANY_CHAR})|{LITERAL_DOLLAR})
-</pre>
-<p>Indeed, <tt class="docutils literal">{SECTION_VALUE_CHARS}+</tt> allows all the patterns accepted by <tt class="docutils literal">{WHITESPACE}</tt>.
+SECTION_VALUE_CHARS ([^$\n\r;&quot;&#39;\]\\]|(&quot;\\&quot;{ANY_CHAR})|{LITERAL_DOLLAR})
+</pre></div>
+</div>
+<p>Indeed, <code class="docutils literal"><span class="pre">{SECTION_VALUE_CHARS}+</span></code> allows all the patterns accepted by <code class="docutils literal"><span class="pre">{WHITESPACE}</span></code>.
 In the original program these rules return different types of tokens:
 perhaps this is not critical, but clearly unintended.</p>
 </div>
 </div>
-<div class="footer">
-<hr class="footer" />
-<a class="reference external" href="../../../index.html">[home]</a> <a class="reference external" href="../../manual.html">[Manual]</a> <a class="reference external" href="../warnings.html">[Warnings]</a>
-</div>
-</body>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer" role="contentinfo">
+      Last updated on Mar 03, 2016.
+    </div>
+  </body>
 </html>

@@ -1,68 +1,156 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
-<title>[-Wswapped-range]</title>
-<link rel="stylesheet" type="text/css" href="/css/default.css" />
-<link rel="alternate" type="application/atom+xml" href="/feed/atom.xml" title="Atom 1.0" />
-<link rel="icon" href="/favicon.ico" />
-</head>
-<body>
-<div class="header">
-<a class="reference external" href="../../../index.html">[home]</a> <a class="reference external" href="../../manual.html">[Manual]</a> <a class="reference external" href="../warnings.html">[Warnings]</a>
-<hr class="header"/>
-</div>
-<div class="document" id="wswapped-range">
-<h1 class="title">[-Wswapped-range]</h1>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>[-Wswapped-range] &mdash; re2c 0.16 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/theme-re2c.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.16',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="alternate" type="application/atom+xml" href="../../../_static/feed/atom.xml" title="Atom 1.0" />
+    
+ 
+  </head>
+  <body role="document">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="re2c-logo">
+    re2c-0.16
+</div>
+
+<h3><a href="../../../index.html">Home</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../about/about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install/install.html">Install</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../manual.html">Manual</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../options/options.html">Options</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../warnings.html">Warnings</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../undefined_control_flow/wundefined_control_flow.html">[-Wundefined-control-flow]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../unreachable_rules/wunreachable_rules.html">[-Wunreachable-rules]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../condition_order/wcondition_order.html">[-Wcondition-order]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../useless_escape/wuseless_escape.html">[-Wuseless-escape]</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="">[-Wswapped-range]</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../empty_character_class/wempty_character_class.html">[-Wempty-character-class]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../match_empty_string/wmatch_empty_string.html">[-Wmatch-empty-string]</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../syntax/syntax.html">Syntax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../features/features.html">Features</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../news/news.html">News</a></li>
+</ul>
+
+
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="wswapped-range">
+<h1>[-Wswapped-range]<a class="headerlink" href="#wswapped-range" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
 <p>This warning is very simple.
 It warns you in cases when character class contains a range which lower bound is greater than upper bound.
 For some strange reason re2c never considered it an error:
 it simply swaps range bounds and goes on.</p>
-<pre class="code cpp literal-block">
-<span class="ln">1 </span><span class="comment multiline">/*!re2c
-</span><span class="ln">2 </span><span class="comment multiline">    *     { return &quot;*&quot;; }
-</span><span class="ln">3 </span><span class="comment multiline">    [a-Z] { return &quot;is it what you want?&quot;; }
-</span><span class="ln">4 </span><span class="comment multiline">*/</span>
-</pre>
-<p>Given this code, <tt class="docutils literal">`re2c <span class="pre">-i</span> <span class="pre">-Wswapped-range`</span></tt> generates the following:</p>
-<pre class="code cpp literal-block">
-<span class="ln"> 1 </span><span class="comment multiline">/* Generated by re2c 0.14.1.dev on Tue Nov 10 22:07:31 2015*/</span>
-<span class="ln"> 2 </span>
-<span class="ln"> 3 </span><span class="punctuation">{</span>
-<span class="ln"> 4 </span>        <span class="name">YYCTYPE</span> <span class="name">yych</span><span class="punctuation">;</span>
-<span class="ln"> 5 </span>        <span class="keyword">if</span> <span class="punctuation">(</span><span class="name">YYLIMIT</span> <span class="operator">&lt;=</span> <span class="name">YYCURSOR</span><span class="punctuation">)</span> <span class="name">YYFILL</span><span class="punctuation">(</span><span class="literal number integer">1</span><span class="punctuation">);</span>
-<span class="ln"> 6 </span>        <span class="name">yych</span> <span class="operator">=</span> <span class="operator">*</span><span class="name">YYCURSOR</span><span class="punctuation">;</span>
-<span class="ln"> 7 </span>        <span class="keyword">switch</span> <span class="punctuation">(</span><span class="name">yych</span><span class="punctuation">)</span> <span class="punctuation">{</span>
-<span class="ln"> 8 </span>        <span class="keyword">case</span> <span class="literal string char">'Z'</span><span class="operator">:</span>
-<span class="ln"> 9 </span>        <span class="keyword">case</span> <span class="literal string char">'['</span><span class="operator">:</span>
-<span class="ln">10 </span>        <span class="keyword">case</span> <span class="literal string char">'\\'</span><span class="operator">:</span>
-<span class="ln">11 </span>        <span class="keyword">case</span> <span class="literal string char">']'</span><span class="operator">:</span>
-<span class="ln">12 </span>        <span class="keyword">case</span> <span class="literal string char">'^'</span><span class="operator">:</span>
-<span class="ln">13 </span>        <span class="keyword">case</span> <span class="literal string char">'_'</span><span class="operator">:</span>
-<span class="ln">14 </span>        <span class="keyword">case</span> <span class="literal string char">'`'</span><span class="operator">:</span>
-<span class="ln">15 </span>        <span class="keyword">case</span> <span class="literal string char">'a'</span><span class="operator">:</span>       <span class="keyword">goto</span> <span class="name">yy4</span><span class="punctuation">;</span>
-<span class="ln">16 </span>        <span class="keyword">default</span><span class="operator">:</span>        <span class="keyword">goto</span> <span class="name">yy2</span><span class="punctuation">;</span>
-<span class="ln">17 </span>        <span class="punctuation">}</span>
-<span class="ln">18 </span><span class="name label">yy2</span><span class="punctuation">:</span>
-<span class="ln">19 </span>        <span class="operator">++</span><span class="name">YYCURSOR</span><span class="punctuation">;</span>
-<span class="ln">20 </span>        <span class="punctuation">{</span> <span class="keyword">return</span> <span class="literal string">&quot;*&quot;</span><span class="punctuation">;</span> <span class="punctuation">}</span>
-<span class="ln">21 </span><span class="name label">yy4</span><span class="punctuation">:</span>
-<span class="ln">22 </span>        <span class="operator">++</span><span class="name">YYCURSOR</span><span class="punctuation">;</span>
-<span class="ln">23 </span>        <span class="punctuation">{</span> <span class="keyword">return</span> <span class="literal string">&quot;is it what you want?&quot;</span><span class="punctuation">;</span> <span class="punctuation">}</span>
-<span class="ln">24 </span><span class="punctuation">}</span>
-</pre>
+<div class="highlight-cpp"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span class="cm">/*!re2c</span>
+<span class="cm">    *     { return &quot;*&quot;; }</span>
+<span class="cm">    [a-Z] { return &quot;is it what you want?&quot;; }</span>
+<span class="cm">*/</span>
+</pre></div>
+</td></tr></table></div>
+<p>Given this code, <code class="docutils literal"><span class="pre">`re2c</span> <span class="pre">-i</span> <span class="pre">-Wswapped-range`</span></code> generates the following:</p>
+<div class="highlight-cpp"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24</pre></div></td><td class="code"><div class="highlight"><pre><span class="cm">/* Generated by re2c 0.14.1.dev on Tue Nov 10 22:07:31 2015*/</span>
+
+<span class="p">{</span>
+        <span class="n">YYCTYPE</span> <span class="n">yych</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">YYLIMIT</span> <span class="o">&lt;=</span> <span class="n">YYCURSOR</span><span class="p">)</span> <span class="n">YYFILL</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+        <span class="n">yych</span> <span class="o">=</span> <span class="o">*</span><span class="n">YYCURSOR</span><span class="p">;</span>
+        <span class="k">switch</span> <span class="p">(</span><span class="n">yych</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="sc">&#39;Z&#39;</span><span class="o">:</span>
+        <span class="k">case</span> <span class="sc">&#39;[&#39;</span><span class="o">:</span>
+        <span class="k">case</span> <span class="sc">&#39;\\&#39;</span><span class="o">:</span>
+        <span class="k">case</span> <span class="sc">&#39;]&#39;</span><span class="o">:</span>
+        <span class="k">case</span> <span class="sc">&#39;^&#39;</span><span class="o">:</span>
+        <span class="k">case</span> <span class="sc">&#39;_&#39;</span><span class="o">:</span>
+        <span class="k">case</span> <span class="sc">&#39;`&#39;</span><span class="o">:</span>
+        <span class="k">case</span> <span class="sc">&#39;a&#39;</span><span class="o">:</span>       <span class="k">goto</span> <span class="n">yy4</span><span class="p">;</span>
+        <span class="k">default</span><span class="o">:</span>        <span class="k">goto</span> <span class="n">yy2</span><span class="p">;</span>
+        <span class="p">}</span>
+<span class="nl">yy2</span><span class="p">:</span>
+        <span class="o">++</span><span class="n">YYCURSOR</span><span class="p">;</span>
+        <span class="p">{</span> <span class="k">return</span> <span class="s">&quot;*&quot;</span><span class="p">;</span> <span class="p">}</span>
+<span class="nl">yy4</span><span class="p">:</span>
+        <span class="o">++</span><span class="n">YYCURSOR</span><span class="p">;</span>
+        <span class="p">{</span> <span class="k">return</span> <span class="s">&quot;is it what you want?&quot;</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
 <p>And reports a warning:</p>
-<pre class="code literal-block">
-re2c: warning: line 3: range lower bound (0x61) is greater than upper bound (0x5A), swapping [-Wswapped-range]
-</pre>
-<p>Use <tt class="docutils literal"><span class="pre">[-Werror-swapped-range]</span></tt> to make it an error.</p>
+<div class="highlight-none"><div class="highlight"><pre>re2c: warning: line 3: range lower bound (0x61) is greater than upper bound (0x5A), swapping [-Wswapped-range]
+</pre></div>
 </div>
-<div class="footer">
-<hr class="footer" />
-<a class="reference external" href="../../../index.html">[home]</a> <a class="reference external" href="../../manual.html">[Manual]</a> <a class="reference external" href="../warnings.html">[Warnings]</a>
+<p>Use <code class="docutils literal"><span class="pre">[-Werror-swapped-range]</span></code> to make it an error.</p>
 </div>
-</body>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer" role="contentinfo">
+      Last updated on Mar 03, 2016.
+    </div>
+  </body>
 </html>

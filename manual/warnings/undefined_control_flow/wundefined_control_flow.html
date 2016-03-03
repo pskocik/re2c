@@ -1,103 +1,202 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
-<title>[-Wundefined-control-flow]</title>
-<link rel="stylesheet" type="text/css" href="/css/default.css" />
-<link rel="alternate" type="application/atom+xml" href="/feed/atom.xml" title="Atom 1.0" />
-<link rel="icon" href="/favicon.ico" />
-</head>
-<body>
-<div class="header">
-<a class="reference external" href="../../../index.html">[home]</a> <a class="reference external" href="../../manual.html">[Manual]</a> <a class="reference external" href="../warnings.html">[Warnings]</a>
-<hr class="header"/>
-</div>
-<div class="document" id="wundefined-control-flow">
-<h1 class="title">[-Wundefined-control-flow]</h1>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<div class="contents topic" id="id3">
-<p class="topic-title first">★</p>
-<ul class="simple">
-<li><a class="reference internal" href="#a-simple-example" id="id4">A simple example</a></li>
-<li><a class="reference internal" href="#difference-between-and" id="id5">Difference between <tt class="docutils literal">*</tt> and <tt class="docutils literal">[^]</tt></a></li>
-<li><a class="reference internal" href="#how-it-works" id="id6">How it works</a></li>
-<li><a class="reference internal" href="#real-world-examples" id="id7">Real-world examples</a></li>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>[-Wundefined-control-flow] &mdash; re2c 0.16 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/theme-re2c.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.16',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="alternate" type="application/atom+xml" href="../../../_static/feed/atom.xml" title="Atom 1.0" />
+    
+ 
+  </head>
+  <body role="document">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="re2c-logo">
+    re2c-0.16
+</div>
+
+<h3><a href="../../../index.html">Home</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../about/about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install/install.html">Install</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../manual.html">Manual</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../options/options.html">Options</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../warnings.html">Warnings</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="">[-Wundefined-control-flow]</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#a-simple-example">A simple example</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#difference-between-and">Difference between <code class="docutils literal"><span class="pre">*</span></code> and <code class="docutils literal"><span class="pre">[^]</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#how-it-works">How it works</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#real-world-examples">Real-world examples</a></li>
 </ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../unreachable_rules/wunreachable_rules.html">[-Wunreachable-rules]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../condition_order/wcondition_order.html">[-Wcondition-order]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../useless_escape/wuseless_escape.html">[-Wuseless-escape]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../swapped_range/wswapped_range.html">[-Wswapped-range]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../empty_character_class/wempty_character_class.html">[-Wempty-character-class]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../match_empty_string/wmatch_empty_string.html">[-Wmatch-empty-string]</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../syntax/syntax.html">Syntax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../features/features.html">Features</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../news/news.html">News</a></li>
+</ul>
+
+    <h3>[-Wundefined-control-flow]</h3>
+    <div class="re2c-toc-local">
+        <ul>
+<li><a class="reference internal" href="#">[-Wundefined-control-flow]</a><ul>
+<li><a class="reference internal" href="#a-simple-example">A simple example</a></li>
+<li><a class="reference internal" href="#difference-between-and">Difference between <code class="docutils literal"><span class="pre">*</span></code> and <code class="docutils literal"><span class="pre">[^]</span></code></a></li>
+<li><a class="reference internal" href="#how-it-works">How it works</a></li>
+<li><a class="reference internal" href="#real-world-examples">Real-world examples</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="wundefined-control-flow">
+<h1>[-Wundefined-control-flow]<a class="headerlink" href="#wundefined-control-flow" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
 </div>
 <div class="section" id="a-simple-example">
-<h1>A simple example</h1>
-<p>Say, we want to match <tt class="docutils literal">'a'</tt>:</p>
-<pre class="code cpp literal-block">
-<span class="ln">1 </span><span class="comment multiline">/*!re2c
-</span><span class="ln">2 </span><span class="comment multiline">    &quot;a&quot; { return 'a'; }
-</span><span class="ln">3 </span><span class="comment multiline">*/</span>
-</pre>
-<p><tt class="docutils literal">`re2c <span class="pre">-i</span> <span class="pre">-Wundefined-control-flow`</span></tt>:</p>
-<pre class="code cpp literal-block">
-<span class="ln"> 1 </span><span class="comment multiline">/* Generated by re2c 0.14.1.dev on Thu Nov  5 14:35:46 2015*/</span>
-<span class="ln"> 2 </span>
-<span class="ln"> 3 </span><span class="punctuation">{</span>
-<span class="ln"> 4 </span>        <span class="name">YYCTYPE</span> <span class="name">yych</span><span class="punctuation">;</span>
-<span class="ln"> 5 </span>        <span class="keyword">if</span> <span class="punctuation">(</span><span class="name">YYLIMIT</span> <span class="operator">&lt;=</span> <span class="name">YYCURSOR</span><span class="punctuation">)</span> <span class="name">YYFILL</span><span class="punctuation">(</span><span class="literal number integer">1</span><span class="punctuation">);</span>
-<span class="ln"> 6 </span>        <span class="name">yych</span> <span class="operator">=</span> <span class="operator">*</span><span class="name">YYCURSOR</span><span class="punctuation">;</span>
-<span class="ln"> 7 </span>        <span class="keyword">switch</span> <span class="punctuation">(</span><span class="name">yych</span><span class="punctuation">)</span> <span class="punctuation">{</span>
-<span class="ln"> 8 </span>        <span class="keyword">case</span> <span class="literal string char">'a'</span><span class="operator">:</span>       <span class="keyword">goto</span> <span class="name">yy3</span><span class="punctuation">;</span>
-<span class="ln"> 9 </span>        <span class="keyword">default</span><span class="operator">:</span>        <span class="keyword">goto</span> <span class="name">yy2</span><span class="punctuation">;</span>
-<span class="ln">10 </span>        <span class="punctuation">}</span>
-<span class="ln">11 </span><span class="name label">yy2</span><span class="punctuation">:</span>
-<span class="ln">12 </span><span class="name label">yy3</span><span class="punctuation">:</span>
-<span class="ln">13 </span>        <span class="operator">++</span><span class="name">YYCURSOR</span><span class="punctuation">;</span>
-<span class="ln">14 </span>        <span class="punctuation">{</span> <span class="keyword">return</span> <span class="literal string char">'a'</span><span class="punctuation">;</span> <span class="punctuation">}</span>
-<span class="ln">15 </span><span class="punctuation">}</span>
-</pre>
-<p>Clearly this is not what we want: this code matches any letter, not only <tt class="docutils literal">'a'</tt>.
-re2c grumbles something about undefined control flow and says that default <tt class="docutils literal">*</tt> rule won't hurt:</p>
-<pre class="code literal-block">
-re2c: warning: line 3: control flow is undefined for strings that match '[\x0-\x60\x62-\xFF]', use default rule '*' [-Wundefined-control-flow]
-</pre>
-<p>Let's add it:</p>
-<pre class="code cpp literal-block">
-<span class="ln">1 </span><span class="comment multiline">/*!re2c
-</span><span class="ln">2 </span><span class="comment multiline">    *   { return '*'; }
-</span><span class="ln">3 </span><span class="comment multiline">    &quot;a&quot; { return 'a'; }
-</span><span class="ln">4 </span><span class="comment multiline">*/</span>
-</pre>
-<p>Now that's better:</p>
-<pre class="code cpp literal-block">
-<span class="ln"> 1 </span><span class="comment multiline">/* Generated by re2c 0.14.1.dev on Thu Nov  5 14:35:08 2015*/</span>
-<span class="ln"> 2 </span>
-<span class="ln"> 3 </span><span class="punctuation">{</span>
-<span class="ln"> 4 </span>        <span class="name">YYCTYPE</span> <span class="name">yych</span><span class="punctuation">;</span>
-<span class="ln"> 5 </span>        <span class="keyword">if</span> <span class="punctuation">(</span><span class="name">YYLIMIT</span> <span class="operator">&lt;=</span> <span class="name">YYCURSOR</span><span class="punctuation">)</span> <span class="name">YYFILL</span><span class="punctuation">(</span><span class="literal number integer">1</span><span class="punctuation">);</span>
-<span class="ln"> 6 </span>        <span class="name">yych</span> <span class="operator">=</span> <span class="operator">*</span><span class="name">YYCURSOR</span><span class="punctuation">;</span>
-<span class="ln"> 7 </span>        <span class="keyword">switch</span> <span class="punctuation">(</span><span class="name">yych</span><span class="punctuation">)</span> <span class="punctuation">{</span>
-<span class="ln"> 8 </span>        <span class="keyword">case</span> <span class="literal string char">'a'</span><span class="operator">:</span>       <span class="keyword">goto</span> <span class="name">yy4</span><span class="punctuation">;</span>
-<span class="ln"> 9 </span>        <span class="keyword">default</span><span class="operator">:</span>        <span class="keyword">goto</span> <span class="name">yy2</span><span class="punctuation">;</span>
-<span class="ln">10 </span>        <span class="punctuation">}</span>
-<span class="ln">11 </span><span class="name label">yy2</span><span class="punctuation">:</span>
-<span class="ln">12 </span>        <span class="operator">++</span><span class="name">YYCURSOR</span><span class="punctuation">;</span>
-<span class="ln">13 </span>        <span class="punctuation">{</span> <span class="keyword">return</span> <span class="literal string char">'*'</span><span class="punctuation">;</span> <span class="punctuation">}</span>
-<span class="ln">14 </span><span class="name label">yy4</span><span class="punctuation">:</span>
-<span class="ln">15 </span>        <span class="operator">++</span><span class="name">YYCURSOR</span><span class="punctuation">;</span>
-<span class="ln">16 </span>        <span class="punctuation">{</span> <span class="keyword">return</span> <span class="literal string char">'a'</span><span class="punctuation">;</span> <span class="punctuation">}</span>
-<span class="ln">17 </span><span class="punctuation">}</span>
-</pre>
+<h2>A simple example<a class="headerlink" href="#a-simple-example" title="Permalink to this headline">¶</a></h2>
+<p>Say, we want to match <code class="docutils literal"><span class="pre">'a'</span></code>:</p>
+<div class="highlight-cpp"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span class="cm">/*!re2c</span>
+<span class="cm">    &quot;a&quot; { return &#39;a&#39;; }</span>
+<span class="cm">*/</span>
+</pre></div>
+</td></tr></table></div>
+<p><code class="docutils literal"><span class="pre">`re2c</span> <span class="pre">-i</span> <span class="pre">-Wundefined-control-flow`</span></code>:</p>
+<div class="highlight-cpp"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15</pre></div></td><td class="code"><div class="highlight"><pre><span class="cm">/* Generated by re2c 0.14.1.dev on Thu Nov  5 14:35:46 2015*/</span>
+
+<span class="p">{</span>
+        <span class="n">YYCTYPE</span> <span class="n">yych</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">YYLIMIT</span> <span class="o">&lt;=</span> <span class="n">YYCURSOR</span><span class="p">)</span> <span class="n">YYFILL</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+        <span class="n">yych</span> <span class="o">=</span> <span class="o">*</span><span class="n">YYCURSOR</span><span class="p">;</span>
+        <span class="k">switch</span> <span class="p">(</span><span class="n">yych</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="sc">&#39;a&#39;</span><span class="o">:</span>       <span class="k">goto</span> <span class="n">yy3</span><span class="p">;</span>
+        <span class="k">default</span><span class="o">:</span>        <span class="k">goto</span> <span class="n">yy2</span><span class="p">;</span>
+        <span class="p">}</span>
+<span class="nl">yy2</span><span class="p">:</span>
+<span class="nl">yy3</span><span class="p">:</span>
+        <span class="o">++</span><span class="n">YYCURSOR</span><span class="p">;</span>
+        <span class="p">{</span> <span class="k">return</span> <span class="sc">&#39;a&#39;</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<p>Clearly this is not what we want: this code matches any letter, not only <code class="docutils literal"><span class="pre">'a'</span></code>.
+re2c grumbles something about undefined control flow and says that default <code class="docutils literal"><span class="pre">*</span></code> rule won&#8217;t hurt:</p>
+<div class="highlight-none"><div class="highlight"><pre>re2c: warning: line 3: control flow is undefined for strings that match &#39;[\x0-\x60\x62-\xFF]&#39;, use default rule &#39;*&#39; [-Wundefined-control-flow]
+</pre></div>
+</div>
+<p>Let&#8217;s add it:</p>
+<div class="highlight-cpp"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span class="cm">/*!re2c</span>
+<span class="cm">    *   { return &#39;*&#39;; }</span>
+<span class="cm">    &quot;a&quot; { return &#39;a&#39;; }</span>
+<span class="cm">*/</span>
+</pre></div>
+</td></tr></table></div>
+<p>Now that&#8217;s better:</p>
+<div class="highlight-cpp"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17</pre></div></td><td class="code"><div class="highlight"><pre><span class="cm">/* Generated by re2c 0.14.1.dev on Thu Nov  5 14:35:08 2015*/</span>
+
+<span class="p">{</span>
+        <span class="n">YYCTYPE</span> <span class="n">yych</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">YYLIMIT</span> <span class="o">&lt;=</span> <span class="n">YYCURSOR</span><span class="p">)</span> <span class="n">YYFILL</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+        <span class="n">yych</span> <span class="o">=</span> <span class="o">*</span><span class="n">YYCURSOR</span><span class="p">;</span>
+        <span class="k">switch</span> <span class="p">(</span><span class="n">yych</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="sc">&#39;a&#39;</span><span class="o">:</span>       <span class="k">goto</span> <span class="n">yy4</span><span class="p">;</span>
+        <span class="k">default</span><span class="o">:</span>        <span class="k">goto</span> <span class="n">yy2</span><span class="p">;</span>
+        <span class="p">}</span>
+<span class="nl">yy2</span><span class="p">:</span>
+        <span class="o">++</span><span class="n">YYCURSOR</span><span class="p">;</span>
+        <span class="p">{</span> <span class="k">return</span> <span class="sc">&#39;*&#39;</span><span class="p">;</span> <span class="p">}</span>
+<span class="nl">yy4</span><span class="p">:</span>
+        <span class="o">++</span><span class="n">YYCURSOR</span><span class="p">;</span>
+        <span class="p">{</span> <span class="k">return</span> <span class="sc">&#39;a&#39;</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
 <p>Note that default rule brings no overhead: it simply binds code to default label.</p>
 </div>
 <div class="section" id="difference-between-and">
-<h1>Difference between <tt class="docutils literal">*</tt> and <tt class="docutils literal">[^]</tt></h1>
-<p>When the the world was young and re2c didn't have default rule <tt class="docutils literal">*</tt> (that is, before re2c-0.13.7),
-everyone used <tt class="docutils literal">[^]</tt> as default rule:</p>
-<pre class="code cpp literal-block">
-<span class="ln">1 </span><span class="comment multiline">/*!re2c
-</span><span class="ln">2 </span><span class="comment multiline">    // ... normal rules ...
-</span><span class="ln">3 </span><span class="comment multiline">    [^] { return &quot;any&quot;; }
-</span><span class="ln">4 </span><span class="comment multiline">*/</span>
-</pre>
-<p><tt class="docutils literal">[^]</tt> is just an ordinary rule: it matches any character and has normal priority (so it should be the last rule).
-If other rules didn't match, <tt class="docutils literal">[^]</tt> will match and consume one character.</p>
+<h2>Difference between <code class="docutils literal"><span class="pre">*</span></code> and <code class="docutils literal"><span class="pre">[^]</span></code><a class="headerlink" href="#difference-between-and" title="Permalink to this headline">¶</a></h2>
+<p>When the the world was young and re2c didn&#8217;t have default rule <code class="docutils literal"><span class="pre">*</span></code> (that is, before re2c-0.13.7),
+everyone used <code class="docutils literal"><span class="pre">[^]</span></code> as default rule:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="cm">/*!re2c</span>
+<span class="cm">    // ... normal rules ...</span>
+<span class="cm">    [^] { return &quot;any&quot;; }</span>
+<span class="cm">*/</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">[^]</span></code> is just an ordinary rule: it matches any character and has normal priority (so it should be the last rule).
+If other rules didn&#8217;t match, <code class="docutils literal"><span class="pre">[^]</span></code> will match and consume one character.</p>
 <p>But exactly what is a <em>character</em>?
 First, an abstract number that is assigned some sacred meaning in current encoding — <em>code point</em>.
 Second, a minimal piece of information (say, combination of bits) that can represent a unit of encoded text — <em>code unit</em>.
@@ -105,41 +204,41 @@ Rules are defined in terms of code points.
 Input is measured in code units.
 In fixed-width encodings (such as ASCII, EBCDIC, UCS-2, UTF-32, etc.) there is one-to-one correspondence between code points and code units.
 In variable-width encodings (such as UTF-8, UTF-16, etc.) code points map to code unit sequences of differing length.</p>
-<p><tt class="docutils literal">[^]</tt> rule matches any code point.
+<p><code class="docutils literal"><span class="pre">[^]</span></code> rule matches any code point.
 In fixed-width encodings it covers all code units and consumes exactly one of them.
 In variable-width encodings it consumes variable number of code units and may not match some of them.
 The example above compiles without warnings with any fixed-width encoding (ASCII by default).
-However, with UTF-8 encoding <tt class="docutils literal">`re2c <span class="pre">-i8</span> <span class="pre">-Wundefined-control-flow`</span></tt> says:</p>
-<pre class="code literal-block">
-re2c: warning: line 4: control flow is undefined for strings that match
-        '[\x80-\xC1\xF5-\xFF]'
-        '\xF0 [\x0-\x8F\xC0-\xFF]'
-        '[\xE1-\xEF] [\x0-\x7F\xC0-\xFF]'
-        '\xF4 [\x0-\x7F\x90-\xFF]'
-        '\xE0 [\x0-\x9F\xC0-\xFF]'
-        '[\xF1-\xF3] [\x0-\x7F\xC0-\xFF]'
-        '[\xC2-\xDF] [\x0-\x7F\xC0-\xFF]'
-        '\xE0 [\xA0-\xBF] [\x0-\x7F\xC0-\xFF]'
- ... and 7 more, use default rule '*' [-Wundefined-control-flow]
-</pre>
+However, with UTF-8 encoding <code class="docutils literal"><span class="pre">`re2c</span> <span class="pre">-i8</span> <span class="pre">-Wundefined-control-flow`</span></code> says:</p>
+<div class="highlight-none"><div class="highlight"><pre>re2c: warning: line 4: control flow is undefined for strings that match
+        &#39;[\x80-\xC1\xF5-\xFF]&#39;
+        &#39;\xF0 [\x0-\x8F\xC0-\xFF]&#39;
+        &#39;[\xE1-\xEF] [\x0-\x7F\xC0-\xFF]&#39;
+        &#39;\xF4 [\x0-\x7F\x90-\xFF]&#39;
+        &#39;\xE0 [\x0-\x9F\xC0-\xFF]&#39;
+        &#39;[\xF1-\xF3] [\x0-\x7F\xC0-\xFF]&#39;
+        &#39;[\xC2-\xDF] [\x0-\x7F\xC0-\xFF]&#39;
+        &#39;\xE0 [\xA0-\xBF] [\x0-\x7F\xC0-\xFF]&#39;
+ ... and 7 more, use default rule &#39;*&#39; [-Wundefined-control-flow]
+</pre></div>
+</div>
 <p>It shows us the patterns that must never appear in valid UTF-8 encoded text.
 If the input is not valid UTF-8, lexer behaviour is undefined (most likely it will end up with segfault).
-One would expect that with UTF-16 (another variable-width encoding) re2c will also report a warning, but it doesn't.
+One would expect that with UTF-16 (another variable-width encoding) re2c will also report a warning, but it doesn&#8217;t.
 This is because by default re2c treats Unicode surrogates as normal code points (for backwards compatibility reasons).
-If we tell re2c to exclude surrogates, <tt class="docutils literal">`re2c <span class="pre">-ix</span> <span class="pre">--encoding-policy</span> fail <span class="pre">-Wundefined-control-flow`</span></tt> will warn:</p>
-<pre class="code literal-block">
-re2c: warning: line 4: control flow is undefined for strings that match
-        '[\xDC00-\xDFFF]'
-        '[\xD800-\xDBFF] [\x0-\xDBFF\xE000-\xFFFF]'
-, use default rule '*' [-Wundefined-control-flow]
-</pre>
+If we tell re2c to exclude surrogates, <code class="docutils literal"><span class="pre">`re2c</span> <span class="pre">-ix</span> <span class="pre">--encoding-policy</span> <span class="pre">fail</span> <span class="pre">-Wundefined-control-flow`</span></code> will warn:</p>
+<div class="highlight-none"><div class="highlight"><pre>re2c: warning: line 4: control flow is undefined for strings that match
+        &#39;[\xDC00-\xDFFF]&#39;
+        &#39;[\xD800-\xDBFF] [\x0-\xDBFF\xE000-\xFFFF]&#39;
+, use default rule &#39;*&#39; [-Wundefined-control-flow]
+</pre></div>
+</div>
 <p>As you see, it can get quite subtle.
-One should always use the true default rule <tt class="docutils literal">*</tt> (it matches any code unit regardless of encoding,
+One should always use the true default rule <code class="docutils literal"><span class="pre">*</span></code> (it matches any code unit regardless of encoding,
 consumes a single code unit no matter what and always has the lowest priority).
-Note that <tt class="docutils literal">*</tt> is a builtin hack: it cannot be expressed through ordinary rules.</p>
+Note that <code class="docutils literal"><span class="pre">*</span></code> is a builtin hack: it cannot be expressed through ordinary rules.</p>
 </div>
 <div class="section" id="how-it-works">
-<h1>How it works</h1>
+<h2>How it works<a class="headerlink" href="#how-it-works" title="Permalink to this headline">¶</a></h2>
 <p>Every path in the generated DFA must contain at least one accepting state,
 otherwise it causes undefined behaviour and should be reported.
 re2c walks DFA in deep-first search and checks all paths.
@@ -150,27 +249,33 @@ In pathological cases re2c avoids exponential time and space
 consumption by placing an upper bound on the number of faulty patterns.
 The shortest patterns are reported first.</p>
 <p>Note that the analyses is done anyway.
-The option <tt class="docutils literal"><span class="pre">-Wundefined-control-flow</span></tt> only controls if the warning is reported or not.</p>
+The option <code class="docutils literal"><span class="pre">-Wundefined-control-flow</span></code> only controls if the warning is reported or not.</p>
 </div>
 <div class="section" id="real-world-examples">
-<h1>Real-world examples</h1>
+<h2>Real-world examples<a class="headerlink" href="#real-world-examples" title="Permalink to this headline">¶</a></h2>
 <p>Many real-world examples deal with preprocessed input,
 so they make strong assumptions about the input form or character set.
 These assumptions may or may not be valid under certain circumstances;
-however, double-check won't hurt.
+however, double-check won&#8217;t hurt.
 Even it you are absolutely sure that default case is impossible, do handle it.
 <strong>It adds no overhead.</strong>
 No additional checks and transitions.
 It simply binds code to default label.</p>
-<p>I found <tt class="docutils literal"><span class="pre">[-Wundefined-control-flow]</span></tt> warnings in many real-world programs (including re2c own lexer).
+<p>I found <code class="docutils literal"><span class="pre">[-Wundefined-control-flow]</span></code> warnings in many real-world programs (including re2c own lexer).
 Mostly these are minor issues like forgetting to handle newlines or zeroes in already preprocessed input,
-but it's curious how they creeped into the code.
-I bet they were just forgotten and not omitted for a good reason. <tt class="docutils literal">:)</tt></p>
+but it&#8217;s curious how they creeped into the code.
+I bet they were just forgotten and not omitted for a good reason. <code class="docutils literal"><span class="pre">:)</span></code></p>
 </div>
 </div>
-<div class="footer">
-<hr class="footer" />
-<a class="reference external" href="../../../index.html">[home]</a> <a class="reference external" href="../../manual.html">[Manual]</a> <a class="reference external" href="../warnings.html">[Warnings]</a>
-</div>
-</body>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer" role="contentinfo">
+      Last updated on Mar 03, 2016.
+    </div>
+  </body>
 </html>

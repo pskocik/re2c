@@ -1,79 +1,174 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
-<title>[-Wcondition-order]</title>
-<link rel="stylesheet" type="text/css" href="/css/default.css" />
-<link rel="alternate" type="application/atom+xml" href="/feed/atom.xml" title="Atom 1.0" />
-<link rel="icon" href="/favicon.ico" />
-</head>
-<body>
-<div class="header">
-<a class="reference external" href="../../../index.html">[home]</a> <a class="reference external" href="../../manual.html">[Manual]</a> <a class="reference external" href="../warnings.html">[Warnings]</a>
-<hr class="header"/>
-</div>
-<div class="document" id="wcondition-order">
-<h1 class="title">[-Wcondition-order]</h1>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<div class="contents topic" id="id3">
-<p class="topic-title first">★</p>
-<ul class="simple">
-<li><a class="reference internal" href="#a-simple-example" id="id4">A simple example</a></li>
-<li><a class="reference internal" href="#how-it-works" id="id5">How it works</a></li>
-<li><a class="reference internal" href="#real-world-examples" id="id6">Real-world examples</a></li>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>[-Wcondition-order] &mdash; re2c 0.16 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/theme-re2c.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.16',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="alternate" type="application/atom+xml" href="../../../_static/feed/atom.xml" title="Atom 1.0" />
+    
+ 
+  </head>
+  <body role="document">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="re2c-logo">
+    re2c-0.16
+</div>
+
+<h3><a href="../../../index.html">Home</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../about/about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install/install.html">Install</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../manual.html">Manual</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../options/options.html">Options</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../warnings.html">Warnings</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../undefined_control_flow/wundefined_control_flow.html">[-Wundefined-control-flow]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../unreachable_rules/wunreachable_rules.html">[-Wunreachable-rules]</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="">[-Wcondition-order]</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#a-simple-example">A simple example</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#how-it-works">How it works</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#real-world-examples">Real-world examples</a></li>
 </ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../useless_escape/wuseless_escape.html">[-Wuseless-escape]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../swapped_range/wswapped_range.html">[-Wswapped-range]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../empty_character_class/wempty_character_class.html">[-Wempty-character-class]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../match_empty_string/wmatch_empty_string.html">[-Wmatch-empty-string]</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../syntax/syntax.html">Syntax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../features/features.html">Features</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../news/news.html">News</a></li>
+</ul>
+
+    <h3>[-Wcondition-order]</h3>
+    <div class="re2c-toc-local">
+        <ul>
+<li><a class="reference internal" href="#">[-Wcondition-order]</a><ul>
+<li><a class="reference internal" href="#a-simple-example">A simple example</a></li>
+<li><a class="reference internal" href="#how-it-works">How it works</a></li>
+<li><a class="reference internal" href="#real-world-examples">Real-world examples</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="wcondition-order">
+<h1>[-Wcondition-order]<a class="headerlink" href="#wcondition-order" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
 </div>
 <div class="section" id="a-simple-example">
-<h1>A simple example</h1>
-<p>The following lexer consists of two conditions: <tt class="docutils literal">a</tt> and <tt class="docutils literal">b</tt>.
-It starts in condition <tt class="docutils literal">a</tt>, which expects a sequence of letters <tt class="docutils literal">'a'</tt> followed by a comma.
-Comma causes transition to condition <tt class="docutils literal">b</tt>, which expects a sequence of letters <tt class="docutils literal">'b'</tt> followed by an exclamation.
+<h2>A simple example<a class="headerlink" href="#a-simple-example" title="Permalink to this headline">¶</a></h2>
+<p>The following lexer consists of two conditions: <code class="docutils literal"><span class="pre">a</span></code> and <code class="docutils literal"><span class="pre">b</span></code>.
+It starts in condition <code class="docutils literal"><span class="pre">a</span></code>, which expects a sequence of letters <code class="docutils literal"><span class="pre">'a'</span></code> followed by a comma.
+Comma causes transition to condition <code class="docutils literal"><span class="pre">b</span></code>, which expects a sequence of letters <code class="docutils literal"><span class="pre">'b'</span></code> followed by an exclamation.
 Anything else is an error.
-Nothing special, except that instead of generating condition names with <tt class="docutils literal"><span class="pre">/*!types:re2c*/</span></tt> directive
-or <tt class="docutils literal"><span class="pre">-t,</span> <span class="pre">--type-header</span></tt> option we hardcoded them manually:</p>
-<p><a class="reference external" href="wcondition_order.re">[wcondition_order.re]</a></p>
-<pre class="code cpp literal-block">
-<span class="ln"> 1 </span><span class="comment preproc">#include &lt;stdio.h&gt;
-</span><span class="ln"> 2 </span><span class="comment preproc"></span>
-<span class="ln"> 3 </span><span class="comment preproc">#ifdef REVERSED_CONDITION_ORDER
-</span><span class="ln"> 4 </span><span class="comment preproc">#    define yyca 1
-</span><span class="ln"> 5 </span><span class="comment preproc">#    define yycb 0
-</span><span class="ln"> 6 </span><span class="comment preproc">#else
-</span><span class="ln"> 7 </span><span class="comment preproc">#    define yyca 0
-</span><span class="ln"> 8 </span><span class="comment preproc">#    define yycb 1
-</span><span class="ln"> 9 </span><span class="comment preproc">#endif
-</span><span class="ln">10 </span><span class="comment preproc"></span>
-<span class="ln">11 </span><span class="keyword type">int</span> <span class="name function">main</span><span class="punctuation">()</span>
-<span class="ln">12 </span><span class="punctuation">{</span>
-<span class="ln">13 </span>    <span class="keyword">const</span> <span class="keyword type">char</span> <span class="operator">*</span> <span class="name">YYCURSOR</span> <span class="operator">=</span> <span class="literal string">&quot;aaaa,bbb!&quot;</span><span class="punctuation">;</span>
-<span class="ln">14 </span>    <span class="keyword type">int</span> <span class="name">c</span> <span class="operator">=</span> <span class="name">yyca</span><span class="punctuation">;</span>
-<span class="ln">15 </span>    <span class="keyword">for</span> <span class="punctuation">(;;)</span> <span class="punctuation">{</span>
-<span class="ln">16 </span>    <span class="comment multiline">/*!re2c
-</span><span class="ln">17 </span><span class="comment multiline">        re2c:define:YYCTYPE = char;
-</span><span class="ln">18 </span><span class="comment multiline">        re2c:yyfill:enable = 0;
-</span><span class="ln">19 </span><span class="comment multiline">        re2c:define:YYSETCONDITION = &quot;c = &#64;&#64;;&quot;;
-</span><span class="ln">20 </span><span class="comment multiline">        re2c:define:YYSETCONDITION:naked = 1;
-</span><span class="ln">21 </span><span class="comment multiline">        re2c:define:YYGETCONDITION = c;
-</span><span class="ln">22 </span><span class="comment multiline">        re2c:define:YYGETCONDITION:naked = 1;
-</span><span class="ln">23 </span><span class="comment multiline">
-</span><span class="ln">24 </span><span class="comment multiline">        &lt;*&gt; * { printf (&quot;error\n&quot;); break; }
-</span><span class="ln">25 </span><span class="comment multiline">
-</span><span class="ln">26 </span><span class="comment multiline">        &lt;a&gt; &quot;a&quot;      { printf (&quot;a&quot;); continue; }
-</span><span class="ln">27 </span><span class="comment multiline">        &lt;a&gt; &quot;,&quot; =&gt; b { printf (&quot;,&quot;); continue; }
-</span><span class="ln">28 </span><span class="comment multiline">
-</span><span class="ln">29 </span><span class="comment multiline">        &lt;b&gt; &quot;!&quot; { printf (&quot;!\n&quot;); break; }
-</span><span class="ln">30 </span><span class="comment multiline">        &lt;b&gt; &quot;b&quot; { printf (&quot;b&quot;); continue; }
-</span><span class="ln">31 </span><span class="comment multiline">    */</span>
-<span class="ln">32 </span>    <span class="punctuation">}</span>
-<span class="ln">33 </span>    <span class="keyword">return</span> <span class="literal number integer">0</span><span class="punctuation">;</span>
-<span class="ln">34 </span><span class="punctuation">}</span>
-</pre>
-<p>Condition order is controlled by <tt class="docutils literal">REVERSED_CONDITION_ORDER</tt> define.
-Let's compile and run it:</p>
-<pre class="code literal-block">
-$ re2c -c -o example.c -Wcondition-order wcondition_order.re
+Nothing special, except that instead of generating condition names with <code class="docutils literal"><span class="pre">/*!types:re2c*/</span></code> directive
+or <code class="docutils literal"><span class="pre">-t,</span> <span class="pre">--type-header</span></code> option we hardcoded them manually:</p>
+<p><a class="reference download internal" href="../../../_downloads/wcondition_order.re.txt"><code class="xref download docutils literal"><span class="pre">[wcondition_order.re]</span></code></a></p>
+<div class="highlight-cpp"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34</pre></div></td><td class="code"><div class="highlight"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
+
+<span class="cp">#ifdef REVERSED_CONDITION_ORDER</span>
+<span class="cp">#    define yyca 1</span>
+<span class="cp">#    define yycb 0</span>
+<span class="cp">#else</span>
+<span class="cp">#    define yyca 0</span>
+<span class="cp">#    define yycb 1</span>
+<span class="cp">#endif</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">YYCURSOR</span> <span class="o">=</span> <span class="s">&quot;aaaa,bbb!&quot;</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">c</span> <span class="o">=</span> <span class="n">yyca</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(;;)</span> <span class="p">{</span>
+    <span class="cm">/*!re2c</span>
+<span class="cm">        re2c:define:YYCTYPE = char;</span>
+<span class="cm">        re2c:yyfill:enable = 0;</span>
+<span class="cm">        re2c:define:YYSETCONDITION = &quot;c = @@;&quot;;</span>
+<span class="cm">        re2c:define:YYSETCONDITION:naked = 1;</span>
+<span class="cm">        re2c:define:YYGETCONDITION = c;</span>
+<span class="cm">        re2c:define:YYGETCONDITION:naked = 1;</span>
+
+<span class="cm">        &lt;*&gt; * { printf (&quot;error\n&quot;); break; }</span>
+
+<span class="cm">        &lt;a&gt; &quot;a&quot;      { printf (&quot;a&quot;); continue; }</span>
+<span class="cm">        &lt;a&gt; &quot;,&quot; =&gt; b { printf (&quot;,&quot;); continue; }</span>
+
+<span class="cm">        &lt;b&gt; &quot;!&quot; { printf (&quot;!\n&quot;); break; }</span>
+<span class="cm">        &lt;b&gt; &quot;b&quot; { printf (&quot;b&quot;); continue; }</span>
+<span class="cm">    */</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<p>Condition order is controlled by <code class="docutils literal"><span class="pre">REVERSED_CONDITION_ORDER</span></code> define.
+Let&#8217;s compile and run it:</p>
+<div class="highlight-none"><div class="highlight"><pre>$ re2c -c -o example.c -Wcondition-order wcondition_order.re
 $
 $ g++ -o example example.c
 $ ./example
@@ -82,13 +177,13 @@ $
 $ g++ -o example -DREVERSED_CONDITION_ORDER example.c
 $ ./example
 aaaa,bbb!
-</pre>
-<p>Everything works fine: we get <tt class="docutils literal">aaaa,bbb!</tt> in both cases.
-However, if we use <tt class="docutils literal"><span class="pre">-s</span></tt> re2c option, lexer becomes sensitive to condition order:</p>
-<pre class="code literal-block">
-$ re2c -cs -o example.c -Wcondition-order wcondition_order.re
+</pre></div>
+</div>
+<p>Everything works fine: we get <code class="docutils literal"><span class="pre">aaaa,bbb!</span></code> in both cases.
+However, if we use <code class="docutils literal"><span class="pre">-s</span></code> re2c option, lexer becomes sensitive to condition order:</p>
+<div class="highlight-none"><div class="highlight"><pre>$ re2c -cs -o example.c -Wcondition-order wcondition_order.re
 re2c: warning: line 31: looks like you use hardcoded numbers instead of autogenerated condition names: better add
-'/*!types:re2c*/' directive or '-t, --type-header' option and don't rely on fixed condition order. [-Wcondition-order]
+&#39;/*!types:re2c*/&#39; directive or &#39;-t, --type-header&#39; option and don&#39;t rely on fixed condition order. [-Wcondition-order]
 $
 $ g++ -o example example.c
 $ ./example
@@ -97,54 +192,55 @@ $
 $ g++ -o example -DREVERSED_CONDITION_ORDER example.c
 $ ./example
 error
-</pre>
+</pre></div>
+</div>
 <p>And we also get a warning from re2c.
-The same behaviour (re2c warning and error with <tt class="docutils literal"><span class="pre">-DREVERSED_CONDITION_ORDER</span></tt>) remains if we use <tt class="docutils literal"><span class="pre">-g</span></tt> option
-(or any option that implies <tt class="docutils literal"><span class="pre">-s</span></tt> or <tt class="docutils literal"><span class="pre">-g</span></tt>).
+The same behaviour (re2c warning and error with <code class="docutils literal"><span class="pre">-DREVERSED_CONDITION_ORDER</span></code>) remains if we use <code class="docutils literal"><span class="pre">-g</span></code> option
+(or any option that implies <code class="docutils literal"><span class="pre">-s</span></code> or <code class="docutils literal"><span class="pre">-g</span></code>).
 Why is that?
 A look at the generated code explains everything.
-Normally the inital dispatch on conditions is a <tt class="docutils literal">switch</tt> statement:</p>
-<pre class="code cpp literal-block">
-<span class="keyword">switch</span> <span class="punctuation">(</span><span class="name">c</span><span class="punctuation">)</span> <span class="punctuation">{</span>
-<span class="keyword">case</span> <span class="name label">yyca</span><span class="punctuation">:</span> <span class="keyword">goto</span> <span class="name">yyc_a</span><span class="punctuation">;</span>
-<span class="keyword">case</span> <span class="name label">yycb</span><span class="punctuation">:</span> <span class="keyword">goto</span> <span class="name">yyc_b</span><span class="punctuation">;</span>
-<span class="punctuation">}</span>
-</pre>
+Normally the inital dispatch on conditions is a <code class="docutils literal"><span class="pre">switch</span></code> statement:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="k">switch</span> <span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+<span class="k">case</span> <span class="nl">yyca</span><span class="p">:</span> <span class="k">goto</span> <span class="n">yyc_a</span><span class="p">;</span>
+<span class="k">case</span> <span class="nl">yycb</span><span class="p">:</span> <span class="k">goto</span> <span class="n">yyc_b</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 <p>Dispatch uses explicit condition names and works no matter what numbers are assigned to them.
-However, with <tt class="docutils literal"><span class="pre">-s</span></tt> option re2c generates an <tt class="docutils literal">if</tt> statement instead of a <tt class="docutils literal">switch</tt>:</p>
-<pre class="code cpp literal-block">
-<span class="keyword">if</span> <span class="punctuation">(</span><span class="name">c</span> <span class="operator">&lt;</span> <span class="literal number integer">1</span><span class="punctuation">)</span> <span class="punctuation">{</span>
-        <span class="keyword">goto</span> <span class="name">yyc_a</span><span class="punctuation">;</span>
-<span class="punctuation">}</span> <span class="keyword">else</span> <span class="punctuation">{</span>
-        <span class="keyword">goto</span> <span class="name">yyc_b</span><span class="punctuation">;</span>
-<span class="punctuation">}</span>
-</pre>
-<p>And with <tt class="docutils literal"><span class="pre">-g</span></tt> option it uses jump table (computed <tt class="docutils literal">goto</tt>):</p>
-<pre class="code cpp literal-block">
-<span class="keyword">static</span> <span class="keyword type">void</span> <span class="operator">*</span><span class="name">yyctable</span><span class="punctuation">[</span><span class="literal number integer">2</span><span class="punctuation">]</span> <span class="operator">=</span> <span class="punctuation">{</span>
-        <span class="operator">&amp;&amp;</span><span class="name">yyc_a</span><span class="punctuation">,</span>
-        <span class="operator">&amp;&amp;</span><span class="name">yyc_b</span><span class="punctuation">,</span>
-<span class="punctuation">};</span>
-<span class="keyword">goto</span> <span class="operator">*</span><span class="name">yyctable</span><span class="punctuation">[</span><span class="name">c</span><span class="punctuation">];</span>
-</pre>
+However, with <code class="docutils literal"><span class="pre">-s</span></code> option re2c generates an <code class="docutils literal"><span class="pre">if</span></code> statement instead of a <code class="docutils literal"><span class="pre">switch</span></code>:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="k">if</span> <span class="p">(</span><span class="n">c</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">goto</span> <span class="n">yyc_a</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">goto</span> <span class="n">yyc_b</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>And with <code class="docutils literal"><span class="pre">-g</span></code> option it uses jump table (computed <code class="docutils literal"><span class="pre">goto</span></code>):</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="k">static</span> <span class="kt">void</span> <span class="o">*</span><span class="n">yyctable</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="o">&amp;&amp;</span><span class="n">yyc_a</span><span class="p">,</span>
+        <span class="o">&amp;&amp;</span><span class="n">yyc_b</span><span class="p">,</span>
+<span class="p">};</span>
+<span class="k">goto</span> <span class="o">*</span><span class="n">yyctable</span><span class="p">[</span><span class="n">c</span><span class="p">];</span>
+</pre></div>
+</div>
 <p>Clearly, the last two cases are sensitive to condition order.
-The fix is easy: as the warning suggests, use <tt class="docutils literal"><span class="pre">/*!types:re2c*/</span></tt> directive or <tt class="docutils literal"><span class="pre">-t,</span> <span class="pre">--type-header</span></tt> option.</p>
+The fix is easy: as the warning suggests, use <code class="docutils literal"><span class="pre">/*!types:re2c*/</span></code> directive or <code class="docutils literal"><span class="pre">-t,</span> <span class="pre">--type-header</span></code> option.</p>
 </div>
 <div class="section" id="how-it-works">
-<h1>How it works</h1>
+<h2>How it works<a class="headerlink" href="#how-it-works" title="Permalink to this headline">¶</a></h2>
 <p>The warning is triggered if at the same time:</p>
 <ul class="simple">
-<li>Conditions are enabled with <tt class="docutils literal"><span class="pre">-c</span></tt>.</li>
-<li>Neither <tt class="docutils literal"><span class="pre">/*!types:re2c*/</span></tt>, nor <tt class="docutils literal"><span class="pre">-t,</span> <span class="pre">--type-header</span></tt> is used.</li>
+<li>Conditions are enabled with <code class="docutils literal"><span class="pre">-c</span></code>.</li>
+<li>Neither <code class="docutils literal"><span class="pre">/*!types:re2c*/</span></code>, nor <code class="docutils literal"><span class="pre">-t,</span> <span class="pre">--type-header</span></code> is used.</li>
 <li>Initial dispatch on conditions in sensitive to condition order:
-it is either an <tt class="docutils literal">if</tt> statement or a jump table.
+it is either an <code class="docutils literal"><span class="pre">if</span></code> statement or a jump table.
 Note that the number of conditions must be greater than one,
 otherwise dispatch shrinks to a simple unconditional jump.</li>
 </ul>
 </div>
 <div class="section" id="real-world-examples">
-<h1>Real-world examples</h1>
-<p>The  best real-world example is a story of how <tt class="docutils literal"><span class="pre">[-Wcondition-order]</span></tt> was added to re2c.</p>
+<h2>Real-world examples<a class="headerlink" href="#real-world-examples" title="Permalink to this headline">¶</a></h2>
+<p>The  best real-world example is a story of how <code class="docutils literal"><span class="pre">[-Wcondition-order]</span></code> was added to re2c.</p>
 <p>One day I decided to change condition numbering scheme.
 It was only natural: re2c assigns numbers to conditions in the order they appear in code.
 This is not very convenient, because elsewhere in the code condition names (not numbers) are used as unique identifiers.
@@ -156,77 +252,132 @@ they must be defined, and why would anyone define them by hand if they can do it
 <p>Or wait.
 Almost occasionally I found a real-world program that does use fixed condition numbers.
 Here is the carcass of this program:</p>
-<pre class="code cpp literal-block">
-<span class="ln"> 1 </span><span class="comment preproc">#define NORMAL 0
-</span><span class="ln"> 2 </span><span class="comment preproc">#define PRE_RAW 1
-</span><span class="ln"> 3 </span><span class="comment preproc">#define RAW 2
-</span><span class="ln"> 4 </span><span class="comment preproc">#define INITIAL 3
-</span><span class="ln"> 5 </span><span class="comment preproc"></span>
-<span class="ln"> 6 </span><span class="comment multiline">/*!re2c
-</span><span class="ln"> 7 </span><span class="comment multiline">    re2c:yyfill:check = 0;
-</span><span class="ln"> 8 </span><span class="comment multiline">
-</span><span class="ln"> 9 </span><span class="comment multiline">    T_TRUE      'true'
-</span><span class="ln">10 </span><span class="comment multiline">    T_YES       'yes'
-</span><span class="ln">11 </span><span class="comment multiline">    T_ON        'on'
-</span><span class="ln">12 </span><span class="comment multiline">    T_ENABLED   'enabled'
-</span><span class="ln">13 </span><span class="comment multiline">    T_FALSE     'false'
-</span><span class="ln">14 </span><span class="comment multiline">    T_NO        'no'
-</span><span class="ln">15 </span><span class="comment multiline">    T_OFF       'off'
-</span><span class="ln">16 </span><span class="comment multiline">    T_DISABLED  'disabled'
-</span><span class="ln">17 </span><span class="comment multiline">    T_EVAL      'ev'
-</span><span class="ln">18 </span><span class="comment multiline">    T_SHELL     'sh'
-</span><span class="ln">19 </span><span class="comment multiline">    T_IF        'if'
-</span><span class="ln">20 </span><span class="comment multiline">    T_RUN       'run'
-</span><span class="ln">21 </span><span class="comment multiline">    T_RUN_SHORT &quot;r&quot;
-</span><span class="ln">22 </span><span class="comment multiline">    WS          [ \r\n\t]+
-</span><span class="ln">23 </span><span class="comment multiline">    DIGITS      [-]?[0-9\.]+
-</span><span class="ln">24 </span><span class="comment multiline">    ID          [^ \r\n\t:#\000]+
-</span><span class="ln">25 </span><span class="comment multiline">    ADDR        [0][x][a-fA-F0-9]+
-</span><span class="ln">26 </span><span class="comment multiline">    OPCODE      (ZEND_|zend_)([A-Za-z])+
-</span><span class="ln">27 </span><span class="comment multiline">    INPUT       [^\n\000]+
-</span><span class="ln">28 </span><span class="comment multiline">
-</span><span class="ln">29 </span><span class="comment multiline">    &lt;!*&gt; {}
-</span><span class="ln">30 </span><span class="comment multiline">    &lt;*&gt;{WS}?[\n\000] {}
-</span><span class="ln">31 </span><span class="comment multiline">    &lt;PRE_RAW, NORMAL&gt;[-][r]{WS}?{DIGITS} {}
-</span><span class="ln">32 </span><span class="comment multiline">    &lt;NORMAL&gt;{T_IF}{WS} {}
-</span><span class="ln">33 </span><span class="comment multiline">    &lt;NORMAL&gt;{ID}[:]{1}[//]{2} {}
-</span><span class="ln">34 </span><span class="comment multiline">    &lt;NORMAL&gt;[#]{1} {}
-</span><span class="ln">35 </span><span class="comment multiline">    &lt;NORMAL&gt;[:]{2} {}
-</span><span class="ln">36 </span><span class="comment multiline">    &lt;NORMAL&gt;[:]{1} {}
-</span><span class="ln">37 </span><span class="comment multiline">    &lt;NORMAL&gt;({T_YES}|{T_ON}|{T_ENABLED}|{T_TRUE}){WS} {}
-</span><span class="ln">38 </span><span class="comment multiline">    &lt;NORMAL&gt;({T_NO}|{T_OFF}|{T_DISABLED}|{T_FALSE}){WS} {}
-</span><span class="ln">39 </span><span class="comment multiline">    &lt;NORMAL&gt;{DIGITS} {}
-</span><span class="ln">40 </span><span class="comment multiline">    &lt;NORMAL&gt;{ADDR} {}
-</span><span class="ln">41 </span><span class="comment multiline">    &lt;NORMAL&gt;{OPCODE} {}
-</span><span class="ln">42 </span><span class="comment multiline">    &lt;NORMAL&gt;{ID} {}
-</span><span class="ln">43 </span><span class="comment multiline">    &lt;RAW&gt;{INPUT} {}
-</span><span class="ln">44 </span><span class="comment multiline">    &lt;*&gt;{WS} {}
-</span><span class="ln">45 </span><span class="comment multiline">    &lt;INITIAL&gt;{T_EVAL}{WS} {}
-</span><span class="ln">46 </span><span class="comment multiline">    &lt;INITIAL&gt;{T_SHELL}{WS} {}
-</span><span class="ln">47 </span><span class="comment multiline">    &lt;INITIAL&gt;({T_RUN}|{T_RUN_SHORT}){WS} {}
-</span><span class="ln">48 </span><span class="comment multiline">    &lt;PRE_RAW&gt;. {}
-</span><span class="ln">49 </span><span class="comment multiline">    &lt;INITIAL&gt;. {}
-</span><span class="ln">50 </span><span class="comment multiline">*/</span>
-</pre>
+<div class="highlight-cpp"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50</pre></div></td><td class="code"><div class="highlight"><pre><span class="cp">#define NORMAL 0</span>
+<span class="cp">#define PRE_RAW 1</span>
+<span class="cp">#define RAW 2</span>
+<span class="cp">#define INITIAL 3</span>
+
+<span class="cm">/*!re2c</span>
+<span class="cm">    re2c:yyfill:check = 0;</span>
+
+<span class="cm">    T_TRUE      &#39;true&#39;</span>
+<span class="cm">    T_YES       &#39;yes&#39;</span>
+<span class="cm">    T_ON        &#39;on&#39;</span>
+<span class="cm">    T_ENABLED   &#39;enabled&#39;</span>
+<span class="cm">    T_FALSE     &#39;false&#39;</span>
+<span class="cm">    T_NO        &#39;no&#39;</span>
+<span class="cm">    T_OFF       &#39;off&#39;</span>
+<span class="cm">    T_DISABLED  &#39;disabled&#39;</span>
+<span class="cm">    T_EVAL      &#39;ev&#39;</span>
+<span class="cm">    T_SHELL     &#39;sh&#39;</span>
+<span class="cm">    T_IF        &#39;if&#39;</span>
+<span class="cm">    T_RUN       &#39;run&#39;</span>
+<span class="cm">    T_RUN_SHORT &quot;r&quot;</span>
+<span class="cm">    WS          [ \r\n\t]+</span>
+<span class="cm">    DIGITS      [-]?[0-9\.]+</span>
+<span class="cm">    ID          [^ \r\n\t:#\000]+</span>
+<span class="cm">    ADDR        [0][x][a-fA-F0-9]+</span>
+<span class="cm">    OPCODE      (ZEND_|zend_)([A-Za-z])+</span>
+<span class="cm">    INPUT       [^\n\000]+</span>
+
+<span class="cm">    &lt;!*&gt; {}</span>
+<span class="cm">    &lt;*&gt;{WS}?[\n\000] {}</span>
+<span class="cm">    &lt;PRE_RAW, NORMAL&gt;[-][r]{WS}?{DIGITS} {}</span>
+<span class="cm">    &lt;NORMAL&gt;{T_IF}{WS} {}</span>
+<span class="cm">    &lt;NORMAL&gt;{ID}[:]{1}[//]{2} {}</span>
+<span class="cm">    &lt;NORMAL&gt;[#]{1} {}</span>
+<span class="cm">    &lt;NORMAL&gt;[:]{2} {}</span>
+<span class="cm">    &lt;NORMAL&gt;[:]{1} {}</span>
+<span class="cm">    &lt;NORMAL&gt;({T_YES}|{T_ON}|{T_ENABLED}|{T_TRUE}){WS} {}</span>
+<span class="cm">    &lt;NORMAL&gt;({T_NO}|{T_OFF}|{T_DISABLED}|{T_FALSE}){WS} {}</span>
+<span class="cm">    &lt;NORMAL&gt;{DIGITS} {}</span>
+<span class="cm">    &lt;NORMAL&gt;{ADDR} {}</span>
+<span class="cm">    &lt;NORMAL&gt;{OPCODE} {}</span>
+<span class="cm">    &lt;NORMAL&gt;{ID} {}</span>
+<span class="cm">    &lt;RAW&gt;{INPUT} {}</span>
+<span class="cm">    &lt;*&gt;{WS} {}</span>
+<span class="cm">    &lt;INITIAL&gt;{T_EVAL}{WS} {}</span>
+<span class="cm">    &lt;INITIAL&gt;{T_SHELL}{WS} {}</span>
+<span class="cm">    &lt;INITIAL&gt;({T_RUN}|{T_RUN_SHORT}){WS} {}</span>
+<span class="cm">    &lt;PRE_RAW&gt;. {}</span>
+<span class="cm">    &lt;INITIAL&gt;. {}</span>
+<span class="cm">*/</span>
+</pre></div>
+</td></tr></table></div>
 <p>Curiously, the program somehow avoids using re2c-generated condition names:
-even <tt class="docutils literal">YYSETCONDITION</tt> is called manually instead of using <tt class="docutils literal">=&gt;</tt> in rules.
-The program uses <tt class="docutils literal"><span class="pre">-g</span></tt> option, so the initial dispatch does depend on condition order:</p>
-<pre class="code cpp literal-block">
-<span class="keyword">static</span> <span class="keyword type">void</span> <span class="operator">*</span><span class="name">yyctable</span><span class="punctuation">[</span><span class="literal number integer">4</span><span class="punctuation">]</span> <span class="operator">=</span> <span class="punctuation">{</span>
-    <span class="operator">&amp;&amp;</span><span class="name">yyc_NORMAL</span><span class="punctuation">,</span>
-    <span class="operator">&amp;&amp;</span><span class="name">yyc_PRE_RAW</span><span class="punctuation">,</span>
-    <span class="operator">&amp;&amp;</span><span class="name">yyc_RAW</span><span class="punctuation">,</span>
-    <span class="operator">&amp;&amp;</span><span class="name">yyc_INITIAL</span><span class="punctuation">,</span>
-<span class="punctuation">};</span>
-<span class="keyword">goto</span> <span class="operator">*</span><span class="name">yyctable</span><span class="punctuation">[</span><span class="name">YYGETCONDITION</span><span class="punctuation">()];</span>
-</pre>
+even <code class="docutils literal"><span class="pre">YYSETCONDITION</span></code> is called manually instead of using <code class="docutils literal"><span class="pre">=&gt;</span></code> in rules.
+The program uses <code class="docutils literal"><span class="pre">-g</span></code> option, so the initial dispatch does depend on condition order:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="k">static</span> <span class="kt">void</span> <span class="o">*</span><span class="n">yyctable</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="o">&amp;&amp;</span><span class="n">yyc_NORMAL</span><span class="p">,</span>
+    <span class="o">&amp;&amp;</span><span class="n">yyc_PRE_RAW</span><span class="p">,</span>
+    <span class="o">&amp;&amp;</span><span class="n">yyc_RAW</span><span class="p">,</span>
+    <span class="o">&amp;&amp;</span><span class="n">yyc_INITIAL</span><span class="p">,</span>
+<span class="p">};</span>
+<span class="k">goto</span> <span class="o">*</span><span class="n">yyctable</span><span class="p">[</span><span class="n">YYGETCONDITION</span><span class="p">()];</span>
+</pre></div>
+</div>
 <p>Of course, re2c will keep to the old condition numbering scheme (at least in the nearest future).
-Who wants to break the old code? <tt class="docutils literal">:)</tt></p>
+Who wants to break the old code? <code class="docutils literal"><span class="pre">:)</span></code></p>
 </div>
 </div>
-<div class="footer">
-<hr class="footer" />
-<a class="reference external" href="../../../index.html">[home]</a> <a class="reference external" href="../../manual.html">[Manual]</a> <a class="reference external" href="../warnings.html">[Warnings]</a>
-</div>
-</body>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer" role="contentinfo">
+      Last updated on Mar 03, 2016.
+    </div>
+  </body>
 </html>

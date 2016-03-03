@@ -1,29 +1,74 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
-<title>Release 0.16</title>
-<link rel="stylesheet" type="text/css" href="/css/default.css" />
-<link rel="alternate" type="application/atom+xml" href="/feed/atom.xml" title="Atom 1.0" />
-<link rel="icon" href="/favicon.ico" />
-</head>
-<body>
-<div class="header">
-<a class="reference external" href="../../index.html">[home]</a> <a class="reference external" href="../news.html">[News]</a>
-<hr class="header"/>
-</div>
-<div class="document" id="release-0-16">
-<h1 class="title">Release 0.16</h1>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Release 0.16 &mdash; re2c 0.16 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/theme-re2c.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.16',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="alternate" type="application/atom+xml" href="../../_static/feed/atom.xml" title="Atom 1.0" />
+    
+ 
+  </head>
+  <body role="document">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="re2c-logo">
+    re2c-0.16
+</div>
+
+<h3><a href="../../index.html">Home</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../about/about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install/install.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../manual/manual.html">Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/examples.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../news.html">News</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="">Release 0.16</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0_15_3.html">Release 0.15.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0_15_2.html">Release 0.15.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0_15_1.html">Release 0.15.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0_15.html">Release 0.15</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog/changelog.html">Changelog</a></li>
+</ul>
+</li>
+</ul>
+
+
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="release-0-16">
+<h1>Release 0.16<a class="headerlink" href="#release-0-16" title="Permalink to this headline">¶</a></h1>
 <p>This release adds a very important step in the process of code generation:
 minimization of the underlying DFA (deterministic finite automaton).
 Simply speaking, this means that re2c now generates less code
 (while the generated code behaves in exactly the same way).</p>
 <p>DFA minimization is a very well-known technique
 and one might expect that any self-respecting lexer generator would definitely use it.
-So how could it be that re2c didn't?
+So how could it be that re2c didn&#8217;t?
 In fact, re2c did use a couple of self-invented tricks to compress the generated code
 (one interesting technique is constructing <em>tunnel</em> automaton).
 Some of these tricks were quite buggy (see <a class="reference external" href="https://bugs.gentoo.org/show_bug.cgi?id=518904">this bug report</a> for example).
@@ -38,19 +83,25 @@ Because skeleton is constructed prior to DFA minimization, it cannot be affected
 <p>Another way to verify DFA minimization is to implement two different algorithms
 and compare the results. Minimization procedure has a very useful property:
 the miminal DFA is unique (with respect to state relabelling).
-We used Moore's and so-called <em>table filling</em> algorithms:
-Moore's algorithm is fast, while table filling is very simple to implement.
-There is an option <tt class="docutils literal"><span class="pre">--dfa-minimization</span> &lt;moore | table&gt;</tt> that allows to choose
-a particular algorithm (defaults to <tt class="docutils literal">moore</tt>), but it's only useful for debugging
+We used Moore&#8217;s and so-called <em>table filling</em> algorithms:
+Moore&#8217;s algorithm is fast, while table filling is very simple to implement.
+There is an option <code class="docutils literal"><span class="pre">--dfa-minimization</span> <span class="pre">&lt;moore</span> <span class="pre">|</span> <span class="pre">table&gt;</span></code> that allows to choose
+a particular algorithm (defaults to <code class="docutils literal"><span class="pre">moore</span></code>), but it&#8217;s only useful for debugging
 DFA minimization.</p>
 <p>A good side effect of messing with re2c internals is a significant speedup
 of code generation (see <a class="reference external" href="https://github.com/skvadrik/re2c/issues/128">this issue</a> for example).
 Test suite now runs twice as fast (at least).</p>
 <p>See <a class="reference external" href="../changelog/changelog.html">changelog</a> for the list of all changes.</p>
 </div>
-<div class="footer">
-<hr class="footer" />
-<a class="reference external" href="../../index.html">[home]</a> <a class="reference external" href="../news.html">[News]</a>
-</div>
-</body>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer" role="contentinfo">
+      Last updated on Mar 03, 2016.
+    </div>
+  </body>
 </html>

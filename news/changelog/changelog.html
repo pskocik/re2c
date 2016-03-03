@@ -1,153 +1,282 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
-<title>Changelog</title>
-<link rel="stylesheet" type="text/css" href="/css/default.css" />
-<link rel="alternate" type="application/atom+xml" href="/feed/atom.xml" title="Atom 1.0" />
-<link rel="icon" href="/favicon.ico" />
-</head>
-<body>
-<div class="header">
-<a class="reference external" href="../../index.html">[home]</a> <a class="reference external" href="../news.html">[News]</a>
-<hr class="header"/>
-</div>
-<div class="document" id="changelog">
-<h1 class="title">Changelog</h1>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<div class="contents topic" id="id2">
-<p class="topic-title first">★</p>
-<ul class="simple">
-<li><a class="reference internal" href="#x" id="id61">0.16x</a><ul>
-<li><a class="reference internal" href="#id3" id="id62">0.16 (2016-01-21)</a></li>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Changelog &mdash; re2c 0.16 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/theme-re2c.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.16',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="alternate" type="application/atom+xml" href="../../_static/feed/atom.xml" title="Atom 1.0" />
+    
+ 
+  </head>
+  <body role="document">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="re2c-logo">
+    re2c-0.16
+</div>
+
+<h3><a href="../../index.html">Home</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../about/about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install/install.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../manual/manual.html">Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/examples.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../news.html">News</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../release_notes/0_16.html">Release 0.16</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release_notes/0_15_3.html">Release 0.15.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release_notes/0_15_2.html">Release 0.15.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release_notes/0_15_1.html">Release 0.15.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release_notes/0_15.html">Release 0.15</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Changelog</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#x">0.16x</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">0.16 (2016-01-21)</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id4" id="id63">0.15x</a><ul>
-<li><a class="reference internal" href="#id5" id="id64">0.15.3 (2015-12-02)</a></li>
-<li><a class="reference internal" href="#id6" id="id65">0.15.2 (2015-11-23)</a></li>
-<li><a class="reference internal" href="#id7" id="id66">0.15.1 (2015-11-22)</a></li>
-<li><a class="reference internal" href="#id8" id="id67">0.15 (2015-11-22)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">0.15x</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">0.15.3 (2015-12-02)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">0.15.2 (2015-11-23)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">0.15.1 (2015-11-22)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">0.15 (2015-11-22)</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id9" id="id68">0.14x</a><ul>
-<li><a class="reference internal" href="#id10" id="id69">0.14.3 (2015-05-20)</a></li>
-<li><a class="reference internal" href="#id11" id="id70">0.14.2 (2015-03-25)</a></li>
-<li><a class="reference internal" href="#id12" id="id71">0.14.1 (2015-02-27)</a></li>
-<li><a class="reference internal" href="#id13" id="id72">0.14 (2015-02-23)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">0.14x</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id8">0.14.3 (2015-05-20)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id9">0.14.2 (2015-03-25)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id10">0.14.1 (2015-02-27)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id11">0.14 (2015-02-23)</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id14" id="id73">0.13x</a><ul>
-<li><a class="reference internal" href="#id15" id="id74">0.13.7.5 (2014-08-22)</a></li>
-<li><a class="reference internal" href="#id16" id="id75">0.13.7.4 (2014-07-29)</a></li>
-<li><a class="reference internal" href="#id17" id="id76">0.13.7.3 (2014-07-27)</a></li>
-<li><a class="reference internal" href="#id18" id="id77">0.13.7.2 (2014-07-27)</a></li>
-<li><a class="reference internal" href="#id19" id="id78">0.13.7.1 (2014-07-26)</a></li>
-<li><a class="reference internal" href="#id20" id="id79">0.13.7 (2014-07-25)</a></li>
-<li><a class="reference internal" href="#id21" id="id80">0.13.6 (2013-07-04)</a></li>
-<li><a class="reference internal" href="#id22" id="id81">0.13.5 (2008-05-25)</a></li>
-<li><a class="reference internal" href="#id23" id="id82">0.13.4 (2008-04-05)</a></li>
-<li><a class="reference internal" href="#id24" id="id83">0.13.3 (2008-03-14)</a></li>
-<li><a class="reference internal" href="#id25" id="id84">0.13.2 (2008-02-14)</a></li>
-<li><a class="reference internal" href="#id26" id="id85">0.13.1 (2007-08-24)</a></li>
-<li><a class="reference internal" href="#id27" id="id86">0.13.0 (2007-06-24)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id12">0.13x</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id13">0.13.7.5 (2014-08-22)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id14">0.13.7.4 (2014-07-29)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id15">0.13.7.3 (2014-07-27)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id16">0.13.7.2 (2014-07-27)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id17">0.13.7.1 (2014-07-26)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id18">0.13.7 (2014-07-25)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id19">0.13.6 (2013-07-04)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id20">0.13.5 (2008-05-25)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id21">0.13.4 (2008-04-05)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id22">0.13.3 (2008-03-14)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id23">0.13.2 (2008-02-14)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id24">0.13.1 (2007-08-24)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id25">0.13.0 (2007-06-24)</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id28" id="id87">0.12x</a><ul>
-<li><a class="reference internal" href="#id29" id="id88">0.12.3 (2007-08-24)</a></li>
-<li><a class="reference internal" href="#id30" id="id89">0.12.2 (2007-06-26)</a></li>
-<li><a class="reference internal" href="#id31" id="id90">0.12.1 (2007-05-23)</a></li>
-<li><a class="reference internal" href="#id32" id="id91">0.12.0 (2007-05-01)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id26">0.12x</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id27">0.12.3 (2007-08-24)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id28">0.12.2 (2007-06-26)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id29">0.12.1 (2007-05-23)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id30">0.12.0 (2007-05-01)</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id33" id="id92">0.11x</a><ul>
-<li><a class="reference internal" href="#id34" id="id93">0.11.3 (2007-04-01)</a></li>
-<li><a class="reference internal" href="#id35" id="id94">0.11.2 (2007-03-01)</a></li>
-<li><a class="reference internal" href="#id36" id="id95">0.11.1 (2007-02-20)</a></li>
-<li><a class="reference internal" href="#id37" id="id96">0.11.0 (2007-01-01)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id31">0.11x</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id32">0.11.3 (2007-04-01)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id33">0.11.2 (2007-03-01)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id34">0.11.1 (2007-02-20)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id35">0.11.0 (2007-01-01)</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id38" id="id97">0.10x</a><ul>
-<li><a class="reference internal" href="#id39" id="id98">0.10.8 (2007-04-01)</a></li>
-<li><a class="reference internal" href="#id40" id="id99">0.10.7 (2007-02-20)</a></li>
-<li><a class="reference internal" href="#id41" id="id100">0.10.6 (2006-08-05)</a></li>
-<li><a class="reference internal" href="#id42" id="id101">0.10.5 (2006-06-11)</a></li>
-<li><a class="reference internal" href="#id43" id="id102">0.10.4 (2006-06-01)</a></li>
-<li><a class="reference internal" href="#id44" id="id103">0.10.3 (2006-05-14)</a></li>
-<li><a class="reference internal" href="#id45" id="id104">0.10.2 (2006-05-01)</a></li>
-<li><a class="reference internal" href="#id46" id="id105">0.10.1 (2006-02-28)</a></li>
-<li><a class="reference internal" href="#id47" id="id106">0.10.0 (2006-02-18)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id36">0.10x</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id37">0.10.8 (2007-04-01)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id38">0.10.7 (2007-02-20)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id39">0.10.6 (2006-08-05)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id40">0.10.5 (2006-06-11)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id41">0.10.4 (2006-06-01)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id42">0.10.3 (2006-05-14)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id43">0.10.2 (2006-05-01)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id44">0.10.1 (2006-02-28)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id45">0.10.0 (2006-02-18)</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id48" id="id107">0.9x</a><ul>
-<li><a class="reference internal" href="#id49" id="id108">0.9.12 (2005-12-28)</a></li>
-<li><a class="reference internal" href="#id50" id="id109">0.9.11 (2005-12-18)</a></li>
-<li><a class="reference internal" href="#id51" id="id110">0.9.10 (2005-09-04)</a></li>
-<li><a class="reference internal" href="#id52" id="id111">0.9.9 (2005-07-21)</a></li>
-<li><a class="reference internal" href="#id53" id="id112">0.9.8 (2005-06-26)</a></li>
-<li><a class="reference internal" href="#id54" id="id113">0.9.7 (2005-04-30)</a></li>
-<li><a class="reference internal" href="#id55" id="id114">0.9.6 (2005-04-14)</a></li>
-<li><a class="reference internal" href="#id56" id="id115">0.9.5 (2005-04-08)</a></li>
-<li><a class="reference internal" href="#id57" id="id116">0.9.4 (2005-03-12)</a></li>
-<li><a class="reference internal" href="#id58" id="id117">0.9.3 (2004-05-26)</a></li>
-<li><a class="reference internal" href="#id59" id="id118">0.9.2 (2004-05-26)</a></li>
-<li><a class="reference internal" href="#id60" id="id119">0.9.1 (2003-12-13)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id46">0.9x</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id47">0.9.12 (2005-12-28)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id48">0.9.11 (2005-12-18)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id49">0.9.10 (2005-09-04)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id50">0.9.9 (2005-07-21)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id51">0.9.8 (2005-06-26)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id52">0.9.7 (2005-04-30)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id53">0.9.6 (2005-04-14)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id54">0.9.5 (2005-04-08)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id55">0.9.4 (2005-03-12)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id56">0.9.3 (2004-05-26)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id57">0.9.2 (2004-05-26)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id58">0.9.1 (2003-12-13)</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#re2c-adopted-2003-12-09" id="id120">re2c adopted (2003-12-09)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#re2c-adopted-2003-12-09">re2c adopted (2003-12-09)</a></li>
 </ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    <h3>Changelog</h3>
+    <div class="re2c-toc-local">
+        <ul>
+<li><a class="reference internal" href="#">Changelog</a><ul>
+<li><a class="reference internal" href="#x">0.16x</a><ul>
+<li><a class="reference internal" href="#id1">0.16 (2016-01-21)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id2">0.15x</a><ul>
+<li><a class="reference internal" href="#id3">0.15.3 (2015-12-02)</a></li>
+<li><a class="reference internal" href="#id4">0.15.2 (2015-11-23)</a></li>
+<li><a class="reference internal" href="#id5">0.15.1 (2015-11-22)</a></li>
+<li><a class="reference internal" href="#id6">0.15 (2015-11-22)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id7">0.14x</a><ul>
+<li><a class="reference internal" href="#id8">0.14.3 (2015-05-20)</a></li>
+<li><a class="reference internal" href="#id9">0.14.2 (2015-03-25)</a></li>
+<li><a class="reference internal" href="#id10">0.14.1 (2015-02-27)</a></li>
+<li><a class="reference internal" href="#id11">0.14 (2015-02-23)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id12">0.13x</a><ul>
+<li><a class="reference internal" href="#id13">0.13.7.5 (2014-08-22)</a></li>
+<li><a class="reference internal" href="#id14">0.13.7.4 (2014-07-29)</a></li>
+<li><a class="reference internal" href="#id15">0.13.7.3 (2014-07-27)</a></li>
+<li><a class="reference internal" href="#id16">0.13.7.2 (2014-07-27)</a></li>
+<li><a class="reference internal" href="#id17">0.13.7.1 (2014-07-26)</a></li>
+<li><a class="reference internal" href="#id18">0.13.7 (2014-07-25)</a></li>
+<li><a class="reference internal" href="#id19">0.13.6 (2013-07-04)</a></li>
+<li><a class="reference internal" href="#id20">0.13.5 (2008-05-25)</a></li>
+<li><a class="reference internal" href="#id21">0.13.4 (2008-04-05)</a></li>
+<li><a class="reference internal" href="#id22">0.13.3 (2008-03-14)</a></li>
+<li><a class="reference internal" href="#id23">0.13.2 (2008-02-14)</a></li>
+<li><a class="reference internal" href="#id24">0.13.1 (2007-08-24)</a></li>
+<li><a class="reference internal" href="#id25">0.13.0 (2007-06-24)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id26">0.12x</a><ul>
+<li><a class="reference internal" href="#id27">0.12.3 (2007-08-24)</a></li>
+<li><a class="reference internal" href="#id28">0.12.2 (2007-06-26)</a></li>
+<li><a class="reference internal" href="#id29">0.12.1 (2007-05-23)</a></li>
+<li><a class="reference internal" href="#id30">0.12.0 (2007-05-01)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id31">0.11x</a><ul>
+<li><a class="reference internal" href="#id32">0.11.3 (2007-04-01)</a></li>
+<li><a class="reference internal" href="#id33">0.11.2 (2007-03-01)</a></li>
+<li><a class="reference internal" href="#id34">0.11.1 (2007-02-20)</a></li>
+<li><a class="reference internal" href="#id35">0.11.0 (2007-01-01)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id36">0.10x</a><ul>
+<li><a class="reference internal" href="#id37">0.10.8 (2007-04-01)</a></li>
+<li><a class="reference internal" href="#id38">0.10.7 (2007-02-20)</a></li>
+<li><a class="reference internal" href="#id39">0.10.6 (2006-08-05)</a></li>
+<li><a class="reference internal" href="#id40">0.10.5 (2006-06-11)</a></li>
+<li><a class="reference internal" href="#id41">0.10.4 (2006-06-01)</a></li>
+<li><a class="reference internal" href="#id42">0.10.3 (2006-05-14)</a></li>
+<li><a class="reference internal" href="#id43">0.10.2 (2006-05-01)</a></li>
+<li><a class="reference internal" href="#id44">0.10.1 (2006-02-28)</a></li>
+<li><a class="reference internal" href="#id45">0.10.0 (2006-02-18)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id46">0.9x</a><ul>
+<li><a class="reference internal" href="#id47">0.9.12 (2005-12-28)</a></li>
+<li><a class="reference internal" href="#id48">0.9.11 (2005-12-18)</a></li>
+<li><a class="reference internal" href="#id49">0.9.10 (2005-09-04)</a></li>
+<li><a class="reference internal" href="#id50">0.9.9 (2005-07-21)</a></li>
+<li><a class="reference internal" href="#id51">0.9.8 (2005-06-26)</a></li>
+<li><a class="reference internal" href="#id52">0.9.7 (2005-04-30)</a></li>
+<li><a class="reference internal" href="#id53">0.9.6 (2005-04-14)</a></li>
+<li><a class="reference internal" href="#id54">0.9.5 (2005-04-08)</a></li>
+<li><a class="reference internal" href="#id55">0.9.4 (2005-03-12)</a></li>
+<li><a class="reference internal" href="#id56">0.9.3 (2004-05-26)</a></li>
+<li><a class="reference internal" href="#id57">0.9.2 (2004-05-26)</a></li>
+<li><a class="reference internal" href="#id58">0.9.1 (2003-12-13)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#re2c-adopted-2003-12-09">re2c adopted (2003-12-09)</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="changelog">
+<h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
 </div>
 <div class="section" id="x">
-<h1>0.16x</h1>
-<div class="section" id="id3">
-<h2>0.16 (2016-01-21)</h2>
+<h2>0.16x<a class="headerlink" href="#x" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h3>0.16 (2016-01-21)<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Fixed bug #127 &quot;code generation error with wide chars and bitmaps (omitted <tt class="docutils literal">goto</tt> statement)&quot;</li>
-<li>Added DFA minimization and option <tt class="docutils literal"><span class="pre">--dfa-minimization</span> &lt;table | moore&gt;</tt></li>
-<li>Fixed bug #128 &quot;very slow DFA construction (resulting in a very large DFA)&quot;</li>
-<li>Fixed bug #132 &quot;test failure on big endian archs with 0.15.3&quot;</li>
+<li>Fixed bug #127 &#8220;code generation error with wide chars and bitmaps (omitted <code class="docutils literal"><span class="pre">goto</span></code> statement)&#8221;</li>
+<li>Added DFA minimization and option <code class="docutils literal"><span class="pre">--dfa-minimization</span> <span class="pre">&lt;table</span> <span class="pre">|</span> <span class="pre">moore&gt;</span></code></li>
+<li>Fixed bug #128 &#8220;very slow DFA construction (resulting in a very large DFA)&#8221;</li>
+<li>Fixed bug #132 &#8220;test failure on big endian archs with 0.15.3&#8221;</li>
 </ul>
 </div>
 </div>
-<div class="section" id="id4">
-<h1>0.15x</h1>
-<div class="section" id="id5">
-<h2>0.15.3 (2015-12-02)</h2>
+<div class="section" id="id2">
+<h2>0.15x<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h3>0.15.3 (2015-12-02)<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <ul>
 <li><dl class="first docutils">
 <dt>Fixed bugs and applied patches:</dt>
 <dd><ul class="first last simple">
-<li>#122 &quot;clang does not compile re2c 0.15.x&quot; (reported and fixed by Oleksii Taran).</li>
-<li>#124 &quot;Get rid of UINT32_MAX and friends&quot; (patch by Sergei Trofimovich, fixes FreeBSD builds).</li>
-<li>#125 &quot;[OS X] git reports changes not staged for commit in newly cloned repository&quot; (by Oleksii Taran, this fix also applies to Windows).</li>
+<li>#122 &#8220;clang does not compile re2c 0.15.x&#8221; (reported and fixed by Oleksii Taran).</li>
+<li>#124 &#8220;Get rid of UINT32_MAX and friends&#8221; (patch by Sergei Trofimovich, fixes FreeBSD builds).</li>
+<li>#125 &#8220;[OS X] git reports changes not staged for commit in newly cloned repository&#8221; (by Oleksii Taran, this fix also applies to Windows).</li>
 </ul>
 </dd>
 </dl>
 </li>
-<li><p class="first">Added option <tt class="docutils literal"><span class="pre">--no-version</span></tt> that allows to omit version information.</p>
+<li><p class="first">Added option <code class="docutils literal"><span class="pre">--no-version</span></code> that allows to omit version information.</p>
 </li>
-<li><p class="first">Reduced memory and time consumed with <tt class="docutils literal"><span class="pre">-Wundefined-control-flow</span></tt>.</p>
+<li><p class="first">Reduced memory and time consumed with <code class="docutils literal"><span class="pre">-Wundefined-control-flow</span></code>.</p>
 </li>
-<li><p class="first">Improved coverage of input data generated with <tt class="docutils literal"><span class="pre">-S</span> <span class="pre">--skeleton</span></tt>.</p>
+<li><p class="first">Improved coverage of input data generated with <code class="docutils literal"><span class="pre">-S</span> <span class="pre">--skeleton</span></code>.</p>
 </li>
 </ul>
 </div>
-<div class="section" id="id6">
-<h2>0.15.2 (2015-11-23)</h2>
+<div class="section" id="id4">
+<h3>0.15.2 (2015-11-23)<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Fixed build system: lexer depends on bison-generated header
 (Gentoo bug: <a class="reference external" href="https://bugs.gentoo.org/show_bug.cgi?id=566620">https://bugs.gentoo.org/show_bug.cgi?id=566620</a>)</li>
 </ul>
 </div>
-<div class="section" id="id7">
-<h2>0.15.1 (2015-11-22)</h2>
+<div class="section" id="id5">
+<h3>0.15.1 (2015-11-22)<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Fixed test failures caused by locale-sensitive 'sort'.</li>
+<li>Fixed test failures caused by locale-sensitive &#8216;sort&#8217;.</li>
 </ul>
 </div>
-<div class="section" id="id8">
-<h2>0.15 (2015-11-22)</h2>
+<div class="section" id="id6">
+<h3>0.15 (2015-11-22)<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <ul>
 <li><dl class="first docutils">
 <dt>Updated website <a class="reference external" href="http://re2c.org">http://re2c.org</a>:</dt>
@@ -163,8 +292,8 @@
 <li><dl class="first docutils">
 <dt>Added options:</dt>
 <dd><ul class="first last simple">
-<li><tt class="docutils literal"><span class="pre">-S,</span> <span class="pre">--skeleton</span></tt></li>
-<li><tt class="docutils literal"><span class="pre">--empty-class</span> <span class="pre">&lt;match-empty</span> | <span class="pre">match-none</span> | error&gt;</tt></li>
+<li><code class="docutils literal"><span class="pre">-S,</span> <span class="pre">--skeleton</span></code></li>
+<li><code class="docutils literal"><span class="pre">--empty-class</span> <span class="pre">&lt;match-empty</span> <span class="pre">|</span> <span class="pre">match-none</span> <span class="pre">|</span> <span class="pre">error&gt;</span></code></li>
 </ul>
 </dd>
 </dl>
@@ -172,12 +301,12 @@
 <li><dl class="first docutils">
 <dt>Added warnings:</dt>
 <dd><ul class="first last simple">
-<li><tt class="docutils literal"><span class="pre">-W</span></tt></li>
-<li><tt class="docutils literal"><span class="pre">-Werror</span></tt></li>
-<li><tt class="docutils literal"><span class="pre">-W&lt;warning&gt;</span></tt></li>
-<li><tt class="docutils literal"><span class="pre">-Wno-&lt;warning&gt;</span></tt></li>
-<li><tt class="docutils literal"><span class="pre">-Werror-&lt;warning&gt;</span></tt></li>
-<li><tt class="docutils literal"><span class="pre">-Wno-error-&lt;warning&gt;</span></tt></li>
+<li><code class="docutils literal"><span class="pre">-W</span></code></li>
+<li><code class="docutils literal"><span class="pre">-Werror</span></code></li>
+<li><code class="docutils literal"><span class="pre">-W&lt;warning&gt;</span></code></li>
+<li><code class="docutils literal"><span class="pre">-Wno-&lt;warning&gt;</span></code></li>
+<li><code class="docutils literal"><span class="pre">-Werror-&lt;warning&gt;</span></code></li>
+<li><code class="docutils literal"><span class="pre">-Wno-error-&lt;warning&gt;</span></code></li>
 </ul>
 </dd>
 </dl>
@@ -185,13 +314,13 @@
 <li><dl class="first docutils">
 <dt>Added individual warnings:</dt>
 <dd><ul class="first last simple">
-<li><tt class="docutils literal"><span class="pre">-Wundefined-control-flow</span></tt></li>
-<li><tt class="docutils literal"><span class="pre">-Wunreachable-rules</span></tt></li>
-<li><tt class="docutils literal"><span class="pre">-Wcondition-order</span></tt></li>
-<li><tt class="docutils literal"><span class="pre">-Wuseless-escape</span></tt></li>
-<li><tt class="docutils literal"><span class="pre">-Wempty-character-class</span></tt></li>
-<li><tt class="docutils literal"><span class="pre">-Wswapped-range</span></tt></li>
-<li><tt class="docutils literal"><span class="pre">-Wmatch-empty-string</span></tt></li>
+<li><code class="docutils literal"><span class="pre">-Wundefined-control-flow</span></code></li>
+<li><code class="docutils literal"><span class="pre">-Wunreachable-rules</span></code></li>
+<li><code class="docutils literal"><span class="pre">-Wcondition-order</span></code></li>
+<li><code class="docutils literal"><span class="pre">-Wuseless-escape</span></code></li>
+<li><code class="docutils literal"><span class="pre">-Wempty-character-class</span></code></li>
+<li><code class="docutils literal"><span class="pre">-Wswapped-range</span></code></li>
+<li><code class="docutils literal"><span class="pre">-Wmatch-empty-string</span></code></li>
 </ul>
 </dd>
 </dl>
@@ -199,7 +328,7 @@
 <li><dl class="first docutils">
 <dt>Fixed options:</dt>
 <dd><ul class="first last simple">
-<li><tt class="docutils literal"><span class="pre">--</span></tt> (interpret remaining arguments as non-options)</li>
+<li><code class="docutils literal"><span class="pre">--</span></code> (interpret remaining arguments as non-options)</li>
 </ul>
 </dd>
 </dl>
@@ -207,24 +336,24 @@
 <li><dl class="first docutils">
 <dt>Deprecated options:</dt>
 <dd><ul class="first last simple">
-<li><tt class="docutils literal"><span class="pre">-1</span> <span class="pre">--single-pass</span></tt> (single pass is by default now)</li>
+<li><code class="docutils literal"><span class="pre">-1</span> <span class="pre">--single-pass</span></code> (single pass is by default now)</li>
 </ul>
 </dd>
 </dl>
 </li>
-<li><p class="first">Reduced size of the generated <tt class="docutils literal">.dot</tt> files.</p>
+<li><p class="first">Reduced size of the generated <code class="docutils literal"><span class="pre">.dot</span></code> files.</p>
 </li>
 <li><dl class="first docutils">
 <dt>Fixed bugs:</dt>
 <dd><ul class="first last simple">
-<li>#27 re2c crashes reading files containing <tt class="docutils literal">%{ %}</tt> (patch by Rui)</li>
-<li>#51 default rule doesn't work in reuse mode</li>
+<li>#27 re2c crashes reading files containing <code class="docutils literal"><span class="pre">%{</span> <span class="pre">%}</span></code> (patch by Rui)</li>
+<li>#51 default rule doesn&#8217;t work in reuse mode</li>
 <li>#52 eliminate multiple passes</li>
-<li>#59 bogus <tt class="docutils literal">yyaccept</tt> in <tt class="docutils literal"><span class="pre">-c</span></tt> mode</li>
-<li>#60 redundant use of <tt class="docutils literal">YYMARKER</tt></li>
-<li>#61 empty character class <tt class="docutils literal">[]</tt> matches empty string</li>
+<li>#59 bogus <code class="docutils literal"><span class="pre">yyaccept</span></code> in <code class="docutils literal"><span class="pre">-c</span></code> mode</li>
+<li>#60 redundant use of <code class="docutils literal"><span class="pre">YYMARKER</span></code></li>
+<li>#61 empty character class <code class="docutils literal"><span class="pre">[]</span></code> matches empty string</li>
 <li>#115 flex-style named definitions cause ambiguity in re2c grammar</li>
-<li>#119 <tt class="docutils literal"><span class="pre">-f</span></tt> with <tt class="docutils literal"><span class="pre">-b</span></tt>/<tt class="docutils literal"><span class="pre">-g</span></tt> generates incorrect dispatch on fill labels</li>
+<li>#119 <code class="docutils literal"><span class="pre">-f</span></code> with <code class="docutils literal"><span class="pre">-b</span></code>/<code class="docutils literal"><span class="pre">-g</span></code> generates incorrect dispatch on fill labels</li>
 <li>#116 empty string with non-empty trailing context consumes code units</li>
 </ul>
 </dd>
@@ -233,10 +362,10 @@
 <li><dl class="first docutils">
 <dt>Added test options:</dt>
 <dd><ul class="first last simple">
-<li><tt class="docutils literal"><span class="pre">-j</span></tt>, <tt class="docutils literal"><span class="pre">-j</span> &lt;N&gt;</tt> (run tests in <tt class="docutils literal">N</tt> threads, defaults to the number of CPUs)</li>
-<li><tt class="docutils literal"><span class="pre">--wine</span></tt> (test windows builds using <tt class="docutils literal">wine</tt>)</li>
-<li><tt class="docutils literal"><span class="pre">--skeleton</span></tt> (generate skeleton programs, compile and execute them)</li>
-<li><tt class="docutils literal"><span class="pre">--keep-tmp-files</span></tt> (don't delete intermediate files for successful tests)</li>
+<li><code class="docutils literal"><span class="pre">-j</span></code>, <code class="docutils literal"><span class="pre">-j</span> <span class="pre">&lt;N&gt;</span></code> (run tests in <code class="docutils literal"><span class="pre">N</span></code> threads, defaults to the number of CPUs)</li>
+<li><code class="docutils literal"><span class="pre">--wine</span></code> (test windows builds using <code class="docutils literal"><span class="pre">wine</span></code>)</li>
+<li><code class="docutils literal"><span class="pre">--skeleton</span></code> (generate skeleton programs, compile and execute them)</li>
+<li><code class="docutils literal"><span class="pre">--keep-tmp-files</span></code> (don&#8217;t delete intermediate files for successful tests)</li>
 </ul>
 </dd>
 </dl>
@@ -245,15 +374,15 @@
 <dt>Updated build system:</dt>
 <dd><ul class="first last simple">
 <li>support out of source builds</li>
-<li>support <tt class="docutils literal">`make distcheck`</tt></li>
-<li>added <tt class="docutils literal">`make bootstrap`</tt> (rebuild re2c after building with precomplied <tt class="docutils literal">.re</tt> files)</li>
-<li>added <tt class="docutils literal">`make tests`</tt> (run tests with <tt class="docutils literal"><span class="pre">-j</span></tt>)</li>
-<li>added <tt class="docutils literal">`make vtests`</tt> (run tests with <tt class="docutils literal"><span class="pre">--valgrind</span> <span class="pre">-j</span></tt>)</li>
-<li>added <tt class="docutils literal">`make wtests`</tt> (run tests with <tt class="docutils literal"><span class="pre">--wine</span> <span class="pre">-j</span> 1</tt>)</li>
-<li>added Autoconf tests for <tt class="docutils literal">CXXFLAGS</tt>. By default try the following options:
-<tt class="docutils literal"><span class="pre">-W</span> <span class="pre">-Wall</span> <span class="pre">-Wextra</span> <span class="pre">-Weffc++</span> <span class="pre">-pedantic</span> <span class="pre">-Wformat=2</span> <span class="pre">-Wredundant-decls</span> <span class="pre">-Wsuggest-attribute=format</span> <span class="pre">-Wconversion</span> <span class="pre">-Wsign-conversion</span> <span class="pre">-O2</span> <span class="pre">-Weverything</span></tt>),
-respect user-defined <tt class="docutils literal">CXXFLAGS</tt></li>
-<li>support Mingw builds: <tt class="docutils literal">`configure <span class="pre">-host</span> <span class="pre">i686-w64-mingw32`</span></tt></li>
+<li>support <code class="docutils literal"><span class="pre">`make</span> <span class="pre">distcheck`</span></code></li>
+<li>added <code class="docutils literal"><span class="pre">`make</span> <span class="pre">bootstrap`</span></code> (rebuild re2c after building with precomplied <code class="docutils literal"><span class="pre">.re</span></code> files)</li>
+<li>added <code class="docutils literal"><span class="pre">`make</span> <span class="pre">tests`</span></code> (run tests with <code class="docutils literal"><span class="pre">-j</span></code>)</li>
+<li>added <code class="docutils literal"><span class="pre">`make</span> <span class="pre">vtests`</span></code> (run tests with <code class="docutils literal"><span class="pre">--valgrind</span> <span class="pre">-j</span></code>)</li>
+<li>added <code class="docutils literal"><span class="pre">`make</span> <span class="pre">wtests`</span></code> (run tests with <code class="docutils literal"><span class="pre">--wine</span> <span class="pre">-j</span> <span class="pre">1</span></code>)</li>
+<li>added Autoconf tests for <code class="docutils literal"><span class="pre">CXXFLAGS</span></code>. By default try the following options:
+<code class="docutils literal"><span class="pre">-W</span> <span class="pre">-Wall</span> <span class="pre">-Wextra</span> <span class="pre">-Weffc++</span> <span class="pre">-pedantic</span> <span class="pre">-Wformat=2</span> <span class="pre">-Wredundant-decls</span> <span class="pre">-Wsuggest-attribute=format</span> <span class="pre">-Wconversion</span> <span class="pre">-Wsign-conversion</span> <span class="pre">-O2</span> <span class="pre">-Weverything</span></code>),
+respect user-defined <code class="docutils literal"><span class="pre">CXXFLAGS</span></code></li>
+<li>support Mingw builds: <code class="docutils literal"><span class="pre">`configure</span> <span class="pre">-host</span> <span class="pre">i686-w64-mingw32`</span></code></li>
 <li>structured source files</li>
 <li>removed old MSVC files</li>
 </ul>
@@ -265,73 +394,73 @@ respect user-defined <tt class="docutils literal">CXXFLAGS</tt></li>
 </ul>
 </div>
 </div>
-<div class="section" id="id9">
-<h1>0.14x</h1>
-<div class="section" id="id10">
-<h2>0.14.3 (2015-05-20)</h2>
+<div class="section" id="id7">
+<h2>0.14x<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id8">
+<h3>0.14.3 (2015-05-20)<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>applied patch '#27 re2c crashes reading files containing %{ %}' by Rui</li>
+<li>applied patch &#8216;#27 re2c crashes reading files containing %{ %}&#8217; by Rui</li>
 <li>dropped distfiles for MSVC (they are broken anyway)</li>
 </ul>
 </div>
-<div class="section" id="id11">
-<h2>0.14.2 (2015-03-25)</h2>
+<div class="section" id="id9">
+<h3>0.14.2 (2015-03-25)<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>fixed #57 Wrong result only if another rule is present</li>
 </ul>
 </div>
-<div class="section" id="id12">
-<h2>0.14.1 (2015-02-27)</h2>
+<div class="section" id="id10">
+<h3>0.14.1 (2015-02-27)<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>fixed #55 re2c-0.14: re2c -V outputs null byte</li>
 </ul>
 </div>
-<div class="section" id="id13">
-<h2>0.14 (2015-02-23)</h2>
+<div class="section" id="id11">
+<h3>0.14 (2015-02-23)<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Added generic input API (#21 &quot;Support to configure how re2c code interfaced with the symbol buffer?&quot;)</li>
-<li>fixed #46 &quot;re2c generates an infinite loop, depends on existence of previous parser&quot;</li>
-<li>fixed #47 &quot;Dot output label escaped characters&quot;</li>
+<li>Added generic input API (#21 &#8220;Support to configure how re2c code interfaced with the symbol buffer?&#8221;)</li>
+<li>fixed #46 &#8220;re2c generates an infinite loop, depends on existence of previous parser&#8221;</li>
+<li>fixed #47 &#8220;Dot output label escaped characters&#8221;</li>
 </ul>
 </div>
 </div>
-<div class="section" id="id14">
-<h1>0.13x</h1>
-<div class="section" id="id15">
-<h2>0.13.7.5 (2014-08-22)</h2>
+<div class="section" id="id12">
+<h2>0.13x<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id13">
+<h3>0.13.7.5 (2014-08-22)<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Fixed <a class="reference external" href="https://bugs.gentoo.org/show_bug.cgi?id=518904">Gentoo bug with PHP lexer</a></li>
 </ul>
 </div>
-<div class="section" id="id16">
-<h2>0.13.7.4 (2014-07-29)</h2>
+<div class="section" id="id14">
+<h3>0.13.7.4 (2014-07-29)<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Enabled <tt class="docutils literal">make docs</tt> only if configured with <tt class="docutils literal"><span class="pre">--enable-docs</span></tt></li>
+<li>Enabled <code class="docutils literal"><span class="pre">make</span> <span class="pre">docs</span></code> only if configured with <code class="docutils literal"><span class="pre">--enable-docs</span></code></li>
 <li>Disallowed to use yacc/byacc instead of bison to build parser</li>
 <li>Removed non-portable sed feature in script that runs tests</li>
 </ul>
 </div>
-<div class="section" id="id17">
-<h2>0.13.7.3 (2014-07-27)</h2>
+<div class="section" id="id15">
+<h3>0.13.7.3 (2014-07-27)<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Fixed CXX warning</li>
 <li>Got rid of asciidoc build-time dependency</li>
 </ul>
 </div>
-<div class="section" id="id18">
-<h2>0.13.7.2 (2014-07-27)</h2>
+<div class="section" id="id16">
+<h3>0.13.7.2 (2014-07-27)<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Included man page into dist, respect users CXXFLAGS.</li>
 </ul>
 </div>
-<div class="section" id="id19">
-<h2>0.13.7.1 (2014-07-26)</h2>
+<div class="section" id="id17">
+<h3>0.13.7.1 (2014-07-26)<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Added missing files to tarball</li>
 </ul>
 </div>
-<div class="section" id="id20">
-<h2>0.13.7 (2014-07-25)</h2>
+<div class="section" id="id18">
+<h3>0.13.7 (2014-07-25)<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Added UTF-8 support</li>
 <li>Added UTF-16 support</li>
@@ -339,114 +468,114 @@ respect user-defined <tt class="docutils literal">CXXFLAGS</tt></li>
 <li>Added option to control ill-formed Unicode</li>
 </ul>
 </div>
-<div class="section" id="id21">
-<h2>0.13.6 (2013-07-04)</h2>
+<div class="section" id="id19">
+<h3>0.13.6 (2013-07-04)<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Fixed #2535084 uint problem with Sun C 5.8</li>
-<li>#3308400: allow Yacc-style <tt class="docutils literal">%{</tt> code brackets <tt class="docutils literal">}%</tt></li>
-<li>#2506253: allow C++ <tt class="docutils literal">//</tt> comments</li>
-<li>Fixed inplace configuration in <tt class="docutils literal"><span class="pre">-e</span></tt> mode.</li>
+<li>#3308400: allow Yacc-style <code class="docutils literal"><span class="pre">%{</span></code> code brackets <code class="docutils literal"><span class="pre">}%</span></code></li>
+<li>#2506253: allow C++ <code class="docutils literal"><span class="pre">//</span></code> comments</li>
+<li>Fixed inplace configuration in <code class="docutils literal"><span class="pre">-e</span></code> mode.</li>
 <li>Applied #2482572 Typos in error messages.</li>
-<li>Applied #2482561 Error in manual section on <tt class="docutils literal"><span class="pre">-r</span></tt> mode.</li>
-<li>Fixed #2478216 Wrong <tt class="docutils literal">start_label</tt> in <tt class="docutils literal"><span class="pre">-c</span></tt> mode.</li>
-<li>Fixed #2186718 Unescaped backslash in file name of <tt class="docutils literal">#line</tt> directive.</li>
+<li>Applied #2482561 Error in manual section on <code class="docutils literal"><span class="pre">-r</span></code> mode.</li>
+<li>Fixed #2478216 Wrong <code class="docutils literal"><span class="pre">start_label</span></code> in <code class="docutils literal"><span class="pre">-c</span></code> mode.</li>
+<li>Fixed #2186718 Unescaped backslash in file name of <code class="docutils literal"><span class="pre">#line</span></code> directive.</li>
 <li>Fixed #2102138 Duplicate case labels on EBCDIC.</li>
 <li>Fixed #2088583 Compile problem on AIX.</li>
 <li>Fixed #2038610 Ebcdic problem.</li>
-<li>improve dot support: make char intervals (e.g. <tt class="docutils literal"><span class="pre">[A-Z]</span></tt>) instead of one edge per char</li>
+<li>improve dot support: make char intervals (e.g. <code class="docutils literal"><span class="pre">[A-Z]</span></code>) instead of one edge per char</li>
 </ul>
 </div>
-<div class="section" id="id22">
-<h2>0.13.5 (2008-05-25)</h2>
+<div class="section" id="id20">
+<h3>0.13.5 (2008-05-25)<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Fixed #1952896 Segfault in <tt class="docutils literal"><span class="pre">re2c::Scanner::scan</span></tt>.</li>
+<li>Fixed #1952896 Segfault in <code class="docutils literal"><span class="pre">re2c::Scanner::scan</span></code>.</li>
 <li>Fixed #1952842 Regression.</li>
 </ul>
 </div>
-<div class="section" id="id23">
-<h2>0.13.4 (2008-04-05)</h2>
+<div class="section" id="id21">
+<h3>0.13.4 (2008-04-05)<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Added transparent handling of <tt class="docutils literal">#line</tt> directives in input files.</li>
-<li>Added <tt class="docutils literal">re2c:yyfill:check</tt> inplace configuration.</li>
-<li>Added <tt class="docutils literal">re2c:define:YYSETSTATE:naked</tt> inplace configuration.</li>
-<li>Added <tt class="docutils literal">re2c:flags:w</tt> and <tt class="docutils literal">re2c:flags:u</tt> inplace configurations.</li>
-<li>Added the ability to add rules in <tt class="docutils literal">use:re2c</tt> blocks.</li>
-<li>Changed <tt class="docutils literal"><span class="pre">-r</span></tt> flag to accept only <tt class="docutils literal">rules:re2c</tt> and <tt class="docutils literal">use:re2c</tt> blocks.</li>
+<li>Added transparent handling of <code class="docutils literal"><span class="pre">#line</span></code> directives in input files.</li>
+<li>Added <code class="docutils literal"><span class="pre">re2c:yyfill:check</span></code> inplace configuration.</li>
+<li>Added <code class="docutils literal"><span class="pre">re2c:define:YYSETSTATE:naked</span></code> inplace configuration.</li>
+<li>Added <code class="docutils literal"><span class="pre">re2c:flags:w</span></code> and <code class="docutils literal"><span class="pre">re2c:flags:u</span></code> inplace configurations.</li>
+<li>Added the ability to add rules in <code class="docutils literal"><span class="pre">use:re2c</span></code> blocks.</li>
+<li>Changed <code class="docutils literal"><span class="pre">-r</span></code> flag to accept only <code class="docutils literal"><span class="pre">rules:re2c</span></code> and <code class="docutils literal"><span class="pre">use:re2c</span></code> blocks.</li>
+</ul>
+</div>
+<div class="section" id="id22">
+<h3>0.13.3 (2008-03-14)<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Added <code class="docutils literal"><span class="pre">-r</span></code> flag to allow reuse of scanner definitions.</li>
+<li>Added <code class="docutils literal"><span class="pre">-F</span></code> flag to support flex syntax in rules.</li>
+<li>Fixed SEGV in scanner that occurs with very large blocks.</li>
+<li>Fixed issue with unused <code class="docutils literal"><span class="pre">yybm</span></code>.</li>
+<li>Partial support for flex syntax.</li>
+<li>Changed to allow <code class="docutils literal"><span class="pre">/*</span></code> comments with <code class="docutils literal"><span class="pre">-c</span></code> switch.</li>
+<li>Added flag <code class="docutils literal"><span class="pre">-D/--emit-dot</span></code>.</li>
+</ul>
+</div>
+<div class="section" id="id23">
+<h3>0.13.2 (2008-02-14)<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Added flag <code class="docutils literal"><span class="pre">--case-inverted</span></code>.</li>
+<li>Added flag <code class="docutils literal"><span class="pre">--case-insensitive</span></code>.</li>
+<li>Added support for <code class="docutils literal"><span class="pre">&lt;!...&gt;</span></code> to enable rule setup.</li>
+<li>Added support for <code class="docutils literal"><span class="pre">=&gt;</span></code> style rules.</li>
+<li>Added support for <code class="docutils literal"><span class="pre">:=</span></code> style rules.</li>
+<li>Added support for <code class="docutils literal"><span class="pre">:=&gt;</span></code> style rules.</li>
+<li>Added <code class="docutils literal"><span class="pre">re2c:cond:divider</span></code> and <code class="docutils literal"><span class="pre">re2c:cond:goto</span></code> inplace configuration.</li>
+<li>Fixed code generation to emit space after <code class="docutils literal"><span class="pre">if</span></code>.</li>
 </ul>
 </div>
 <div class="section" id="id24">
-<h2>0.13.3 (2008-03-14)</h2>
+<h3>0.13.1 (2007-08-24)<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Added <tt class="docutils literal"><span class="pre">-r</span></tt> flag to allow reuse of scanner definitions.</li>
-<li>Added <tt class="docutils literal"><span class="pre">-F</span></tt> flag to support flex syntax in rules.</li>
-<li>Fixed SEGV in scanner that occurs with very large blocks.</li>
-<li>Fixed issue with unused <tt class="docutils literal">yybm</tt>.</li>
-<li>Partial support for flex syntax.</li>
-<li>Changed to allow <tt class="docutils literal">/*</tt> comments with <tt class="docutils literal"><span class="pre">-c</span></tt> switch.</li>
-<li>Added flag <tt class="docutils literal"><span class="pre">-D/--emit-dot</span></tt>.</li>
+<li>Added custom build rules for Visual Studio 2005 (<code class="docutils literal"><span class="pre">re2c.rules</span></code>). (William Swanson)</li>
+<li>Fixed issue with some compilers.</li>
+<li>Fixed #1776177 Build on AIX.</li>
+<li>Fixed #1743180 <code class="docutils literal"><span class="pre">fwrite</span></code> with 0 length crashes on OS X.</li>
 </ul>
 </div>
 <div class="section" id="id25">
-<h2>0.13.2 (2008-02-14)</h2>
+<h3>0.13.0 (2007-06-24)<a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Added flag <tt class="docutils literal"><span class="pre">--case-inverted</span></tt>.</li>
-<li>Added flag <tt class="docutils literal"><span class="pre">--case-insensitive</span></tt>.</li>
-<li>Added support for <tt class="docutils literal"><span class="pre">&lt;!...&gt;</span></tt> to enable rule setup.</li>
-<li>Added support for <tt class="docutils literal">=&gt;</tt> style rules.</li>
-<li>Added support for <tt class="docutils literal">:=</tt> style rules.</li>
-<li>Added support for <tt class="docutils literal">:=&gt;</tt> style rules.</li>
-<li>Added <tt class="docutils literal">re2c:cond:divider</tt> and <tt class="docutils literal">re2c:cond:goto</tt> inplace configuration.</li>
-<li>Fixed code generation to emit space after <tt class="docutils literal">if</tt>.</li>
+<li>Added <code class="docutils literal"><span class="pre">-c</span></code> and <code class="docutils literal"><span class="pre">-t</span></code> to generate scanners with (f)lex-like condition support.</li>
+<li>Fixed issue with short form of switches and parameter if not first switch.</li>
+<li>Fixed #1708378 segfault <code class="docutils literal"><span class="pre">in</span> <span class="pre">actions.cc</span></code>.</li>
 </ul>
+</div>
 </div>
 <div class="section" id="id26">
-<h2>0.13.1 (2007-08-24)</h2>
+<h2>0.12x<a class="headerlink" href="#id26" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id27">
+<h3>0.12.3 (2007-08-24)<a class="headerlink" href="#id27" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Added custom build rules for Visual Studio 2005 (<tt class="docutils literal">re2c.rules</tt>). (William Swanson)</li>
 <li>Fixed issue with some compilers.</li>
 <li>Fixed #1776177 Build on AIX.</li>
-<li>Fixed #1743180 <tt class="docutils literal">fwrite</tt> with 0 length crashes on OS X.</li>
+<li>Fixed #1743180 <code class="docutils literal"><span class="pre">fwrite</span></code> with 0 length crashes on OS X.</li>
 </ul>
-</div>
-<div class="section" id="id27">
-<h2>0.13.0 (2007-06-24)</h2>
-<ul class="simple">
-<li>Added <tt class="docutils literal"><span class="pre">-c</span></tt> and <tt class="docutils literal"><span class="pre">-t</span></tt> to generate scanners with (f)lex-like condition support.</li>
-<li>Fixed issue with short form of switches and parameter if not first switch.</li>
-<li>Fixed #1708378 segfault <tt class="docutils literal">in actions.cc</tt>.</li>
-</ul>
-</div>
 </div>
 <div class="section" id="id28">
-<h1>0.12x</h1>
-<div class="section" id="id29">
-<h2>0.12.3 (2007-08-24)</h2>
+<h3>0.12.2 (2007-06-26)<a class="headerlink" href="#id28" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Fixed issue with some compilers.</li>
-<li>Fixed #1776177 Build on AIX.</li>
-<li>Fixed #1743180 <tt class="docutils literal">fwrite</tt> with 0 length crashes on OS X.</li>
+<li>Fixed #1743180 <code class="docutils literal"><span class="pre">fwrite</span></code> with 0 length crashes on OS X.</li>
+</ul>
+</div>
+<div class="section" id="id29">
+<h3>0.12.1 (2007-05-23)<a class="headerlink" href="#id29" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Fixed #1711240 problem with <code class="docutils literal"><span class="pre">&quot;</span></code> and <code class="docutils literal"><span class="pre">7F</span></code> on EBCDIC plattforms.</li>
 </ul>
 </div>
 <div class="section" id="id30">
-<h2>0.12.2 (2007-06-26)</h2>
-<ul class="simple">
-<li>Fixed #1743180 <tt class="docutils literal">fwrite</tt> with 0 length crashes on OS X.</li>
-</ul>
-</div>
-<div class="section" id="id31">
-<h2>0.12.1 (2007-05-23)</h2>
-<ul class="simple">
-<li>Fixed #1711240 problem with <tt class="docutils literal">&quot;</tt> and <tt class="docutils literal">7F</tt> on EBCDIC plattforms.</li>
-</ul>
-</div>
-<div class="section" id="id32">
-<h2>0.12.0 (2007-05-01)</h2>
+<h3>0.12.0 (2007-05-01)<a class="headerlink" href="#id30" title="Permalink to this headline">¶</a></h3>
 <ul>
 <li><p class="first">Re-release of 0.11.3 as new stable branch.</p>
 </li>
 <li><p class="first">Fixed issue with short form of switches and parameter if not first switch.</p>
 </li>
-<li><p class="first">Fixed #1708378 segfault in <tt class="docutils literal">actions.cc</tt>.</p>
+<li><p class="first">Fixed #1708378 segfault in <code class="docutils literal"><span class="pre">actions.cc</span></code>.</p>
 </li>
 <li><dl class="first docutils">
 <dt>re2c 0.12.0 has been tested with the following compilers:</dt>
@@ -472,7 +601,7 @@ respect user-defined <tt class="docutils literal">CXXFLAGS</tt></li>
 <li>Intel(R) C++ Compiler for 32-bit applications, Version 9.1 Build 20070322Z Package ID: W_CC_C_9.1.037</li>
 <li>Intel(R) C++ Compiler for Intel(R) EM64T-based applications, Version 9.1 (64 bit)</li>
 <li>icpcbin (ICC) 9.1 20070215</li>
-<li>CC: Sun C++ 5.8 2005/10/13 (<tt class="docutils literal"><span class="pre">CXXFLAGS='-library=stlport4'</span></tt>)</li>
+<li>CC: Sun C++ 5.8 2005/10/13 (<code class="docutils literal"><span class="pre">CXXFLAGS='-library=stlport4'</span></code>)</li>
 <li>MIPSpro Compilers: Version 7.4.4m (32 + 64 bit)</li>
 <li>aCC: HP C/aC++ B3910B A.06.15 [Mar 28 2007] (HP-UX IA64)</li>
 </ul>
@@ -482,112 +611,112 @@ respect user-defined <tt class="docutils literal">CXXFLAGS</tt></li>
 </ul>
 </div>
 </div>
-<div class="section" id="id33">
-<h1>0.11x</h1>
-<div class="section" id="id34">
-<h2>0.11.3 (2007-04-01)</h2>
+<div class="section" id="id31">
+<h2>0.11x<a class="headerlink" href="#id31" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id32">
+<h3>0.11.3 (2007-04-01)<a class="headerlink" href="#id32" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Added support for underscores in named definitions.</li>
-<li>Added new option <tt class="docutils literal"><span class="pre">--no-generation-date</span></tt>.</li>
+<li>Added new option <code class="docutils literal"><span class="pre">--no-generation-date</span></code>.</li>
 <li>Fixed issue with long form of switches.</li>
 </ul>
 </div>
-<div class="section" id="id35">
-<h2>0.11.2 (2007-03-01)</h2>
+<div class="section" id="id33">
+<h3>0.11.2 (2007-03-01)<a class="headerlink" href="#id33" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Added inplace configuration <tt class="docutils literal">re2c:yyfill:parameter</tt>.</li>
-<li>Added inplace configuration <tt class="docutils literal">re2c:yych:conversion</tt>.</li>
-<li>Fixed <tt class="docutils literal"><span class="pre">-u</span></tt> switch code generation.</li>
+<li>Added inplace configuration <code class="docutils literal"><span class="pre">re2c:yyfill:parameter</span></code>.</li>
+<li>Added inplace configuration <code class="docutils literal"><span class="pre">re2c:yych:conversion</span></code>.</li>
+<li>Fixed <code class="docutils literal"><span class="pre">-u</span></code> switch code generation.</li>
 <li>Added ability to avoid defines and overwrite generated variable names.</li>
 </ul>
 </div>
+<div class="section" id="id34">
+<h3>0.11.1 (2007-02-20)<a class="headerlink" href="#id34" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Applied #1647875 Add <code class="docutils literal"><span class="pre">const</span></code> to <code class="docutils literal"><span class="pre">yybm</span></code> vector.</li>
+</ul>
+</div>
+<div class="section" id="id35">
+<h3>0.11.0 (2007-01-01)<a class="headerlink" href="#id35" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Added <code class="docutils literal"><span class="pre">-u</span></code> switch to support unicode.</li>
+</ul>
+</div>
+</div>
 <div class="section" id="id36">
-<h2>0.11.1 (2007-02-20)</h2>
-<ul class="simple">
-<li>Applied #1647875 Add <tt class="docutils literal">const</tt> to <tt class="docutils literal">yybm</tt> vector.</li>
-</ul>
-</div>
+<h2>0.10x<a class="headerlink" href="#id36" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id37">
-<h2>0.11.0 (2007-01-01)</h2>
-<ul class="simple">
-<li>Added <tt class="docutils literal"><span class="pre">-u</span></tt> switch to support unicode.</li>
-</ul>
-</div>
-</div>
-<div class="section" id="id38">
-<h1>0.10x</h1>
-<div class="section" id="id39">
-<h2>0.10.8 (2007-04-01)</h2>
+<h3>0.10.8 (2007-04-01)<a class="headerlink" href="#id37" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Fixed issue with long form of switches.</li>
 </ul>
 </div>
-<div class="section" id="id40">
-<h2>0.10.7 (2007-02-20)</h2>
+<div class="section" id="id38">
+<h3>0.10.7 (2007-02-20)<a class="headerlink" href="#id38" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Applied #1647875 Add <tt class="docutils literal">const</tt> to <tt class="docutils literal">yybm</tt> vector.</li>
+<li>Applied #1647875 Add <code class="docutils literal"><span class="pre">const</span></code> to <code class="docutils literal"><span class="pre">yybm</span></code> vector.</li>
 </ul>
 </div>
-<div class="section" id="id41">
-<h2>0.10.6 (2006-08-05)</h2>
+<div class="section" id="id39">
+<h3>0.10.6 (2006-08-05)<a class="headerlink" href="#id39" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Fixed #1529351 Segv bug on unterminated code blocks.</li>
 <li>Fixed #1528269 Invalid code generation.</li>
 </ul>
 </div>
-<div class="section" id="id42">
-<h2>0.10.5 (2006-06-11)</h2>
+<div class="section" id="id40">
+<h3>0.10.5 (2006-06-11)<a class="headerlink" href="#id40" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Fixed long form of <tt class="docutils literal"><span class="pre">-1</span></tt> switch to <tt class="docutils literal"><span class="pre">--single-pass</span></tt> as noted in man page and help.</li>
+<li>Fixed long form of <code class="docutils literal"><span class="pre">-1</span></code> switch to <code class="docutils literal"><span class="pre">--single-pass</span></code> as noted in man page and help.</li>
 <li>Added MSVC 2003 project files and renamed old 2002 ones.</li>
 </ul>
 </div>
-<div class="section" id="id43">
-<h2>0.10.4 (2006-06-01)</h2>
+<div class="section" id="id41">
+<h3>0.10.4 (2006-06-01)<a class="headerlink" href="#id41" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Fix whitespace in generated code.</li>
 </ul>
 </div>
-<div class="section" id="id44">
-<h2>0.10.3 (2006-05-14)</h2>
+<div class="section" id="id42">
+<h3>0.10.3 (2006-05-14)<a class="headerlink" href="#id42" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Fixed issue with <tt class="docutils literal"><span class="pre">-wb</span></tt> and <tt class="docutils literal"><span class="pre">-ws</span></tt>.</li>
-<li>Added <tt class="docutils literal"><span class="pre">-g</span></tt> switch to support gcc's computed goto's.</li>
-<li>Changed to use nested <tt class="docutils literal">if</tt>'s instead of <tt class="docutils literal">switch(yyaccept)</tt> in <tt class="docutils literal"><span class="pre">-s</span></tt> mode.</li>
+<li>Fixed issue with <code class="docutils literal"><span class="pre">-wb</span></code> and <code class="docutils literal"><span class="pre">-ws</span></code>.</li>
+<li>Added <code class="docutils literal"><span class="pre">-g</span></code> switch to support gcc&#8217;s computed goto&#8217;s.</li>
+<li>Changed to use nested <code class="docutils literal"><span class="pre">if</span></code>&#8216;s instead of <code class="docutils literal"><span class="pre">switch(yyaccept)</span></code> in <code class="docutils literal"><span class="pre">-s</span></code> mode.</li>
 </ul>
 </div>
-<div class="section" id="id45">
-<h2>0.10.2 (2006-05-01)</h2>
+<div class="section" id="id43">
+<h3>0.10.2 (2006-05-01)<a class="headerlink" href="#id43" title="Permalink to this headline">¶</a></h3>
 <ul>
-<li><p class="first">Changed to generate <tt class="docutils literal">YYMARKER</tt> only when needed or in single pass mode.</p>
+<li><p class="first">Changed to generate <code class="docutils literal"><span class="pre">YYMARKER</span></code> only when needed or in single pass mode.</p>
 </li>
-<li><p class="first">Added <tt class="docutils literal"><span class="pre">-1</span></tt> switch to force single pass generation and make two pass the default.</p>
+<li><p class="first">Added <code class="docutils literal"><span class="pre">-1</span></code> switch to force single pass generation and make two pass the default.</p>
 </li>
-<li><p class="first">Fixed <tt class="docutils literal"><span class="pre">-i</span></tt> switch.</p>
+<li><p class="first">Fixed <code class="docutils literal"><span class="pre">-i</span></code> switch.</p>
 </li>
-<li><p class="first">Added configuration <tt class="docutils literal">yyfill:enable</tt> to allow suppression of <tt class="docutils literal">YYFILL()</tt> blocks.</p>
+<li><p class="first">Added configuration <code class="docutils literal"><span class="pre">yyfill:enable</span></code> to allow suppression of <code class="docutils literal"><span class="pre">YYFILL()</span></code> blocks.</p>
 </li>
 <li><p class="first">Added tutorial like lessons to re2c.</p>
 </li>
-<li><p class="first">Added <tt class="docutils literal"><span class="pre">/*!ignore:re2c</span> */</tt> to support documenting of re2c source.</p>
+<li><p class="first">Added <code class="docutils literal"><span class="pre">/*!ignore:re2c</span> <span class="pre">*/</span></code> to support documenting of re2c source.</p>
 </li>
-<li><p class="first">Fixed issue with multiline re2c comments (<tt class="docutils literal"><span class="pre">/*!max:re2c</span> ... */</tt> and alike).</p>
+<li><p class="first">Fixed issue with multiline re2c comments (<code class="docutils literal"><span class="pre">/*!max:re2c</span> <span class="pre">...</span> <span class="pre">*/</span></code> and alike).</p>
 </li>
-<li><p class="first">Fixed generation of <tt class="docutils literal">YYDEBUG()</tt> when using <tt class="docutils literal"><span class="pre">-d</span></tt> switch.</p>
+<li><p class="first">Fixed generation of <code class="docutils literal"><span class="pre">YYDEBUG()</span></code> when using <code class="docutils literal"><span class="pre">-d</span></code> switch.</p>
 </li>
-<li><p class="first">Added <tt class="docutils literal"><span class="pre">/*!getstate:re2c</span> */</tt> which triggers generation of the <tt class="docutils literal">YYGETSTATE()</tt> block.</p>
+<li><p class="first">Added <code class="docutils literal"><span class="pre">/*!getstate:re2c</span> <span class="pre">*/</span></code> which triggers generation of the <code class="docutils literal"><span class="pre">YYGETSTATE()</span></code> block.</p>
 </li>
-<li><p class="first">Added configuration <tt class="docutils literal">state:abort</tt>.</p>
+<li><p class="first">Added configuration <code class="docutils literal"><span class="pre">state:abort</span></code>.</p>
 </li>
-<li><p class="first">Changed to not generate <tt class="docutils literal">yyNext</tt> unless configuration <tt class="docutils literal">state:nextlabel</tt> is used.</p>
+<li><p class="first">Changed to not generate <code class="docutils literal"><span class="pre">yyNext</span></code> unless configuration <code class="docutils literal"><span class="pre">state:nextlabel</span></code> is used.</p>
 </li>
-<li><p class="first">Changed to not generate <tt class="docutils literal">yyaccept</tt> code unless needed.</p>
+<li><p class="first">Changed to not generate <code class="docutils literal"><span class="pre">yyaccept</span></code> code unless needed.</p>
 </li>
-<li><p class="first">Changed to use <tt class="docutils literal">if</tt> instead of <tt class="docutils literal">switch</tt> expression when <tt class="docutils literal">yyaccpt</tt> has only one case.</p>
+<li><p class="first">Changed to use <code class="docutils literal"><span class="pre">if</span></code> instead of <code class="docutils literal"><span class="pre">switch</span></code> expression when <code class="docutils literal"><span class="pre">yyaccpt</span></code> has only one case.</p>
 </li>
-<li><p class="first">Added docu, examples and tests to <tt class="docutils literal">.src.zip</tt> package (0.10.1 zip was repackaged).</p>
+<li><p class="first">Added docu, examples and tests to <code class="docutils literal"><span class="pre">.src.zip</span></code> package (0.10.1 zip was repackaged).</p>
 </li>
-<li><p class="first">Fixed #1479044 incorrect code generated when using <tt class="docutils literal"><span class="pre">-b</span></tt>.</p>
+<li><p class="first">Fixed #1479044 incorrect code generated when using <code class="docutils literal"><span class="pre">-b</span></code>.</p>
 </li>
 <li><p class="first">Fixed #1472770 re2c creates an infinite loop.</p>
 </li>
@@ -614,7 +743,7 @@ respect user-defined <tt class="docutils literal">CXXFLAGS</tt></li>
 <li>Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 13.10.3077 for 80x86 (Mictosoft Visual C++ 2003)</li>
 <li>Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 13.00.9466 for 80x86 (Microsoft Visual C++ 2002)</li>
 <li>Intel(R) C++ Compiler for Intel(R) EM64T-based applications, Version 9.0 Build 20050430 Package ID: l_cc_p_9.0.021</li>
-<li>CC: Sun C++ 5.8 2005/10/13 (<tt class="docutils literal"><span class="pre">CXXFLAGS='-library=stlport4'</span></tt>)</li>
+<li>CC: Sun C++ 5.8 2005/10/13 (<code class="docutils literal"><span class="pre">CXXFLAGS='-library=stlport4'</span></code>)</li>
 <li>bison 2.1, 1.875d, 1.875b, 1.875</li>
 </ul>
 </dd>
@@ -622,12 +751,12 @@ respect user-defined <tt class="docutils literal">CXXFLAGS</tt></li>
 </li>
 </ul>
 </div>
-<div class="section" id="id46">
-<h2>0.10.1 (2006-02-28)</h2>
+<div class="section" id="id44">
+<h3>0.10.1 (2006-02-28)<a class="headerlink" href="#id44" title="Permalink to this headline">¶</a></h3>
 <ul>
 <li><p class="first">Added support for Solaris and native SUN compiler.</p>
 </li>
-<li><p class="first">Applied #1438160 expose <tt class="docutils literal">YYCTXMARKER</tt>.</p>
+<li><p class="first">Applied #1438160 expose <code class="docutils literal"><span class="pre">YYCTXMARKER</span></code>.</p>
 </li>
 <li><dl class="first docutils">
 <dt>re2c 0.10.1 has been tested with the following compilers:</dt>
@@ -642,7 +771,7 @@ respect user-defined <tt class="docutils literal">CXXFLAGS</tt></li>
 <li>Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 14.00.50727.42 for 80x86 (Microsoft Visual C 2005)</li>
 <li>Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 13.00.9466 for 80x86 (Microsoft Visual C 2002)</li>
 <li>Intel(R) C++ Compiler for 32-bit applications, Version 9.0 Build 20051130Z Package ID: W_CC_C_9.0.028</li>
-<li>CC: Sun C++ 5.8 2005/10/13 (<tt class="docutils literal"><span class="pre">CXXFLAGS='-compat5</span> <span class="pre">-library=stlport4'</span></tt>)</li>
+<li>CC: Sun C++ 5.8 2005/10/13 (<code class="docutils literal"><span class="pre">CXXFLAGS='-compat5</span> <span class="pre">-library=stlport4'</span></code>)</li>
 <li>bison 2.1, 1.875d, 1.875b, 1.875</li>
 </ul>
 </dd>
@@ -650,140 +779,139 @@ respect user-defined <tt class="docutils literal">CXXFLAGS</tt></li>
 </li>
 </ul>
 </div>
-<div class="section" id="id47">
-<h2>0.10.0 (2006-02-18)</h2>
+<div class="section" id="id45">
+<h3>0.10.0 (2006-02-18)<a class="headerlink" href="#id45" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Added make target <tt class="docutils literal">zip</tt> to create windows source packages as zip files.</li>
-<li>Added <tt class="docutils literal">re2c:startlabel</tt> configuration.</li>
+<li>Added make target <code class="docutils literal"><span class="pre">zip</span></code> to create windows source packages as zip files.</li>
+<li>Added <code class="docutils literal"><span class="pre">re2c:startlabel</span></code> configuration.</li>
 <li>Fixed code generation to not generate unreachable code for initial state.</li>
-<li>Added support for c/c++ compatible <tt class="docutils literal">\u</tt> and <tt class="docutils literal">\U</tt> unicode notation.</li>
+<li>Added support for c/c++ compatible <code class="docutils literal"><span class="pre">\u</span></code> and <code class="docutils literal"><span class="pre">\U</span></code> unicode notation.</li>
 <li>Added ability to control indendation.</li>
-<li>Made scanner error out in case an ambiguous <tt class="docutils literal">/*</tt> is found.</li>
+<li>Made scanner error out in case an ambiguous <code class="docutils literal"><span class="pre">/*</span></code> is found.</li>
 <li>Fixed indendation of generated code.</li>
 <li>Added support for DOS line endings.</li>
 <li>Added experimental unicode support.</li>
-<li>Added <tt class="docutils literal">config_w32.h</tt> to build out of the box on windows (using msvc 2002+).</li>
+<li>Added <code class="docutils literal"><span class="pre">config_w32.h</span></code> to build out of the box on windows (using msvc 2002+).</li>
 <li>Added Microsoft Visual C .NET 2005 build files.</li>
 <li>Applied #1411087 variable length trailing context.</li>
-<li>Applied #1408326 do not generate <tt class="docutils literal">goto</tt> next state.</li>
-<li>Applied #1408282 <tt class="docutils literal">CharSet</tt> initialization fix.</li>
-<li>Applied #1408278 <tt class="docutils literal">readsome</tt> with MSVC.</li>
+<li>Applied #1408326 do not generate <code class="docutils literal"><span class="pre">goto</span></code> next state.</li>
+<li>Applied #1408282 <code class="docutils literal"><span class="pre">CharSet</span></code> initialization fix.</li>
+<li>Applied #1408278 <code class="docutils literal"><span class="pre">readsome</span></code> with MSVC.</li>
 <li>Applied #1307467 Unicode patch for 0.9.7.</li>
 </ul>
 </div>
 </div>
-<div class="section" id="id48">
-<h1>0.9x</h1>
-<div class="section" id="id49">
-<h2>0.9.12 (2005-12-28)</h2>
+<div class="section" id="id46">
+<h2>0.9x<a class="headerlink" href="#id46" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id47">
+<h3>0.9.12 (2005-12-28)<a class="headerlink" href="#id47" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Fixed bug #1390174 re2c cannot accept <tt class="docutils literal">{0,}</tt>.</li>
+<li>Fixed bug #1390174 re2c cannot accept <code class="docutils literal"><span class="pre">{0,}</span></code>.</li>
 </ul>
 </div>
-<div class="section" id="id50">
-<h2>0.9.11 (2005-12-18)</h2>
+<div class="section" id="id48">
+<h3>0.9.11 (2005-12-18)<a class="headerlink" href="#id48" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Fixed #1313083 <tt class="docutils literal"><span class="pre">-e</span></tt> (EBCDIC cross compile) broken.</li>
-<li>Fixed #1297658 underestimation of <tt class="docutils literal">n</tt> in <tt class="docutils literal">YYFILL(n)</tt>.</li>
+<li>Fixed #1313083 <code class="docutils literal"><span class="pre">-e</span></code> (EBCDIC cross compile) broken.</li>
+<li>Fixed #1297658 underestimation of <code class="docutils literal"><span class="pre">n</span></code> in <code class="docutils literal"><span class="pre">YYFILL(n)</span></code>.</li>
 <li>Applied #1339483 Avoid rebuilds of re2c when running subtargets.</li>
 <li>Implemented #1335305 symbol table reimplementation, just slightly modifed.</li>
 </ul>
 </div>
-<div class="section" id="id51">
-<h2>0.9.10 (2005-09-04)</h2>
+<div class="section" id="id49">
+<h3>0.9.10 (2005-09-04)<a class="headerlink" href="#id49" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Add <tt class="docutils literal"><span class="pre">-i</span></tt> switch to avoid generating <tt class="docutils literal">#line</tt> information.</li>
-<li>Fixed bug #1251653 re2c generate some invalid <tt class="docutils literal">#line</tt> on WIN32.</li>
+<li>Add <code class="docutils literal"><span class="pre">-i</span></code> switch to avoid generating <code class="docutils literal"><span class="pre">#line</span></code> information.</li>
+<li>Fixed bug #1251653 re2c generate some invalid <code class="docutils literal"><span class="pre">#line</span></code> on WIN32.</li>
 </ul>
 </div>
-<div class="section" id="id52">
-<h2>0.9.9 (2005-07-21)</h2>
+<div class="section" id="id50">
+<h3>0.9.9 (2005-07-21)<a class="headerlink" href="#id50" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Implemented #1232777 negated char classes <tt class="docutils literal"><span class="pre">[^...]</span></tt> and the dot operator <tt class="docutils literal">.</tt>.</li>
+<li>Implemented #1232777 negated char classes <code class="docutils literal"><span class="pre">[^...]</span></code> and the dot operator <code class="docutils literal"><span class="pre">.</span></code>.</li>
 <li>Added hexadecimal character definitions.</li>
 <li>Added consistency check for octal character definitions.</li>
 </ul>
 </div>
-<div class="section" id="id53">
-<h2>0.9.8 (2005-06-26)</h2>
+<div class="section" id="id51">
+<h3>0.9.8 (2005-06-26)<a class="headerlink" href="#id51" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Fixed code generation for <tt class="docutils literal"><span class="pre">-b</span></tt> switch.</li>
+<li>Fixed code generation for <code class="docutils literal"><span class="pre">-b</span></code> switch.</li>
 <li>Added Microsoft Visual C .NET build files.</li>
 </ul>
 </div>
-<div class="section" id="id54">
-<h2>0.9.7 (2005-04-30)</h2>
+<div class="section" id="id52">
+<h3>0.9.7 (2005-04-30)<a class="headerlink" href="#id52" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Applied #1181535 storable state patch.</li>
-<li>Added <tt class="docutils literal"><span class="pre">-d</span></tt> flag which outputs a debugable parser.</li>
-<li>Fixed generation of <tt class="docutils literal">#line</tt> directives (according to ISO-C99).</li>
+<li>Added <code class="docutils literal"><span class="pre">-d</span></code> flag which outputs a debugable parser.</li>
+<li>Fixed generation of <code class="docutils literal"><span class="pre">#line</span></code> directives (according to ISO-C99).</li>
 <li>Fixed bug #1187785 Re2c fails to generate valid code.</li>
-<li>Fixed bug #1187452 unused variable <tt class="docutils literal">yyaccept</tt>.</li>
+<li>Fixed bug #1187452 unused variable <code class="docutils literal"><span class="pre">yyaccept</span></code>.</li>
 </ul>
 </div>
-<div class="section" id="id55">
-<h2>0.9.6 (2005-04-14)</h2>
+<div class="section" id="id53">
+<h3>0.9.6 (2005-04-14)<a class="headerlink" href="#id53" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Fix build with gcc &gt;= 3.4.</li>
 </ul>
 </div>
-<div class="section" id="id56">
-<h2>0.9.5 (2005-04-08)</h2>
+<div class="section" id="id54">
+<h3>0.9.5 (2005-04-08)<a class="headerlink" href="#id54" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Added <tt class="docutils literal"><span class="pre">/*!max:re2c</span> */</tt> which emits <tt class="docutils literal">#define YYMAXFILL &lt;max&gt;</tt>
+<li>Added <code class="docutils literal"><span class="pre">/*!max:re2c</span> <span class="pre">*/</span></code> which emits <code class="docutils literal"><span class="pre">#define</span> <span class="pre">YYMAXFILL</span> <span class="pre">&lt;max&gt;</span></code>
 line. This allows to define buffers of the minimum required length.
-Occurence must follow <tt class="docutils literal">/*re2c */</tt> and cannot preceed it.</li>
+Occurence must follow <code class="docutils literal"><span class="pre">/*re2c</span> <span class="pre">*/</span></code> and cannot preceed it.</li>
 <li>Changed re2c to two pass generation to output warning free code.</li>
 <li>Fixed bug #1163046 re2c hangs when processing valid re-file.</li>
 <li>Fixed bug #1022799 re2c scanner has buffering bug.</li>
 </ul>
 </div>
-<div class="section" id="id57">
-<h2>0.9.4 (2005-03-12)</h2>
+<div class="section" id="id55">
+<h3>0.9.4 (2005-03-12)<a class="headerlink" href="#id55" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Added <tt class="docutils literal"><span class="pre">--vernum</span></tt> support.</li>
-<li>Fixed bug #1054496 incorrect code generated with <tt class="docutils literal"><span class="pre">-b</span></tt> option.</li>
-<li>Fixed bug #1012748 re2c does not emit last line if <tt class="docutils literal">\n</tt> missing.</li>
-<li>Fixed bug #999104 <tt class="docutils literal"><span class="pre">--output=output</span></tt> option does not work as documented.</li>
+<li>Added <code class="docutils literal"><span class="pre">--vernum</span></code> support.</li>
+<li>Fixed bug #1054496 incorrect code generated with <code class="docutils literal"><span class="pre">-b</span></code> option.</li>
+<li>Fixed bug #1012748 re2c does not emit last line if <code class="docutils literal"><span class="pre">\n</span></code> missing.</li>
+<li>Fixed bug #999104 <code class="docutils literal"><span class="pre">--output=output</span></code> option does not work as documented.</li>
 <li>Fixed bug #999103 Invalid options prefixed with two dashes cause program crash.</li>
 </ul>
 </div>
-<div class="section" id="id58">
-<h2>0.9.3 (2004-05-26)</h2>
+<div class="section" id="id56">
+<h3>0.9.3 (2004-05-26)<a class="headerlink" href="#id56" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Fixes one small possible bug in the generated output. <tt class="docutils literal">ych</tt> instead of <tt class="docutils literal">yych</tt> is output in certain circumstances.</li>
+<li>Fixes one small possible bug in the generated output. <code class="docutils literal"><span class="pre">ych</span></code> instead of <code class="docutils literal"><span class="pre">yych</span></code> is output in certain circumstances.</li>
 </ul>
 </div>
-<div class="section" id="id59">
-<h2>0.9.2 (2004-05-26)</h2>
+<div class="section" id="id57">
+<h3>0.9.2 (2004-05-26)<a class="headerlink" href="#id57" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Added <tt class="docutils literal"><span class="pre">-o</span></tt> option to specify the output file which also will set the <tt class="docutils literal">#line</tt> directives to something useful.</li>
-<li>Print version to <tt class="docutils literal">cout</tt> instead of <tt class="docutils literal">cerr</tt>.</li>
-<li>Added <tt class="docutils literal"><span class="pre">-h</span></tt> and <tt class="docutils literal"><span class="pre">--</span></tt> style options.</li>
+<li>Added <code class="docutils literal"><span class="pre">-o</span></code> option to specify the output file which also will set the <code class="docutils literal"><span class="pre">#line</span></code> directives to something useful.</li>
+<li>Print version to <code class="docutils literal"><span class="pre">cout</span></code> instead of <code class="docutils literal"><span class="pre">cerr</span></code>.</li>
+<li>Added <code class="docutils literal"><span class="pre">-h</span></code> and <code class="docutils literal"><span class="pre">--</span></code> style options.</li>
 <li>Moved development to <a class="reference external" href="http://sourceforge.net/projects/re2c">http://sourceforge.net/projects/re2c</a></li>
 <li>Fixed bug #960144 minor cosmetic problem.</li>
 <li>Fixed bug #953181 cannot compile with.</li>
 <li>Fixed bug #939277 Windows support.</li>
 <li>Fixed bug #914462 automake build patch</li>
-<li>Fixed bug #891940 braced quantifiers: <tt class="docutils literal"><span class="pre">{\d+(,|,\d+)?}</span></tt> style.</li>
+<li>Fixed bug #891940 braced quantifiers: <code class="docutils literal"><span class="pre">{\d+(,|,\d+)?}</span></code> style.</li>
 <li>Fixed bug #869298 Add case insensitive string literals.</li>
 <li>Fixed bug #869297 Input buffer overrun.</li>
 </ul>
 </div>
-<div class="section" id="id60">
-<h2>0.9.1 (2003-12-13)</h2>
+<div class="section" id="id58">
+<h3>0.9.1 (2003-12-13)<a class="headerlink" href="#id58" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Removed rcs comments in source files.</li>
 </ul>
 </div>
 </div>
 <div class="section" id="re2c-adopted-2003-12-09">
-<h1>re2c adopted (2003-12-09)</h1>
+<h2>re2c adopted (2003-12-09)<a class="headerlink" href="#re2c-adopted-2003-12-09" title="Permalink to this headline">¶</a></h2>
 <ul>
 <li><p class="first">Version 0.9.1 README:</p>
-<pre class="literal-block">
-Originally written by Peter Bumbulis (peter&#64;csg.uwaterloo.ca)
-Currently maintained by Brian Young (bayoung&#64;acm.org)
+<div class="highlight-python"><div class="highlight"><pre>Originally written by Peter Bumbulis (peter@csg.uwaterloo.ca)
+Currently maintained by Brian Young (bayoung@acm.org)
 
 The re2c distribution can be found at:
 http://www.tildeslash.org/re2c/index.html
@@ -795,7 +923,7 @@ This distribution is a cleaned up version of the 0.5 release
 maintained by me (Brian Young). Several bugs were fixed as well
 as code cleanup for warning free compilation. It has been
 developed and tested with egcs 1.0.2 and gcc 2.7.2.3 on Linux x86.
-Peter Bumbulis' original release can be found at:
+Peter Bumbulis&#39; original release can be found at:
 ftp://csg.uwaterloo.ca/pub/peter/re2c.0.5.tar.gz
 
 re2c is a great tool for writing fast and flexible lexers.
@@ -809,11 +937,11 @@ of particular interest to me are porting (a Solaris and an NT
 version will be forthcoming) and wide character support. Note
 that the code is already quite portable and should be buildable
 on any platform with minor makefile changes.
-</pre>
+</pre></div>
+</div>
 </li>
-<li><p class="first">Version 0.5 Peter's original ANNOUNCE and README:</p>
-<pre class="literal-block">
-re2c is a tool for generating C-based recognizers from regular
+<li><p class="first">Version 0.5 Peter&#8217;s original ANNOUNCE and README:</p>
+<div class="highlight-python"><div class="highlight"><pre>re2c is a tool for generating C-based recognizers from regular
 expressions. re2c-based scanners are efficient: for programming
 languages, given similar specifications, an re2c-based scanner
 is typically almost twice as fast as a flex-based scanner with
@@ -866,8 +994,8 @@ re2c will generate:
     yy0:
             if((YYLIMIT - YYCURSOR) &lt; 2) YYFILL(2);
             yych = *YYCURSOR;
-            if(yych &lt;= '/') goto yy4;
-            if(yych &gt;= ':') goto yy4;
+            if(yych &lt;= &#39;/&#39;) goto yy4;
+            if(yych &gt;= &#39;:&#39;) goto yy4;
     yy2:    yych = *++YYCURSOR;
             goto yy7;
     yy3:
@@ -880,8 +1008,8 @@ re2c will generate:
     yy6:    ++YYCURSOR;
             if(YYLIMIT == YYCURSOR) YYFILL(1);
             yych = *YYCURSOR;
-    yy7:    if(yych &lt;= '/') goto yy3;
-            if(yych &lt;= '9') goto yy6;
+    yy7:    if(yych &lt;= &#39;/&#39;) goto yy3;
+            if(yych &lt;= &#39;9&#39;) goto yy6;
             goto yy3;
     }
     #line 12
@@ -901,14 +1029,21 @@ more about re2c is to try the supplied examples. re2c is written in
 C++, and is currently being developed under Linux using gcc 2.5.8.
 
 Peter
-</pre>
+</pre></div>
+</div>
 </li>
 </ul>
 </div>
 </div>
-<div class="footer">
-<hr class="footer" />
-<a class="reference external" href="../../index.html">[home]</a> <a class="reference external" href="../news.html">[News]</a>
-</div>
-</body>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer" role="contentinfo">
+      Last updated on Mar 03, 2016.
+    </div>
+  </body>
 </html>

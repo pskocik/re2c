@@ -1,1 +1,0 @@
-src/manual/warnings/undefined_control_flow/simple_example.html: ../src/template.html ../src/css/default.css

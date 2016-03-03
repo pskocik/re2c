@@ -1,68 +1,130 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
-<title>State</title>
-<link rel="stylesheet" type="text/css" href="/css/default.css" />
-<link rel="alternate" type="application/atom+xml" href="/feed/atom.xml" title="Atom 1.0" />
-<link rel="icon" href="/favicon.ico" />
-</head>
-<body>
-<div class="header">
-<a class="reference external" href="../../../index.html">[home]</a> <a class="reference external" href="../../manual.html">[Manual]</a> <a class="reference external" href="../features.html">[Features]</a>
-<hr class="header"/>
-</div>
-<div class="document" id="state">
-<h1 class="title">State</h1>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<p>When the <tt class="docutils literal"><span class="pre">-f</span></tt> flag is specified, <tt class="docutils literal">re2c</tt> generates a scanner that can
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>State &mdash; re2c 0.16 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/theme-re2c.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.16',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="alternate" type="application/atom+xml" href="../../../_static/feed/atom.xml" title="Atom 1.0" />
+    
+ 
+  </head>
+  <body role="document">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="re2c-logo">
+    re2c-0.16
+</div>
+
+<h3><a href="../../../index.html">Home</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../about/about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install/install.html">Install</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../manual.html">Manual</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../options/options.html">Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../warnings/warnings.html">Warnings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../syntax/syntax.html">Syntax</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../features.html">Features</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../conditions/conditions.html">Conditions</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="">State</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../reuse/reuse.html">Reuse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../encodings/encodings.html">Encodings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generic_api/generic_api.html">Generic API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../skeleton/skeleton.html">Skeleton</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dot/dot.html">.dot</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../news/news.html">News</a></li>
+</ul>
+
+
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="state">
+<h1>State<a class="headerlink" href="#state" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<p>When the <code class="docutils literal"><span class="pre">-f</span></code> flag is specified, <code class="docutils literal"><span class="pre">re2c</span></code> generates a scanner that can
 store its current state, return to the caller, and later resume
 operations exactly where it left off.</p>
-<p>The default operation of <tt class="docutils literal">re2c</tt> is a
-&quot;pull&quot; model, where the scanner asks for extra input whenever it needs it. However, this mode of operation assumes that the scanner is the &quot;owner&quot;
+<p>The default operation of <code class="docutils literal"><span class="pre">re2c</span></code> is a
+&#8220;pull&#8221; model, where the scanner asks for extra input whenever it needs it. However, this mode of operation assumes that the scanner is the &#8220;owner&#8221;
 the parsing loop, and that may not always be convenient.</p>
 <p>Typically, if there is a preprocessor ahead of the scanner in the
 stream, or for that matter any other procedural source of data, the
-scanner cannot &quot;ask&quot; for more data unless both scanner and source
+scanner cannot &#8220;ask&#8221; for more data unless both scanner and source
 live in a separate threads.</p>
-<p>The <tt class="docutils literal"><span class="pre">-f</span></tt> flag is useful for just this situation: it lets users design
-scanners that work in a &quot;push&quot; model, i.e. where data is fed to the
+<p>The <code class="docutils literal"><span class="pre">-f</span></code> flag is useful for just this situation: it lets users design
+scanners that work in a &#8220;push&#8221; model, i.e. where data is fed to the
 scanner chunk by chunk. When the scanner runs out of data to consume, it
 just stores its state, and return to the caller. When more input data is
 fed to the scanner, it resumes operations exactly where it left off.</p>
-<p>Changes needed compared to the &quot;pull&quot; model:</p>
+<p>Changes needed compared to the &#8220;pull&#8221; model:</p>
 <ul class="simple">
-<li>User has to supply macros <tt class="docutils literal">YYSETSTATE ()</tt> and <tt class="docutils literal">YYGETSTATE (state)</tt>.</li>
-<li>The <tt class="docutils literal"><span class="pre">-f</span></tt> option inhibits declaration of <tt class="docutils literal">yych</tt> and <tt class="docutils literal">yyaccept</tt>. So the
+<li>User has to supply macros <code class="docutils literal"><span class="pre">YYSETSTATE</span> <span class="pre">()</span></code> and <code class="docutils literal"><span class="pre">YYGETSTATE</span> <span class="pre">(state)</span></code>.</li>
+<li>The <code class="docutils literal"><span class="pre">-f</span></code> option inhibits declaration of <code class="docutils literal"><span class="pre">yych</span></code> and <code class="docutils literal"><span class="pre">yyaccept</span></code>. So the
 user has to declare these. Also the user has to save and restore these.
-In the example <tt class="docutils literal">examples/push_model/push.re</tt> these are declared as
+In the example <code class="docutils literal"><span class="pre">examples/push_model/push.re</span></code> these are declared as
 fields of the (C++) class of which the scanner is a method, so they do
 not need to be saved/restored explicitly. For C they could e.g. be made
 macros that select fields from a structure passed in as parameter.
 Alternatively, they could be declared as local variables, saved with
-<tt class="docutils literal">YYFILL (n)</tt> when it decides to return and restored at entry to the
+<code class="docutils literal"><span class="pre">YYFILL</span> <span class="pre">(n)</span></code> when it decides to return and restored at entry to the
 function. Also, it could be more efficient to save the state from
-<tt class="docutils literal">YYFILL (n)</tt> because <tt class="docutils literal">YYSETSTATE (state)</tt> is called unconditionally.
-<tt class="docutils literal">YYFILL (n)</tt> however does not get <tt class="docutils literal">state</tt> as parameter, so we would have
-to store state in a local variable by <tt class="docutils literal">YYSETSTATE (state)</tt>.</li>
-<li>Modify <tt class="docutils literal">YYFILL (n)</tt> to return (from the function calling it) if more input is needed.</li>
+<code class="docutils literal"><span class="pre">YYFILL</span> <span class="pre">(n)</span></code> because <code class="docutils literal"><span class="pre">YYSETSTATE</span> <span class="pre">(state)</span></code> is called unconditionally.
+<code class="docutils literal"><span class="pre">YYFILL</span> <span class="pre">(n)</span></code> however does not get <code class="docutils literal"><span class="pre">state</span></code> as parameter, so we would have
+to store state in a local variable by <code class="docutils literal"><span class="pre">YYSETSTATE</span> <span class="pre">(state)</span></code>.</li>
+<li>Modify <code class="docutils literal"><span class="pre">YYFILL</span> <span class="pre">(n)</span></code> to return (from the function calling it) if more input is needed.</li>
 <li>Modify caller to recognise if more input is needed and respond appropriately.</li>
 <li>The generated code will contain a switch block that is used to
-restores the last state by jumping behind the corrspoding <tt class="docutils literal">YYFILL (n)</tt>
-call. This code is automatically generated in the epilog of the first <tt class="docutils literal"><span class="pre">/*!re2c</span> */</tt>
-block. It is possible to trigger generation of the <tt class="docutils literal">YYGETSTATE ()</tt>
-block earlier by placing a <tt class="docutils literal"><span class="pre">/*!getstate:re2c*/</span></tt> comment. This is especially useful when the scanner code should be
+restores the last state by jumping behind the corrspoding <code class="docutils literal"><span class="pre">YYFILL</span> <span class="pre">(n)</span></code>
+call. This code is automatically generated in the epilog of the first <code class="docutils literal"><span class="pre">/*!re2c</span> <span class="pre">*/</span></code>
+block. It is possible to trigger generation of the <code class="docutils literal"><span class="pre">YYGETSTATE</span> <span class="pre">()</span></code>
+block earlier by placing a <code class="docutils literal"><span class="pre">/*!getstate:re2c*/</span></code> comment. This is especially useful when the scanner code should be
 wrapped inside a loop.</li>
 </ul>
-<p>Please see <tt class="docutils literal">examples/push_model/push.re</tt> for &quot;push&quot; model scanner. The
-generated code can be tweaked using inplace configurations <tt class="docutils literal">state:abort</tt>
-and <tt class="docutils literal">state:nextlabel</tt>.</p>
+<p>Please see <code class="docutils literal"><span class="pre">examples/push_model/push.re</span></code> for &#8220;push&#8221; model scanner. The
+generated code can be tweaked using inplace configurations <code class="docutils literal"><span class="pre">state:abort</span></code>
+and <code class="docutils literal"><span class="pre">state:nextlabel</span></code>.</p>
 </div>
-<div class="footer">
-<hr class="footer" />
-<a class="reference external" href="../../../index.html">[home]</a> <a class="reference external" href="../../manual.html">[Manual]</a> <a class="reference external" href="../features.html">[Features]</a>
-</div>
-</body>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer" role="contentinfo">
+      Last updated on Mar 03, 2016.
+    </div>
+  </body>
 </html>

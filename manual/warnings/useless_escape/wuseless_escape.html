@@ -1,118 +1,197 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
-<title>[-Wuseless-escape]</title>
-<link rel="stylesheet" type="text/css" href="/css/default.css" />
-<link rel="alternate" type="application/atom+xml" href="/feed/atom.xml" title="Atom 1.0" />
-<link rel="icon" href="/favicon.ico" />
-</head>
-<body>
-<div class="header">
-<a class="reference external" href="../../../index.html">[home]</a> <a class="reference external" href="../../manual.html">[Manual]</a> <a class="reference external" href="../warnings.html">[Warnings]</a>
-<hr class="header"/>
-</div>
-<div class="document" id="wuseless-escape">
-<h1 class="title">[-Wuseless-escape]</h1>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<div class="contents topic" id="id3">
-<p class="topic-title first">★</p>
-<ul class="simple">
-<li><a class="reference internal" href="#a-simple-example" id="id4">A simple example</a></li>
-<li><a class="reference internal" href="#how-it-works" id="id5">How it works</a></li>
-<li><a class="reference internal" href="#real-world-examples" id="id6">Real-world examples</a></li>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>[-Wuseless-escape] &mdash; re2c 0.16 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/theme-re2c.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.16',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="alternate" type="application/atom+xml" href="../../../_static/feed/atom.xml" title="Atom 1.0" />
+    
+ 
+  </head>
+  <body role="document">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="re2c-logo">
+    re2c-0.16
+</div>
+
+<h3><a href="../../../index.html">Home</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../about/about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install/install.html">Install</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../manual.html">Manual</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../options/options.html">Options</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../warnings.html">Warnings</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../undefined_control_flow/wundefined_control_flow.html">[-Wundefined-control-flow]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../unreachable_rules/wunreachable_rules.html">[-Wunreachable-rules]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../condition_order/wcondition_order.html">[-Wcondition-order]</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="">[-Wuseless-escape]</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#a-simple-example">A simple example</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#how-it-works">How it works</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#real-world-examples">Real-world examples</a></li>
 </ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../swapped_range/wswapped_range.html">[-Wswapped-range]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../empty_character_class/wempty_character_class.html">[-Wempty-character-class]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../match_empty_string/wmatch_empty_string.html">[-Wmatch-empty-string]</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../syntax/syntax.html">Syntax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../features/features.html">Features</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../news/news.html">News</a></li>
+</ul>
+
+    <h3>[-Wuseless-escape]</h3>
+    <div class="re2c-toc-local">
+        <ul>
+<li><a class="reference internal" href="#">[-Wuseless-escape]</a><ul>
+<li><a class="reference internal" href="#a-simple-example">A simple example</a></li>
+<li><a class="reference internal" href="#how-it-works">How it works</a></li>
+<li><a class="reference internal" href="#real-world-examples">Real-world examples</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="wuseless-escape">
+<h1>[-Wuseless-escape]<a class="headerlink" href="#wuseless-escape" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
 </div>
 <div class="section" id="a-simple-example">
-<h1>A simple example</h1>
-<pre class="code cpp literal-block">
-<span class="ln">1 </span><span class="comment multiline">/*!re2c
-</span><span class="ln">2 </span><span class="comment multiline">    *                        {}
-</span><span class="ln">3 </span><span class="comment multiline">    &quot;\a\A\&quot;\'\[\]\-\x5d\377&quot; {}
-</span><span class="ln">4 </span><span class="comment multiline">    '\a\A\&quot;\'\[\]\-\x5d\377' {}
-</span><span class="ln">5 </span><span class="comment multiline">    [\a\A\&quot;\'\[\]\-\x5d\377] {}
-</span><span class="ln">6 </span><span class="comment multiline">*/</span>
-</pre>
-<p>Given this code, <tt class="docutils literal">`re2c <span class="pre">-Wuseless-escape`</span></tt> reports a bunch of warnings:</p>
-<pre class="code literal-block">
-re2c: warning: line 3: column 11: escape has no effect: '\A' [-Wuseless-escape]
-re2c: warning: line 3: column 15: escape has no effect: '\'' [-Wuseless-escape]
-re2c: warning: line 3: column 17: escape has no effect: '\[' [-Wuseless-escape]
-re2c: warning: line 3: column 19: escape has no effect: '\]' [-Wuseless-escape]
-re2c: warning: line 3: column 21: escape has no effect: '\-' [-Wuseless-escape]
-re2c: warning: line 4: column 11: escape has no effect: '\A' [-Wuseless-escape]
-re2c: warning: line 4: column 13: escape has no effect: '\&quot;' [-Wuseless-escape]
-re2c: warning: line 4: column 17: escape has no effect: '\[' [-Wuseless-escape]
-re2c: warning: line 4: column 19: escape has no effect: '\]' [-Wuseless-escape]
-re2c: warning: line 4: column 21: escape has no effect: '\-' [-Wuseless-escape]
-re2c: warning: line 5: column 11: escape has no effect: '\A' [-Wuseless-escape]
-re2c: warning: line 5: column 13: escape has no effect: '\&quot;' [-Wuseless-escape]
-re2c: warning: line 5: column 15: escape has no effect: '\'' [-Wuseless-escape]
-re2c: warning: line 5: column 17: escape has no effect: '\[' [-Wuseless-escape]
-</pre>
-<p>It says that <tt class="docutils literal">\A</tt> and <tt class="docutils literal">\[</tt> escapes are meaningless in all rules,
-<tt class="docutils literal">\-</tt> makes sense only in character class
-and each type of closing quotes (<tt class="docutils literal">&quot;</tt>, <tt class="docutils literal">'</tt> and <tt class="docutils literal">]</tt>) should only be escaped inside of same-quoted string.
-Useless escapes are ignored: the escaped symbol is treated as not escaped (<tt class="docutils literal">\A</tt> becomes <tt class="docutils literal">A</tt>, etc.).
+<h2>A simple example<a class="headerlink" href="#a-simple-example" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-cpp"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span class="cm">/*!re2c</span>
+<span class="cm">    *                        {}</span>
+<span class="cm">    &quot;\a\A\&quot;\&#39;\[\]\-\x5d\377&quot; {}</span>
+<span class="cm">    &#39;\a\A\&quot;\&#39;\[\]\-\x5d\377&#39; {}</span>
+<span class="cm">    [\a\A\&quot;\&#39;\[\]\-\x5d\377] {}</span>
+<span class="cm">*/</span>
+</pre></div>
+</td></tr></table></div>
+<p>Given this code, <code class="docutils literal"><span class="pre">`re2c</span> <span class="pre">-Wuseless-escape`</span></code> reports a bunch of warnings:</p>
+<div class="highlight-none"><div class="highlight"><pre>re2c: warning: line 3: column 11: escape has no effect: &#39;\A&#39; [-Wuseless-escape]
+re2c: warning: line 3: column 15: escape has no effect: &#39;\&#39;&#39; [-Wuseless-escape]
+re2c: warning: line 3: column 17: escape has no effect: &#39;\[&#39; [-Wuseless-escape]
+re2c: warning: line 3: column 19: escape has no effect: &#39;\]&#39; [-Wuseless-escape]
+re2c: warning: line 3: column 21: escape has no effect: &#39;\-&#39; [-Wuseless-escape]
+re2c: warning: line 4: column 11: escape has no effect: &#39;\A&#39; [-Wuseless-escape]
+re2c: warning: line 4: column 13: escape has no effect: &#39;\&quot;&#39; [-Wuseless-escape]
+re2c: warning: line 4: column 17: escape has no effect: &#39;\[&#39; [-Wuseless-escape]
+re2c: warning: line 4: column 19: escape has no effect: &#39;\]&#39; [-Wuseless-escape]
+re2c: warning: line 4: column 21: escape has no effect: &#39;\-&#39; [-Wuseless-escape]
+re2c: warning: line 5: column 11: escape has no effect: &#39;\A&#39; [-Wuseless-escape]
+re2c: warning: line 5: column 13: escape has no effect: &#39;\&quot;&#39; [-Wuseless-escape]
+re2c: warning: line 5: column 15: escape has no effect: &#39;\&#39;&#39; [-Wuseless-escape]
+re2c: warning: line 5: column 17: escape has no effect: &#39;\[&#39; [-Wuseless-escape]
+</pre></div>
+</div>
+<p>It says that <code class="docutils literal"><span class="pre">\A</span></code> and <code class="docutils literal"><span class="pre">\[</span></code> escapes are meaningless in all rules,
+<code class="docutils literal"><span class="pre">\-</span></code> makes sense only in character class
+and each type of closing quotes (<code class="docutils literal"><span class="pre">&quot;</span></code>, <code class="docutils literal"><span class="pre">'</span></code> and <code class="docutils literal"><span class="pre">]</span></code>) should only be escaped inside of same-quoted string.
+Useless escapes are ignored: the escaped symbol is treated as not escaped (<code class="docutils literal"><span class="pre">\A</span></code> becomes <code class="docutils literal"><span class="pre">A</span></code>, etc.).
 The above example should be fixed as follows:</p>
-<pre class="code cpp literal-block">
-<span class="ln">1 </span><span class="comment multiline">/*!re2c
-</span><span class="ln">2 </span><span class="comment multiline">    *                    {}
-</span><span class="ln">3 </span><span class="comment multiline">    &quot;\aA\&quot;'[]-\x5d\377&quot;  {}
-</span><span class="ln">4 </span><span class="comment multiline">    '\aA&quot;\'[]-\x5d\377'  {}
-</span><span class="ln">5 </span><span class="comment multiline">    [\aA&quot;'[\]\-\x5d\377] {}
-</span><span class="ln">6 </span><span class="comment multiline">*/</span>
-</pre>
+<div class="highlight-cpp"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span class="cm">/*!re2c</span>
+<span class="cm">    *                    {}</span>
+<span class="cm">    &quot;\aA\&quot;&#39;[]-\x5d\377&quot;  {}</span>
+<span class="cm">    &#39;\aA&quot;\&#39;[]-\x5d\377&#39;  {}</span>
+<span class="cm">    [\aA&quot;&#39;[\]\-\x5d\377] {}</span>
+<span class="cm">*/</span>
+</pre></div>
+</td></tr></table></div>
 </div>
 <div class="section" id="how-it-works">
-<h1>How it works</h1>
+<h2>How it works<a class="headerlink" href="#how-it-works" title="Permalink to this headline">¶</a></h2>
 <p>re2c recognizes escapes in the following lexemes:</p>
 <ul class="simple">
-<li>double-quoted strings <tt class="docutils literal">&quot; ... &quot;</tt></li>
-<li>single-quoted strings <tt class="docutils literal">' ... '</tt></li>
-<li>character classes <tt class="docutils literal">[ ... ]</tt> and <tt class="docutils literal">[^ ... ]</tt></li>
+<li>double-quoted strings <code class="docutils literal"><span class="pre">&quot;</span> <span class="pre">...</span> <span class="pre">&quot;</span></code></li>
+<li>single-quoted strings <code class="docutils literal"><span class="pre">'</span> <span class="pre">...</span> <span class="pre">'</span></code></li>
+<li>character classes <code class="docutils literal"><span class="pre">[</span> <span class="pre">...</span> <span class="pre">]</span></code> and <code class="docutils literal"><span class="pre">[^</span> <span class="pre">...</span> <span class="pre">]</span></code></li>
 </ul>
 <p>The following escapes are recognized:</p>
 <ul class="simple">
-<li>Closing quotes (<tt class="docutils literal">\&quot;</tt> for double-quoted strings, <tt class="docutils literal">\'</tt> for single-quoted strings and <tt class="docutils literal">\]</tt> for character classes).</li>
-<li>Dash <tt class="docutils literal">\-</tt> in character classes.</li>
-<li>Octal escapes: <tt class="docutils literal">\ooo</tt>, where <tt class="docutils literal">o</tt> is in range <tt class="docutils literal">[0 - 7]</tt>
-(maximal octal escape is <tt class="docutils literal">\377</tt>, which equals <tt class="docutils literal">0xFF</tt>).</li>
-<li>Hexadecimal escapes: <tt class="docutils literal">\xhh</tt>, <tt class="docutils literal">\Xhhhh</tt>, <tt class="docutils literal">\uhhhh</tt> and <tt class="docutils literal">\Uhhhhhhhh</tt>,
-where <tt class="docutils literal">h</tt> is in range <tt class="docutils literal">[0 - 9]</tt>, <tt class="docutils literal">[a - f]</tt> or <tt class="docutils literal">[A - F]</tt>.</li>
-<li>Miscellaneous escapes: <tt class="docutils literal">\a</tt>, <tt class="docutils literal">\b</tt>, <tt class="docutils literal">\f</tt>, <tt class="docutils literal">\n</tt>, <tt class="docutils literal">\r</tt>, <tt class="docutils literal">\t</tt>, <tt class="docutils literal">\v</tt>, <tt class="docutils literal">\\</tt>.</li>
+<li>Closing quotes (<code class="docutils literal"><span class="pre">\&quot;</span></code> for double-quoted strings, <code class="docutils literal"><span class="pre">\'</span></code> for single-quoted strings and <code class="docutils literal"><span class="pre">\]</span></code> for character classes).</li>
+<li>Dash <code class="docutils literal"><span class="pre">\-</span></code> in character classes.</li>
+<li>Octal escapes: <code class="docutils literal"><span class="pre">\ooo</span></code>, where <code class="docutils literal"><span class="pre">o</span></code> is in range <code class="docutils literal"><span class="pre">[0</span> <span class="pre">-</span> <span class="pre">7]</span></code>
+(maximal octal escape is <code class="docutils literal"><span class="pre">\377</span></code>, which equals <code class="docutils literal"><span class="pre">0xFF</span></code>).</li>
+<li>Hexadecimal escapes: <code class="docutils literal"><span class="pre">\xhh</span></code>, <code class="docutils literal"><span class="pre">\Xhhhh</span></code>, <code class="docutils literal"><span class="pre">\uhhhh</span></code> and <code class="docutils literal"><span class="pre">\Uhhhhhhhh</span></code>,
+where <code class="docutils literal"><span class="pre">h</span></code> is in range <code class="docutils literal"><span class="pre">[0</span> <span class="pre">-</span> <span class="pre">9]</span></code>, <code class="docutils literal"><span class="pre">[a</span> <span class="pre">-</span> <span class="pre">f]</span></code> or <code class="docutils literal"><span class="pre">[A</span> <span class="pre">-</span> <span class="pre">F]</span></code>.</li>
+<li>Miscellaneous escapes: <code class="docutils literal"><span class="pre">\a</span></code>, <code class="docutils literal"><span class="pre">\b</span></code>, <code class="docutils literal"><span class="pre">\f</span></code>, <code class="docutils literal"><span class="pre">\n</span></code>, <code class="docutils literal"><span class="pre">\r</span></code>, <code class="docutils literal"><span class="pre">\t</span></code>, <code class="docutils literal"><span class="pre">\v</span></code>, <code class="docutils literal"><span class="pre">\\</span></code>.</li>
 </ul>
 <p>Ill-formed octal and hexadecimal escapes are treated as errors.
 Escape followed by a newline is also an error: multiline strings and classes are not allowed
 (this is very inconvenient; hopefully it will be fixed in future).
 Any other ill-formed escapes are ignored.
-If <tt class="docutils literal"><span class="pre">[-Wuseless-escape]</span></tt> is enabled, re2c warns about ignored escapes.</p>
+If <code class="docutils literal"><span class="pre">[-Wuseless-escape]</span></code> is enabled, re2c warns about ignored escapes.</p>
 </div>
 <div class="section" id="real-world-examples">
-<h1>Real-world examples</h1>
+<h2>Real-world examples<a class="headerlink" href="#real-world-examples" title="Permalink to this headline">¶</a></h2>
 <p>I found many useless escapes in real-world programs:</p>
 <ul class="simple">
-<li>A very strange escape <tt class="docutils literal">\*</tt> in a regular expression like <tt class="docutils literal"><span class="pre">&quot;*\*&quot;</span></tt>:
-either someone wanted to write <tt class="docutils literal"><span class="pre">&quot;*\\*&quot;</span></tt> (with backslash in the middle),
-or I have no explanation at all (considering that the first <tt class="docutils literal">*</tt> is not escaped).
-As far as I know re2c always treated <tt class="docutils literal"><span class="pre">&quot;*\*&quot;</span></tt> as <tt class="docutils literal"><span class="pre">&quot;**&quot;</span></tt>.</li>
-<li><tt class="docutils literal">\h</tt> in character classes (e.g. <tt class="docutils literal">[ \h\t\v\f\r]</tt>):
-perhaps someone confused <tt class="docutils literal">\h</tt> with horisontal tab
-(or even hostname <tt class="docutils literal">:)</tt>).</li>
-<li><tt class="docutils literal">\[</tt> in charater classes; this one is very common.</li>
-<li><tt class="docutils literal">\/</tt> in character classes (e.g. <tt class="docutils literal"><span class="pre">[^\/\000]</span></tt>) and strings (e.g. <tt class="docutils literal"><span class="pre">&quot;\/*&quot;</span></tt>).
-However, there is one interesting case: <tt class="docutils literal"><span class="pre">&quot;/****</span> State &#64;&#64; <span class="pre">***\/&quot;</span></tt>:
+<li>A very strange escape <code class="docutils literal"><span class="pre">\*</span></code> in a regular expression like <code class="docutils literal"><span class="pre">&quot;*\*&quot;</span></code>:
+either someone wanted to write <code class="docutils literal"><span class="pre">&quot;*\\*&quot;</span></code> (with backslash in the middle),
+or I have no explanation at all (considering that the first <code class="docutils literal"><span class="pre">*</span></code> is not escaped).
+As far as I know re2c always treated <code class="docutils literal"><span class="pre">&quot;*\*&quot;</span></code> as <code class="docutils literal"><span class="pre">&quot;**&quot;</span></code>.</li>
+<li><code class="docutils literal"><span class="pre">\h</span></code> in character classes (e.g. <code class="docutils literal"><span class="pre">[</span> <span class="pre">\h\t\v\f\r]</span></code>):
+perhaps someone confused <code class="docutils literal"><span class="pre">\h</span></code> with horisontal tab
+(or even hostname <code class="docutils literal"><span class="pre">:)</span></code>).</li>
+<li><code class="docutils literal"><span class="pre">\[</span></code> in charater classes; this one is very common.</li>
+<li><code class="docutils literal"><span class="pre">\/</span></code> in character classes (e.g. <code class="docutils literal"><span class="pre">[^\/\000]</span></code>) and strings (e.g. <code class="docutils literal"><span class="pre">&quot;\/*&quot;</span></code>).
+However, there is one interesting case: <code class="docutils literal"><span class="pre">&quot;/****</span> <span class="pre">State</span> <span class="pre">&#64;&#64;</span> <span class="pre">***\/&quot;</span></code>:
 here unescaped slash would end multiline comment.
-Perhaps <tt class="docutils literal"><span class="pre">[-Wuseless-escape]</span></tt> should be fixed to recognize such cases.</li>
-<li><tt class="docutils literal">\.</tt> in character classes (e.g <tt class="docutils literal"><span class="pre">[\.]</span></tt>).</li>
+Perhaps <code class="docutils literal"><span class="pre">[-Wuseless-escape]</span></code> should be fixed to recognize such cases.</li>
+<li><code class="docutils literal"><span class="pre">\.</span></code> in character classes (e.g <code class="docutils literal"><span class="pre">[\.]</span></code>).</li>
 </ul>
 </div>
 </div>
-<div class="footer">
-<hr class="footer" />
-<a class="reference external" href="../../../index.html">[home]</a> <a class="reference external" href="../../manual.html">[Manual]</a> <a class="reference external" href="../warnings.html">[Warnings]</a>
-</div>
-</body>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer" role="contentinfo">
+      Last updated on Mar 03, 2016.
+    </div>
+  </body>
 </html>

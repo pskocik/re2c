@@ -1,136 +1,198 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
-<title>.dot</title>
-<link rel="stylesheet" type="text/css" href="/css/default.css" />
-<link rel="alternate" type="application/atom+xml" href="/feed/atom.xml" title="Atom 1.0" />
-<link rel="icon" href="/favicon.ico" />
-</head>
-<body>
-<div class="header">
-<a class="reference external" href="../../../index.html">[home]</a> <a class="reference external" href="../../manual.html">[Manual]</a> <a class="reference external" href="../features.html">[Features]</a>
-<hr class="header"/>
-</div>
-<div class="document" id="dot">
-<h1 class="title">.dot</h1>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<p>With <tt class="docutils literal"><span class="pre">-D,</span> <span class="pre">--emit-dot</span></tt> option re2c does not generate C/C++ code.
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>.dot &mdash; re2c 0.16 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/theme-re2c.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.16',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="alternate" type="application/atom+xml" href="../../../_static/feed/atom.xml" title="Atom 1.0" />
+    
+ 
+  </head>
+  <body role="document">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="re2c-logo">
+    re2c-0.16
+</div>
+
+<h3><a href="../../../index.html">Home</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../about/about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install/install.html">Install</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../manual.html">Manual</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../options/options.html">Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../warnings/warnings.html">Warnings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../syntax/syntax.html">Syntax</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../features.html">Features</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../conditions/conditions.html">Conditions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../state/state.html">State</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reuse/reuse.html">Reuse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../encodings/encodings.html">Encodings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generic_api/generic_api.html">Generic API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../skeleton/skeleton.html">Skeleton</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="">.dot</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../news/news.html">News</a></li>
+</ul>
+
+
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="dot">
+<h1>.dot<a class="headerlink" href="#dot" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<p>With <code class="docutils literal"><span class="pre">-D,</span> <span class="pre">--emit-dot</span></code> option re2c does not generate C/C++ code.
 Instead, it dumps the generated DFA in <a class="reference external" href="https://en.wikipedia.org/wiki/DOT_%28graph_description_language%29">DOT format</a>.
 One can convert this dump to an image of DFA using <a class="reference external" href="http://www.graphviz.org/">graphviz</a> or another library.</p>
-<p>Say we want a picture of DFA that accepts any UTF-8 code point:</p>
-<pre class="code cpp literal-block">
-<span class="ln">1 </span><span class="comment multiline">/*!re2c
-</span><span class="ln">2 </span><span class="comment multiline">    *   {}
-</span><span class="ln">3 </span><span class="comment multiline">    [^] {}
-</span><span class="ln">4 </span><span class="comment multiline">*/</span>
-</pre>
+<p>Say we want a picture of DFA that accepts any UTF-8 code point, <code class="docutils literal"><span class="pre">utf8_any.re</span></code>:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="cm">/*!re2c</span>
+<span class="cm">    *   {}</span>
+<span class="cm">    [^] {}</span>
+<span class="cm">*/</span>
+</pre></div>
+</div>
 <p>Generate and render :</p>
-<pre class="code literal-block">
-$ re2c -D8 -o utf8_any.dot utf8_any.re
+<div class="highlight-none"><div class="highlight"><pre>$ re2c -D8 -o utf8_any.dot utf8_any.re
 $ dot -Tpng -o utf8_any.png utf8_any.dot
-</pre>
+</pre></div>
+</div>
 <p>Here is the picture:</p>
-<img alt="utf8_any.png" src="utf8_any.png" style="width: 70%;" />
+<a class="reference internal image-reference" href="../../../_images/utf8_any.png"><img alt="../../../_images/utf8_any.png" src="../../../_images/utf8_any.png" style="width: 70%;" /></a>
 <p>Note that re2c performs additional transformations on the DFA:
-inserts <tt class="docutils literal">YYFILL</tt> <a class="reference external" href="../../../examples/example_02.html">checkpoints</a>,
+inserts <code class="docutils literal"><span class="pre">YYFILL</span></code> <a class="reference external" href="../../../examples/example_02.html">checkpoints</a>,
 binds actions, applies basic code deduplication.
 During the transformations it splits certain states and adds lambda transitions.
 Lambda transitions correspond to the unlabeled edges on the picture.</p>
-<p>A real-world example (JSON lexer, all non-re2c code stripped out):</p>
-<pre class="code cpp literal-block">
-<span class="ln"> 1 </span><span class="comment multiline">/*!re2c
-</span><span class="ln"> 2 </span><span class="comment multiline">        re2c:indent:top = 1;
-</span><span class="ln"> 3 </span><span class="comment multiline">        re2c:yyfill:enable = 0;
-</span><span class="ln"> 4 </span><span class="comment multiline">
-</span><span class="ln"> 5 </span><span class="comment multiline">        DIGIT   = [0-9] ;
-</span><span class="ln"> 6 </span><span class="comment multiline">        DIGITNZ = [1-9] ;
-</span><span class="ln"> 7 </span><span class="comment multiline">        UINT    = &quot;0&quot; | ( DIGITNZ DIGIT* ) ;
-</span><span class="ln"> 8 </span><span class="comment multiline">        INT     = &quot;-&quot;? UINT ;
-</span><span class="ln"> 9 </span><span class="comment multiline">        HEX     = DIGIT | [a-fA-F] ;
-</span><span class="ln">10 </span><span class="comment multiline">        HEXNZ   = DIGITNZ | [a-fA-F] ;
-</span><span class="ln">11 </span><span class="comment multiline">        HEX7    = [0-7] ;
-</span><span class="ln">12 </span><span class="comment multiline">        HEXC    = DIGIT | [a-cA-C] ;
-</span><span class="ln">13 </span><span class="comment multiline">        FLOAT   = INT &quot;.&quot; DIGIT+ ;
-</span><span class="ln">14 </span><span class="comment multiline">        EXP     = ( INT | FLOAT ) [eE] [+-]? DIGIT+ ;
-</span><span class="ln">15 </span><span class="comment multiline">        NL      = &quot;\r&quot;? &quot;\n&quot; ;
-</span><span class="ln">16 </span><span class="comment multiline">        WS      = [ \t\r]+ ;
-</span><span class="ln">17 </span><span class="comment multiline">        EOI     = &quot;\000&quot;;
-</span><span class="ln">18 </span><span class="comment multiline">        CTRL    = [\x00-\x1F] ;
-</span><span class="ln">19 </span><span class="comment multiline">        UTF8T   = [\x80-\xBF] ;
-</span><span class="ln">20 </span><span class="comment multiline">        UTF8_1  = [\x00-\x7F] ;
-</span><span class="ln">21 </span><span class="comment multiline">        UTF8_2  = [\xC2-\xDF] UTF8T ;
-</span><span class="ln">22 </span><span class="comment multiline">        UTF8_3A = &quot;\xE0&quot; [\xA0-\xBF] UTF8T ;
-</span><span class="ln">23 </span><span class="comment multiline">        UTF8_3B = [\xE1-\xEC] UTF8T{2} ;
-</span><span class="ln">24 </span><span class="comment multiline">        UTF8_3C = &quot;\xED&quot; [\x80-\x9F] UTF8T ;
-</span><span class="ln">25 </span><span class="comment multiline">        UTF8_3D = [\xEE-\xEF] UTF8T{2} ;
-</span><span class="ln">26 </span><span class="comment multiline">        UTF8_3  = UTF8_3A | UTF8_3B | UTF8_3C | UTF8_3D ;
-</span><span class="ln">27 </span><span class="comment multiline">        UTF8_4A = &quot;\xF0&quot;[\x90-\xBF] UTF8T{2} ;
-</span><span class="ln">28 </span><span class="comment multiline">        UTF8_4B = [\xF1-\xF3] UTF8T{3} ;
-</span><span class="ln">29 </span><span class="comment multiline">        UTF8_4C = &quot;\xF4&quot; [\x80-\x8F] UTF8T{2} ;
-</span><span class="ln">30 </span><span class="comment multiline">        UTF8_4  = UTF8_4A | UTF8_4B | UTF8_4C ;
-</span><span class="ln">31 </span><span class="comment multiline">        UTF8    = UTF8_1 | UTF8_2 | UTF8_3 | UTF8_4 ;
-</span><span class="ln">32 </span><span class="comment multiline">        ANY     = [^] ;
-</span><span class="ln">33 </span><span class="comment multiline">        ESCPREF = &quot;\\&quot; ;
-</span><span class="ln">34 </span><span class="comment multiline">        ESCSYM  = ( &quot;\&quot;&quot; | &quot;\\&quot; | &quot;/&quot; | [bfnrt] ) ;
-</span><span class="ln">35 </span><span class="comment multiline">        ESC     = ESCPREF ESCSYM ;
-</span><span class="ln">36 </span><span class="comment multiline">        UTFSYM  = &quot;u&quot; ;
-</span><span class="ln">37 </span><span class="comment multiline">        UTFPREF = ESCPREF UTFSYM ;
-</span><span class="ln">38 </span><span class="comment multiline">        UCS2    = UTFPREF HEX{4} ;
-</span><span class="ln">39 </span><span class="comment multiline">        UTF16_1 = UTFPREF &quot;00&quot; HEX7 HEX ;
-</span><span class="ln">40 </span><span class="comment multiline">        UTF16_2 = UTFPREF &quot;0&quot; HEX7 HEX{2} ;
-</span><span class="ln">41 </span><span class="comment multiline">        UTF16_3 = UTFPREF ( ( ( HEXC | [efEF] ) HEX ) | ( [dD] HEX7 ) ) HEX{2} ;
-</span><span class="ln">42 </span><span class="comment multiline">        UTF16_4 = UTFPREF [dD] [89abAB] HEX{2} UTFPREF [dD] [c-fC-F] HEX{2} ;
-</span><span class="ln">43 </span><span class="comment multiline">
-</span><span class="ln">44 </span><span class="comment multiline">        &lt;JS&gt;&quot;{&quot;                  {}
-</span><span class="ln">45 </span><span class="comment multiline">        &lt;JS&gt;&quot;}&quot;                  {}
-</span><span class="ln">46 </span><span class="comment multiline">        &lt;JS&gt;&quot;[&quot;                  {}
-</span><span class="ln">47 </span><span class="comment multiline">        &lt;JS&gt;&quot;]&quot;                  {}
-</span><span class="ln">48 </span><span class="comment multiline">        &lt;JS&gt;&quot;:&quot;                  {}
-</span><span class="ln">49 </span><span class="comment multiline">        &lt;JS&gt;&quot;,&quot;                  {}
-</span><span class="ln">50 </span><span class="comment multiline">        &lt;JS&gt;&quot;null&quot;               {}
-</span><span class="ln">51 </span><span class="comment multiline">        &lt;JS&gt;&quot;true&quot;               {}
-</span><span class="ln">52 </span><span class="comment multiline">        &lt;JS&gt;&quot;false&quot;              {}
-</span><span class="ln">53 </span><span class="comment multiline">        &lt;JS&gt;INT                  {}
-</span><span class="ln">54 </span><span class="comment multiline">        &lt;JS&gt;FLOAT|EXP            {}
-</span><span class="ln">55 </span><span class="comment multiline">        &lt;JS&gt;NL|WS                {}
-</span><span class="ln">56 </span><span class="comment multiline">        &lt;JS&gt;EOI                  {}
-</span><span class="ln">57 </span><span class="comment multiline">        &lt;JS&gt;[&quot;]                  {}
-</span><span class="ln">58 </span><span class="comment multiline">        &lt;STR_P1&gt;CTRL             {}
-</span><span class="ln">59 </span><span class="comment multiline">        &lt;STR_P1&gt;UTF16_1          {}
-</span><span class="ln">60 </span><span class="comment multiline">        &lt;STR_P1&gt;UTF16_2          {}
-</span><span class="ln">61 </span><span class="comment multiline">        &lt;STR_P1&gt;UTF16_4          {}
-</span><span class="ln">62 </span><span class="comment multiline">        &lt;STR_P1&gt;UCS2             {}
-</span><span class="ln">63 </span><span class="comment multiline">        &lt;STR_P1&gt;ESC              {}
-</span><span class="ln">64 </span><span class="comment multiline">        &lt;STR_P1&gt;ESCPREF          {}
-</span><span class="ln">65 </span><span class="comment multiline">        &lt;STR_P1&gt;[&quot;]              {}
-</span><span class="ln">66 </span><span class="comment multiline">        &lt;STR_P1&gt;UTF8             {}
-</span><span class="ln">67 </span><span class="comment multiline">        &lt;STR_P1&gt;ANY              {}
-</span><span class="ln">68 </span><span class="comment multiline">        &lt;STR_P2&gt;UTF16_1          {}
-</span><span class="ln">69 </span><span class="comment multiline">        &lt;STR_P2&gt;UTF16_2          {}
-</span><span class="ln">70 </span><span class="comment multiline">        &lt;STR_P2&gt;UTF16_4          {}
-</span><span class="ln">71 </span><span class="comment multiline">        &lt;STR_P2&gt;UCS2             {}
-</span><span class="ln">72 </span><span class="comment multiline">        &lt;STR_P2&gt;ESCPREF          {}
-</span><span class="ln">73 </span><span class="comment multiline">        &lt;STR_P2&gt;[&quot;] =&gt; JS        {}
-</span><span class="ln">74 </span><span class="comment multiline">        &lt;STR_P2&gt;ANY              {}
-</span><span class="ln">75 </span><span class="comment multiline">        &lt;*&gt;ANY                   {}
-</span><span class="ln">76 </span><span class="comment multiline">*/</span>
-</pre>
+<p>A real-world example (JSON lexer, all non-re2c code stripped out), <code class="docutils literal"><span class="pre">php_json.re</span></code>:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="cm">/*!re2c</span>
+<span class="cm">	re2c:indent:top = 1;</span>
+<span class="cm">	re2c:yyfill:enable = 0;</span>
+
+<span class="cm">	DIGIT   = [0-9] ;</span>
+<span class="cm">	DIGITNZ = [1-9] ;</span>
+<span class="cm">	UINT    = &quot;0&quot; | ( DIGITNZ DIGIT* ) ;</span>
+<span class="cm">	INT     = &quot;-&quot;? UINT ;</span>
+<span class="cm">	HEX     = DIGIT | [a-fA-F] ;</span>
+<span class="cm">	HEXNZ   = DIGITNZ | [a-fA-F] ;</span>
+<span class="cm">	HEX7    = [0-7] ;</span>
+<span class="cm">	HEXC    = DIGIT | [a-cA-C] ;</span>
+<span class="cm">	FLOAT   = INT &quot;.&quot; DIGIT+ ;</span>
+<span class="cm">	EXP     = ( INT | FLOAT ) [eE] [+-]? DIGIT+ ;</span>
+<span class="cm">	NL      = &quot;\r&quot;? &quot;\n&quot; ;</span>
+<span class="cm">	WS      = [ \t\r]+ ;</span>
+<span class="cm">	EOI     = &quot;\000&quot;;</span>
+<span class="cm">	CTRL    = [\x00-\x1F] ;</span>
+<span class="cm">	UTF8T   = [\x80-\xBF] ;</span>
+<span class="cm">	UTF8_1  = [\x00-\x7F] ;</span>
+<span class="cm">	UTF8_2  = [\xC2-\xDF] UTF8T ;</span>
+<span class="cm">	UTF8_3A = &quot;\xE0&quot; [\xA0-\xBF] UTF8T ;</span>
+<span class="cm">	UTF8_3B = [\xE1-\xEC] UTF8T{2} ;</span>
+<span class="cm">	UTF8_3C = &quot;\xED&quot; [\x80-\x9F] UTF8T ;</span>
+<span class="cm">	UTF8_3D = [\xEE-\xEF] UTF8T{2} ;</span>
+<span class="cm">	UTF8_3  = UTF8_3A | UTF8_3B | UTF8_3C | UTF8_3D ;</span>
+<span class="cm">	UTF8_4A = &quot;\xF0&quot;[\x90-\xBF] UTF8T{2} ;</span>
+<span class="cm">	UTF8_4B = [\xF1-\xF3] UTF8T{3} ;</span>
+<span class="cm">	UTF8_4C = &quot;\xF4&quot; [\x80-\x8F] UTF8T{2} ;</span>
+<span class="cm">	UTF8_4  = UTF8_4A | UTF8_4B | UTF8_4C ;</span>
+<span class="cm">	UTF8    = UTF8_1 | UTF8_2 | UTF8_3 | UTF8_4 ;</span>
+<span class="cm">	ANY     = [^] ;</span>
+<span class="cm">	ESCPREF = &quot;\\&quot; ;</span>
+<span class="cm">	ESCSYM  = ( &quot;\&quot;&quot; | &quot;\\&quot; | &quot;/&quot; | [bfnrt] ) ;</span>
+<span class="cm">	ESC     = ESCPREF ESCSYM ;</span>
+<span class="cm">	UTFSYM  = &quot;u&quot; ;</span>
+<span class="cm">	UTFPREF = ESCPREF UTFSYM ;</span>
+<span class="cm">	UCS2    = UTFPREF HEX{4} ;</span>
+<span class="cm">	UTF16_1 = UTFPREF &quot;00&quot; HEX7 HEX ;</span>
+<span class="cm">	UTF16_2 = UTFPREF &quot;0&quot; HEX7 HEX{2} ;</span>
+<span class="cm">	UTF16_3 = UTFPREF ( ( ( HEXC | [efEF] ) HEX ) | ( [dD] HEX7 ) ) HEX{2} ;</span>
+<span class="cm">	UTF16_4 = UTFPREF [dD] [89abAB] HEX{2} UTFPREF [dD] [c-fC-F] HEX{2} ;</span>
+<span class="cm">	</span>
+<span class="cm">	&lt;JS&gt;&quot;{&quot;                  {}</span>
+<span class="cm">	&lt;JS&gt;&quot;}&quot;                  {}</span>
+<span class="cm">	&lt;JS&gt;&quot;[&quot;                  {}</span>
+<span class="cm">	&lt;JS&gt;&quot;]&quot;                  {}</span>
+<span class="cm">	&lt;JS&gt;&quot;:&quot;                  {}</span>
+<span class="cm">	&lt;JS&gt;&quot;,&quot;                  {}</span>
+<span class="cm">	&lt;JS&gt;&quot;null&quot;               {}</span>
+<span class="cm">	&lt;JS&gt;&quot;true&quot;               {}</span>
+<span class="cm">	&lt;JS&gt;&quot;false&quot;              {}</span>
+<span class="cm">	&lt;JS&gt;INT                  {}</span>
+<span class="cm">	&lt;JS&gt;FLOAT|EXP            {}</span>
+<span class="cm">	&lt;JS&gt;NL|WS                {}</span>
+<span class="cm">	&lt;JS&gt;EOI                  {}</span>
+<span class="cm">	&lt;JS&gt;[&quot;]                  {}</span>
+<span class="cm">	&lt;STR_P1&gt;CTRL             {}</span>
+<span class="cm">	&lt;STR_P1&gt;UTF16_1          {}</span>
+<span class="cm">	&lt;STR_P1&gt;UTF16_2          {}</span>
+<span class="cm">	&lt;STR_P1&gt;UTF16_4          {}</span>
+<span class="cm">	&lt;STR_P1&gt;UCS2             {}</span>
+<span class="cm">	&lt;STR_P1&gt;ESC              {}</span>
+<span class="cm">	&lt;STR_P1&gt;ESCPREF          {}</span>
+<span class="cm">	&lt;STR_P1&gt;[&quot;]              {}</span>
+<span class="cm">	&lt;STR_P1&gt;UTF8             {}</span>
+<span class="cm">	&lt;STR_P1&gt;ANY              {}</span>
+<span class="cm">	&lt;STR_P2&gt;UTF16_1          {}</span>
+<span class="cm">	&lt;STR_P2&gt;UTF16_2          {}</span>
+<span class="cm">	&lt;STR_P2&gt;UTF16_4          {}</span>
+<span class="cm">	&lt;STR_P2&gt;UCS2             {}</span>
+<span class="cm">	&lt;STR_P2&gt;ESCPREF          {}</span>
+<span class="cm">	&lt;STR_P2&gt;[&quot;] =&gt; JS        {}</span>
+<span class="cm">	&lt;STR_P2&gt;ANY              {}</span>
+<span class="cm">	&lt;*&gt;ANY                   {}</span>
+<span class="cm">*/</span>
+</pre></div>
+</div>
 <p>Generate .dot file:</p>
-<pre class="code literal-block">
-$ re2c -Dc -o php_json.dot php_json.re
-</pre>
-<p>Render with <tt class="docutils literal">`dot <span class="pre">-Gratio=0.3</span> <span class="pre">-Tpng</span> <span class="pre">-o</span> php_json_dot.png php_json.dot`</tt>:</p>
-<img alt="php_json_dot.png" src="php_json_dot.png" style="width: 80%;" />
-<p>Render with <tt class="docutils literal">`neato <span class="pre">-Elen=4</span> <span class="pre">-Tpng</span> <span class="pre">-o</span> php_json_neato.png php_json.dot`</tt>:</p>
-<img alt="php_json_neato.png" src="php_json_neato.png" style="width: 50%;" />
+<div class="highlight-none"><div class="highlight"><pre>$ re2c -Dc -o php_json.dot php_json.re
+</pre></div>
+</div>
+<p>Render with <code class="docutils literal"><span class="pre">`dot</span> <span class="pre">-Gratio=0.3</span> <span class="pre">-Tpng</span> <span class="pre">-o</span> <span class="pre">php_json_dot.png</span> <span class="pre">php_json.dot`</span></code>:</p>
+<a class="reference internal image-reference" href="../../../_images/php_json_dot.png"><img alt="../../../_images/php_json_dot.png" src="../../../_images/php_json_dot.png" style="width: 100%;" /></a>
+<p>Render with <code class="docutils literal"><span class="pre">`neato</span> <span class="pre">-Elen=4</span> <span class="pre">-Tpng</span> <span class="pre">-o</span> <span class="pre">php_json_neato.png</span> <span class="pre">php_json.dot`</span></code>:</p>
+<a class="reference internal image-reference" href="../../../_images/php_json_neato.png"><img alt="../../../_images/php_json_neato.png" src="../../../_images/php_json_neato.png" style="width: 70%;" /></a>
 <p>The generated graph is sometimes very large and requires careful tuning of rendering paratemeters.</p>
 </div>
-<div class="footer">
-<hr class="footer" />
-<a class="reference external" href="../../../index.html">[home]</a> <a class="reference external" href="../../manual.html">[Manual]</a> <a class="reference external" href="../features.html">[Features]</a>
-</div>
-</body>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer" role="contentinfo">
+      Last updated on Mar 03, 2016.
+    </div>
+  </body>
 </html>
