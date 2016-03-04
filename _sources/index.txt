@@ -13,7 +13,7 @@ re2c
 
 
 re2c is a lexer generator for C/C++.
-It is most loved for two things:
+It has two key features:
 
 * Very fast lexers. The generated code is like a carefully tuned hand-crafted C/C++ lexer.
   It's because re2c generates minimalistic hard-coded DFA
