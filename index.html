@@ -71,19 +71,27 @@
 <div class="toctree-wrapper compound">
 </div>
 <p>re2c is a lexer generator for C/C++.
-It has two key features:</p>
+Its key features are:</p>
 <ul class="simple">
-<li>Very fast lexers. The generated code is like a carefully tuned hand-crafted C/C++ lexer.
-It&#8217;s because re2c generates minimalistic hard-coded DFA
-(as opposed to full-featured table based lexers).</li>
-<li>Very flexible lexers. The generated code can be wired into virtually any environment.
-Instead of exposing a traditional API, re2c gives you access to its internals,
-so that you can mess with the guts of your lexer as much as you need.
-Of course, this can lead to all sorts of bad things.
-With great flexibility comes great responsibility. ;)
+<li>Very fast lexers: the generated code is as good as a carefully tuned hand-crafted C/C++ lexer.
+It&#8217;s because re2c generates minimalistic hard-coded state machine
+(as opposed to full-featured table-based lexers).</li>
+<li>Flexible API: the generated code can be wired into virtually any environment.
+Instead of exposing traditional <code class="docutils literal"><span class="pre">yylex()</span></code> style API, re2c exposes its internals.
+This gives you several opportunities.
+First, you can avoid unnecessary overhead: drop useless runtime checks, do inplace lexing, etc.
+Second, you can adjust lexer to your particular input model.
+Third, you can make all sorts of strange hacks.
+Of course, this means that you have to be careful:
+with great power comes great responsibility.
 Be sure to take a look at <a class="reference external" href="examples/examples.html">examples</a>,
-they cover a lot of real-world cases and
-shed some light on dark corners of re2c API.</li>
+they cover a lot of real-world cases and shed some light on dark corners of re2c API.</li>
+<li><a class="reference external" href="manual/warnings/warnings.html">Warnings</a> (static analyses):
+re2c warns you when your code is bad and suggests a fix.</li>
+<li><a class="reference external" href="manual/features/skeleton/skeleton.html">Autognerated tests</a> (dynamic analyses):
+re2c generates test program together with the input data.
+The generated input has very good coverage.</li>
+<li><a class="reference external" href="about/about.html">License</a> (public domain).</li>
 </ul>
 <div class="section" id="bugs-feedback">
 <h2>Bugs &amp; feedback<a class="headerlink" href="#bugs-feedback" title="Permalink to this headline">¶</a></h2>
@@ -108,7 +116,7 @@ Sourceforge is used as backup repository and to host mail
 <li><a class="reference external" href="https://ninja-build.org/">ninja</a> (a small build system with a focus on speed)</li>
 <li><a class="reference external" href="http://yasm.tortall.net/">yasm</a> (assembler)</li>
 <li><a class="reference external" href="https://spamassassin.apache.org/">spamasassin</a> (anti-spam platform)</li>
-<li><a class="reference external" href="http://brlcad.org/">BLR-CAD</a> (cross-platform solid modeling system)</li>
+<li><a class="reference external" href="http://brlcad.org/">BRL-CAD</a> (cross-platform solid modeling system)</li>
 <li>... last but not least, <a class="reference external" href="http://re2c.org">re2c</a></li>
 </ul>
 <p>This list is by no means complete;
@@ -136,7 +144,7 @@ In return re2c will not break your code (re2c developers strive to never break e
       <div class="clearer"></div>
     </div>
     <div class="footer" role="contentinfo">
-      Last updated on Mar 04, 2016.
+      Last updated on Mar 05, 2016.
     </div>
   </body>
 </html>
